@@ -1,9 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit'
 import { TokenList } from '@uniswap/token-lists'
-import { SupportedChainId } from 'constants/chains'
-import { RPC_PROVIDERS } from 'constants/providers'
 import getTokenList from 'lib/hooks/useTokenList/fetchTokenList'
-import resolveENSContentHash from 'lib/utils/resolveENSContentHash'
 import { useCallback } from 'react'
 import { useAppDispatch } from 'state/hooks'
 
@@ -21,11 +18,7 @@ export function useFetchListCallback(): (
     async (listUrl: string, sendDispatch = true, skipValidation?: boolean) => {
       const requestId = nanoid()
       sendDispatch && dispatch(fetchTokenList.pending({ requestId, url: listUrl }))
-      return getTokenList(
-        listUrl,
-        (ensName: string) => resolveENSContentHash(ensName, RPC_PROVIDERS[SupportedChainId.MAINNET]),
-        skipValidation
-      )
+      return getTokenList(listUrl, skipValidation)
         .then((tokenList) => {
           sendDispatch && dispatch(fetchTokenList.fulfilled({ url: listUrl, tokenList, requestId }))
           return tokenList

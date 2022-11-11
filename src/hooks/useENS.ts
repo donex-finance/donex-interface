@@ -1,8 +1,6 @@
 import { useMemo } from 'react'
 
 import { isAddress } from '../utils'
-import useENSAddress from './useENSAddress'
-import useENSName from './useENSName'
 
 /**
  * Given a name or address, does a lookup to resolve to an address and name
@@ -14,15 +12,13 @@ export default function useENS(nameOrAddress?: string | null): {
   name: string | null
 } {
   const validated = isAddress(nameOrAddress)
-  const reverseLookup = useENSName(validated ? validated : undefined)
-  const lookup = useENSAddress(nameOrAddress)
 
   return useMemo(
     () => ({
-      loading: reverseLookup.loading || lookup.loading,
-      address: validated ? validated : lookup.address,
-      name: reverseLookup.ENSName ? reverseLookup.ENSName : !validated && lookup.address ? nameOrAddress || null : null,
+      loading: false,
+      address: validated || null,
+      name: nameOrAddress || null,
     }),
-    [lookup.address, lookup.loading, nameOrAddress, reverseLookup.ENSName, reverseLookup.loading, validated]
+    [nameOrAddress, validated]
   )
 }

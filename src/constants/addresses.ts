@@ -67,16 +67,6 @@ export const SWAP_ROUTER_ADDRESSES: AddressMap = {
   [SupportedChainId.CELO_ALFAJORES]: CELO_ROUTER_ADDRESS,
 }
 
-export const TIMELOCK_ADDRESS: AddressMap = constructSameAddressMap('0x1a9C8182C09F50C8318d769245beA52c32BE35BC')
-
-export const MERKLE_DISTRIBUTOR_ADDRESS: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x090D4613473dEE047c3f2706764f49E0821D256e',
-}
-
-export const ARGENT_WALLET_DETECTOR_ADDRESS: AddressMap = {
-  [SupportedChainId.MAINNET]: '0xeca4B0bDBf7c55E9b7925919d03CbF8Dc82537E8',
-}
-
 export const QUOTER_ADDRESSES: AddressMap = {
   ...constructSameAddressMap('0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6', [
     SupportedChainId.OPTIMISM,

@@ -5,26 +5,19 @@ import QuoterJson from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.so
 import TickLensJson from '@uniswap/v3-periphery/artifacts/contracts/lens/TickLens.sol/TickLens.json'
 import UniswapInterfaceMulticallJson from '@uniswap/v3-periphery/artifacts/contracts/lens/UniswapInterfaceMulticall.sol/UniswapInterfaceMulticall.json'
 import NonfungiblePositionManagerJson from '@uniswap/v3-periphery/artifacts/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json'
-import V3MigratorJson from '@uniswap/v3-periphery/artifacts/contracts/V3Migrator.sol/V3Migrator.json'
 import { useWeb3React } from '@web3-react/core'
-import ARGENT_WALLET_DETECTOR_ABI from 'abis/argent-wallet-detector.json'
-import ERC1155_ABI from 'abis/erc1155.json'
 import ERC20_ABI from 'abis/erc20.json'
-import ERC721_ABI from 'abis/erc721.json'
-import { ArgentWalletDetector, Erc1155, Erc20, Erc721, Weth } from 'abis/types'
+import { Erc20, Weth } from 'abis/types'
 import WETH_ABI from 'abis/weth.json'
 import {
-  ARGENT_WALLET_DETECTOR_ADDRESS,
   MULTICALL_ADDRESS,
   NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
   QUOTER_ADDRESSES,
   TICK_LENS_ADDRESSES,
-  V3_MIGRATOR_ADDRESSES,
 } from 'constants/addresses'
 import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import { useMemo } from 'react'
 import { NonfungiblePositionManager, Quoter, QuoterV2, TickLens, UniswapInterfaceMulticall } from 'types/v3'
-import { V3Migrator } from 'types/v3/V3Migrator'
 
 import { getContract } from '../utils'
 
@@ -33,8 +26,6 @@ const { abi: QuoterV2ABI } = QuoterV2Json
 const { abi: TickLensABI } = TickLensJson
 const { abi: MulticallABI } = UniswapInterfaceMulticallJson
 const { abi: NFTPositionManagerABI } = NonfungiblePositionManagerJson
-const { abi: V2MigratorABI } = V3MigratorJson
-
 // returns null on errors
 export function useContract<T extends Contract = Contract>(
   addressOrAddressMap: string | { [chainId: number]: string } | undefined,
@@ -58,10 +49,6 @@ export function useContract<T extends Contract = Contract>(
   }, [addressOrAddressMap, ABI, provider, chainId, withSignerIfPossible, account]) as T
 }
 
-export function useV2MigratorContract() {
-  return useContract<V3Migrator>(V3_MIGRATOR_ADDRESSES, V2MigratorABI, true)
-}
-
 export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: boolean) {
   return useContract<Erc20>(tokenAddress, ERC20_ABI, withSignerIfPossible)
 }
@@ -73,18 +60,6 @@ export function useWETHContract(withSignerIfPossible?: boolean) {
     WETH_ABI,
     withSignerIfPossible
   )
-}
-
-export function useERC721Contract(nftAddress?: string) {
-  return useContract<Erc721>(nftAddress, ERC721_ABI, false)
-}
-
-export function useERC1155Contract(nftAddress?: string) {
-  return useContract<Erc1155>(nftAddress, ERC1155_ABI, false)
-}
-
-export function useArgentWalletDetectorContract() {
-  return useContract<ArgentWalletDetector>(ARGENT_WALLET_DETECTOR_ADDRESS, ARGENT_WALLET_DETECTOR_ABI, false)
 }
 
 export function useInterfaceMulticall() {

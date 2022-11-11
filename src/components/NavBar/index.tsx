@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import Web3Status from 'components/Web3Status'
-import { NftVariant, useNftFlag } from 'featureFlags/flags/nft'
 import { chainIdToBackendName } from 'graphql/data/util'
 import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
@@ -12,7 +11,6 @@ import { NavLink, NavLinkProps, useLocation } from 'react-router-dom'
 import { ChainSelector } from './ChainSelector'
 import { MenuDropdown } from './MenuDropdown'
 import { SearchBar } from './SearchBar'
-import { ShoppingBag } from './ShoppingBag'
 import * as styles from './style.css'
 
 interface MenuItemProps {
@@ -37,7 +35,6 @@ const MenuItem = ({ href, id, isActive, children }: MenuItemProps) => {
 
 const PageTabs = () => {
   const { pathname } = useLocation()
-  const nftFlag = useNftFlag()
   const { chainId: connectedChainId } = useWeb3React()
   const chainName = chainIdToBackendName(connectedChainId)
 
@@ -56,11 +53,6 @@ const PageTabs = () => {
       <MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
         <Trans>Tokens</Trans>
       </MenuItem>
-      {nftFlag === NftVariant.Enabled && (
-        <MenuItem href="/nfts" isActive={pathname.startsWith('/nfts')}>
-          <Trans>NFTs</Trans>
-        </MenuItem>
-      )}
       <MenuItem href="/pool" id={'pool-nav-link'} isActive={isPoolActive}>
         <Trans>Pool</Trans>
       </MenuItem>
@@ -80,11 +72,10 @@ const Navbar = () => {
             <Box as="a" href="#/swap" className={styles.logoContainer}>
               <UniIcon width="48" height="48" className={styles.logo} />
             </Box>
-            {!isNftPage && (
-              <Box display={{ sm: 'flex', lg: 'none' }}>
-                <ChainSelector leftAlign={true} />
-              </Box>
-            )}
+
+            <Box display={{ sm: 'flex', lg: 'none' }}>
+              <ChainSelector leftAlign={true} />
+            </Box>
             <Row gap="8" display={{ sm: 'none', lg: 'flex' }}>
               <PageTabs />
             </Row>
@@ -100,12 +91,10 @@ const Navbar = () => {
               <Box display={{ sm: 'none', lg: 'flex' }}>
                 <MenuDropdown />
               </Box>
-              {isNftPage && <ShoppingBag />}
-              {!isNftPage && (
-                <Box display={{ sm: 'none', lg: 'flex' }}>
-                  <ChainSelector />
-                </Box>
-              )}
+
+              <Box display={{ sm: 'none', lg: 'flex' }}>
+                <ChainSelector />
+              </Box>
 
               <Web3Status />
             </Row>

@@ -1,8 +1,3 @@
-export interface LooksRareRewardsData {
-  address: string
-  cumulativeLooksAmount: string
-  cumulativeLooksProof: string[]
-}
 interface BridgeInfoEntry {
   tokenAddress?: string
 }

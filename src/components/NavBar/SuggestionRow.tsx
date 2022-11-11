@@ -10,103 +10,14 @@ import { getTokenDetailsURL } from 'graphql/data/util'
 import uriToHttp from 'lib/utils/uriToHttp'
 import { Box } from 'nft/components/Box'
 import { Column, Row } from 'nft/components/Flex'
-import { VerifiedIcon } from 'nft/components/icons'
 import { vars } from 'nft/css/sprinkles.css'
 import { useSearchHistory } from 'nft/hooks'
-import { FungibleToken, GenieCollection } from 'nft/types'
-import { ethNumberStandardFormatter } from 'nft/utils/currency'
-import { putCommas } from 'nft/utils/putCommas'
+import { FungibleToken } from 'nft/types'
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { formatDollar } from 'utils/formatNumbers'
 
 import * as styles from './SearchBar.css'
-
-interface CollectionRowProps {
-  collection: GenieCollection
-  isHovered: boolean
-  setHoveredIndex: (index: number | undefined) => void
-  toggleOpen: () => void
-  index: number
-  eventProperties: Record<string, unknown>
-}
-
-export const CollectionRow = ({
-  collection,
-  isHovered,
-  setHoveredIndex,
-  toggleOpen,
-  index,
-  eventProperties,
-}: CollectionRowProps) => {
-  const [brokenImage, setBrokenImage] = useState(false)
-  const [loaded, setLoaded] = useState(false)
-  const addToSearchHistory = useSearchHistory(
-    (state: { addItem: (item: FungibleToken | GenieCollection) => void }) => state.addItem
-  )
-  const navigate = useNavigate()
-
-  const handleClick = useCallback(() => {
-    addToSearchHistory(collection)
-    toggleOpen()
-    sendAnalyticsEvent(EventName.NAVBAR_RESULT_SELECTED, { ...eventProperties })
-  }, [addToSearchHistory, collection, toggleOpen, eventProperties])
-
-  useEffect(() => {
-    const keyDownHandler = (event: KeyboardEvent) => {
-      if (event.key === 'Enter' && isHovered) {
-        event.preventDefault()
-        navigate(`/nfts/collection/${collection.address}`)
-        handleClick()
-      }
-    }
-    document.addEventListener('keydown', keyDownHandler)
-    return () => {
-      document.removeEventListener('keydown', keyDownHandler)
-    }
-  }, [toggleOpen, isHovered, collection, navigate, handleClick])
-
-  return (
-    <Link
-      to={`/nfts/collection/${collection.address}`}
-      onClick={handleClick}
-      onMouseEnter={() => !isHovered && setHoveredIndex(index)}
-      onMouseLeave={() => isHovered && setHoveredIndex(undefined)}
-      className={styles.suggestionRow}
-      style={{ background: isHovered ? vars.color.lightGrayOverlay : 'none' }}
-    >
-      <Row style={{ width: '60%' }}>
-        {!brokenImage && collection.imageUrl ? (
-          <Box
-            as="img"
-            src={collection.imageUrl}
-            alt={collection.name}
-            className={clsx(loaded ? styles.suggestionImage : styles.imageHolder)}
-            onError={() => setBrokenImage(true)}
-            onLoad={() => setLoaded(true)}
-          />
-        ) : (
-          <Box className={styles.imageHolder} />
-        )}
-        <Column className={styles.suggestionPrimaryContainer}>
-          <Row gap="4" width="full">
-            <Box className={styles.primaryText}>{collection.name}</Box>
-            {collection.isVerified && <VerifiedIcon className={styles.suggestionIcon} />}
-          </Row>
-          <Box className={styles.secondaryText}>{putCommas(collection.stats?.total_supply)} items</Box>
-        </Column>
-      </Row>
-      {collection.stats?.floor_price ? (
-        <Column className={styles.suggestionSecondaryContainer}>
-          <Row gap="4">
-            <Box className={styles.primaryText}>{ethNumberStandardFormatter(collection.stats?.floor_price)} ETH</Box>
-          </Row>
-          <Box className={styles.secondaryText}>Floor</Box>
-        </Column>
-      ) : null}
-    </Link>
-  )
-}
 
 function useBridgedAddress(token: FungibleToken): [string | undefined, number | undefined, string | undefined] {
   const { chainId: connectedChainId } = useWeb3React()
@@ -129,9 +40,7 @@ interface TokenRowProps {
 export const TokenRow = ({ token, isHovered, setHoveredIndex, toggleOpen, index, eventProperties }: TokenRowProps) => {
   const [brokenImage, setBrokenImage] = useState(false)
   const [loaded, setLoaded] = useState(false)
-  const addToSearchHistory = useSearchHistory(
-    (state: { addItem: (item: FungibleToken | GenieCollection) => void }) => state.addItem
-  )
+  const addToSearchHistory = useSearchHistory((state: { addItem: (item: FungibleToken) => void }) => state.addItem)
   const navigate = useNavigate()
 
   const handleClick = useCallback(() => {

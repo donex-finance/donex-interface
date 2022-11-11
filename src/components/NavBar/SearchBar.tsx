@@ -2,11 +2,9 @@
 import { t } from '@lingui/macro'
 import { sendAnalyticsEvent } from 'analytics'
 import { ElementName, Event, EventName, SectionName } from 'analytics/constants'
-import { Trace } from 'analytics/Trace'
-import { useTrace } from 'analytics/Trace'
+import { Trace, useTrace } from 'analytics/Trace'
 import { TraceEvent } from 'analytics/TraceEvent'
 import clsx from 'clsx'
-import { NftVariant, useNftFlag } from 'featureFlags/flags/nft'
 import useDebounce from 'hooks/useDebounce'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { organizeSearchResults } from 'lib/utils/searchBar'
@@ -14,7 +12,6 @@ import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
 import { magicalGradientOnHover } from 'nft/css/common.css'
 import { useIsMobile, useIsTablet } from 'nft/hooks'
-import { fetchSearchCollections } from 'nft/queries'
 import { fetchSearchTokens } from 'nft/queries/genie/SearchTokensFetcher'
 import { ChangeEvent, useEffect, useReducer, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
@@ -32,23 +29,12 @@ export const SearchBar = () => {
   const searchRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const { pathname } = useLocation()
-  const phase1Flag = useNftFlag()
   const isMobile = useIsMobile()
   const isTablet = useIsTablet()
 
   useOnClickOutside(searchRef, () => {
     isOpen && toggleOpen()
   })
-
-  const { data: collections, isLoading: collectionsAreLoading } = useQuery(
-    ['searchCollections', debouncedSearchValue],
-    () => fetchSearchCollections(debouncedSearchValue),
-    {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-    }
-  )
 
   const { data: tokens, isLoading: tokensAreLoading } = useQuery(
     ['searchTokens', debouncedSearchValue],
@@ -60,9 +46,7 @@ export const SearchBar = () => {
     }
   )
 
-  const isNFTPage = pathname.includes('/nfts')
-
-  const [reducedTokens, reducedCollections] = organizeSearchResults(isNFTPage, tokens ?? [], collections ?? [])
+  const [reducedTokens] = organizeSearchResults(tokens ?? [])
 
   // close dropdown on escape
   useEffect(() => {
@@ -78,7 +62,7 @@ export const SearchBar = () => {
     return () => {
       document.removeEventListener('keydown', escapeKeyDownHandler)
     }
-  }, [isOpen, toggleOpen, collections])
+  }, [isOpen, toggleOpen])
 
   // clear searchbar when changing pages
   useEffect(() => {
@@ -92,10 +76,9 @@ export const SearchBar = () => {
     }
   }, [isOpen])
 
-  const placeholderText = phase1Flag === NftVariant.Enabled ? t`Search tokens and NFT collections` : t`Search tokens`
+  const placeholderText = t`Search tokens`
   const isMobileOrTablet = isMobile || isTablet
-  const showCenteredSearchContent =
-    !isOpen && phase1Flag !== NftVariant.Enabled && !isMobileOrTablet && searchValue.length === 0
+  const showCenteredSearchContent = !isOpen && !isMobileOrTablet && searchValue.length === 0
 
   const trace = useTrace({ section: SectionName.NAVBAR_SEARCH })
 
@@ -155,7 +138,7 @@ export const SearchBar = () => {
                 }`}
                 value={searchValue}
                 ref={inputRef}
-                width={phase1Flag === NftVariant.Enabled || isOpen ? 'full' : '160'}
+                width={isOpen ? 'full' : '160'}
               />
             </TraceEvent>
           </Row>
@@ -164,10 +147,9 @@ export const SearchBar = () => {
               <SearchBarDropdown
                 toggleOpen={toggleOpen}
                 tokens={reducedTokens}
-                collections={reducedCollections}
                 queryText={debouncedSearchValue}
                 hasInput={debouncedSearchValue.length > 0}
-                isLoading={tokensAreLoading || (collectionsAreLoading && phase1Flag === NftVariant.Enabled)}
+                isLoading={tokensAreLoading}
               />
             )}
           </Box>

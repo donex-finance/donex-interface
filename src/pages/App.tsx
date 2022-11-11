@@ -4,9 +4,7 @@ import { Trace } from 'analytics/Trace'
 import Loader from 'components/Loader'
 import TopLevelModals from 'components/TopLevelModals'
 import { useFeatureFlagsIsLoaded } from 'featureFlags'
-import { NftVariant, useNftFlag } from 'featureFlags/flags/nft'
 import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
-import { CollectionPageSkeleton } from 'nft/components/collection/CollectionPageSkeleton'
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useIsDarkMode } from 'state/user/hooks'
@@ -35,10 +33,6 @@ import Tokens from './Tokens'
 
 const TokenDetails = lazy(() => import('./TokenDetails'))
 const Vote = lazy(() => import('./Vote'))
-const NftExplore = lazy(() => import('nft/pages/explore'))
-const Collection = lazy(() => import('nft/pages/collection'))
-const Profile = lazy(() => import('nft/pages/profile/profile'))
-const Asset = lazy(() => import('nft/pages/asset/Asset'))
 
 const AppWrapper = styled.div`
   display: flex;
@@ -110,7 +104,6 @@ const LazyLoadSpinner = () => (
 
 export default function App() {
   const isLoaded = useFeatureFlagsIsLoaded()
-  const nftFlag = useNftFlag()
 
   const { pathname } = useLocation()
   const currentPage = getCurrentPageFromLocation(pathname)
@@ -164,7 +157,7 @@ export default function App() {
       <ApeModeQueryParamReader />
       <AppWrapper>
         <Trace page={currentPage}>
-          <HeaderWrapper scrolledState={scrolledState} nftFlagEnabled={nftFlag === NftVariant.Enabled}>
+          <HeaderWrapper scrolledState={scrolledState} nftFlagEnabled={false}>
             <NavBar />
           </HeaderWrapper>
           <BodyWrapper>
@@ -220,30 +213,6 @@ export default function App() {
                   <Route path="remove/:tokenId" element={<RemoveLiquidityV3 />} />
 
                   <Route path="*" element={<RedirectPathToSwapOnly />} />
-
-                  {nftFlag === NftVariant.Enabled && (
-                    <>
-                      <Route path="/profile" element={<Profile />} />
-                      <Route path="/nfts" element={<NftExplore />} />
-                      <Route path="/nfts/asset/:contractAddress/:tokenId" element={<Asset />} />
-                      <Route
-                        path="/nfts/collection/:contractAddress"
-                        element={
-                          <Suspense fallback={<CollectionPageSkeleton />}>
-                            <Collection />
-                          </Suspense>
-                        }
-                      />
-                      <Route
-                        path="/nfts/collection/:contractAddress/activity"
-                        element={
-                          <Suspense fallback={<CollectionPageSkeleton />}>
-                            <Collection />
-                          </Suspense>
-                        }
-                      />
-                    </>
-                  )}
                 </Routes>
               ) : (
                 <Loader />

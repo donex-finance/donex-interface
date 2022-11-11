@@ -8,7 +8,6 @@ import { AutoColumn } from 'components/Column'
 import { AutoRow } from 'components/Row'
 import { networkConnection } from 'connection'
 import { getConnection, getConnectionName, getIsCoinbaseWallet, getIsInjected, getIsMetaMask } from 'connection/utils'
-import { NftVariant, useNftFlag } from 'featureFlags/flags/nft'
 import usePrevious from 'hooks/usePrevious'
 import { useCallback, useEffect, useState } from 'react'
 import { ArrowLeft } from 'react-feather'
@@ -154,7 +153,6 @@ export default function WalletModal({
 
   const [connectedWallets, addWalletToConnectedWallets] = useConnectedWallets()
 
-  const nftFlagEnabled = useNftFlag() === NftVariant.Enabled
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [lastActiveWalletAddress, setLastActiveWalletAddress] = useState<string | undefined>(account)
 
@@ -313,19 +311,8 @@ export default function WalletModal({
       )
     }
 
-    function getTermsOfService(nftFlagEnabled: boolean, walletView: string) {
-      if (nftFlagEnabled && walletView === WALLET_VIEWS.PENDING) return null
-      return nftFlagEnabled ? (
-        <AutoRow style={{ flexWrap: 'nowrap', padding: '4px 16px' }}>
-          <ThemedText.BodySecondary fontSize={16} lineHeight={'24px'}>
-            <Trans>
-              By connecting a wallet, you agree to Uniswap Labs’{' '}
-              <ExternalLink href="https://uniswap.org/terms-of-service/">Terms of Service</ExternalLink> and consent to
-              its <ExternalLink href="https://uniswap.org/privacy-policy">Privacy Policy</ExternalLink>.
-            </Trans>
-          </ThemedText.BodySecondary>
-        </AutoRow>
-      ) : (
+    function getTermsOfService() {
+      return (
         <LightCard>
           <AutoRow style={{ flexWrap: 'nowrap' }}>
             <ThemedText.DeprecatedBody fontSize={12}>
@@ -363,7 +350,7 @@ export default function WalletModal({
               />
             )}
             {walletView !== WALLET_VIEWS.PENDING && <OptionGrid data-testid="option-grid">{getOptions()}</OptionGrid>}
-            {!pendingError && getTermsOfService(nftFlagEnabled, walletView)}
+            {!pendingError && getTermsOfService()}
           </AutoColumn>
         </ContentWrapper>
       </UpperSection>

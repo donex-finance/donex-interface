@@ -38,32 +38,8 @@ export function useToggleSettingsMenu(): () => void {
   return useToggleModal(ApplicationModal.SETTINGS)
 }
 
-export function useShowClaimPopup(): boolean {
-  return useModalIsOpen(ApplicationModal.CLAIM_POPUP)
-}
-
-export function useToggleShowClaimPopup(): () => void {
-  return useToggleModal(ApplicationModal.CLAIM_POPUP)
-}
-
-export function useToggleSelfClaimModal(): () => void {
-  return useToggleModal(ApplicationModal.SELF_CLAIM)
-}
-
 export function useToggleDelegateModal(): () => void {
   return useToggleModal(ApplicationModal.DELEGATE)
-}
-
-export function useToggleVoteModal(): () => void {
-  return useToggleModal(ApplicationModal.VOTE)
-}
-
-export function useToggleQueueModal(): () => void {
-  return useToggleModal(ApplicationModal.QUEUE)
-}
-
-export function useToggleExecuteModal(): () => void {
-  return useToggleModal(ApplicationModal.EXECUTE)
 }
 
 export function useTogglePrivacyPolicy(): () => void {

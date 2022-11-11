@@ -1,10 +1,8 @@
-// eslint-disable-next-line no-restricted-imports
+// eslint-disable-next-line no-restricted-imports, simple-import-sort/imports
 import { t, Trans } from '@lingui/macro'
-import { useWeb3React } from '@web3-react/core'
 import FeatureFlagModal from 'components/FeatureFlagModal/FeatureFlagModal'
 import { PrivacyPolicyModal } from 'components/PrivacyPolicy'
-import { L2_CHAIN_IDS } from 'constants/chains'
-import { LOCALE_LABEL, SUPPORTED_LOCALES, SupportedLocale } from 'constants/locales'
+import { LOCALE_LABEL, SupportedLocale, SUPPORTED_LOCALES } from 'constants/locales'
 import { useActiveLocale } from 'hooks/useActiveLocale'
 import { useLocationLinkProps } from 'hooks/useLocationLinkProps'
 import { FunctionComponent, PropsWithChildren, useEffect, useRef, useState } from 'react'
@@ -32,7 +30,6 @@ import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { useModalIsOpen, useToggleModal } from '../../state/application/hooks'
 import { ApplicationModal } from '../../state/application/reducer'
 import { ExternalLink } from '../../theme'
-import { ButtonPrimary } from '../Button'
 
 export enum FlyoutAlignment {
   LEFT = 'LEFT',
@@ -68,12 +65,6 @@ const StyledMenuButton = styled.button`
   svg {
     margin-top: 2px;
   }
-`
-
-const UNIbutton = styled(ButtonPrimary)`
-  background-color: ${({ theme }) => theme.deprecated_bg3};
-  background: radial-gradient(174.47% 188.91% at 1.84% 0%, #ff007a 0%, #2172e5 100%), #edeef2;
-  border: none;
 `
 
 const StyledMenu = styled.div`
@@ -210,16 +201,12 @@ function LanguageMenu({ close }: { close: () => void }) {
 }
 
 export default function Menu() {
-  const { account, chainId } = useWeb3React()
-
   const node = useRef<HTMLDivElement>()
   const open = useModalIsOpen(ApplicationModal.MENU)
   const toggleMenu = useToggleModal(ApplicationModal.MENU)
   useOnClickOutside(node, open ? toggleMenu : undefined)
   const togglePrivacyPolicy = useToggleModal(ApplicationModal.PRIVACY_POLICY)
   const openFeatureFlagsModal = useToggleModal(ApplicationModal.FEATURE_FLAGS)
-  const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
-  const showUNIClaimOption = Boolean(!!account && !!chainId && !L2_CHAIN_IDS.includes(chainId))
 
   const [darkMode, toggleDarkMode] = useDarkModeManager()
 
@@ -296,17 +283,6 @@ export default function Menu() {
                       <ToggleMenuItem onClick={openFeatureFlagsModal}>
                         Feature Flags <Flag opacity={0.6} size={16} />
                       </ToggleMenuItem>
-                    )}
-                    {showUNIClaimOption && (
-                      <UNIbutton
-                        onClick={openClaimModal}
-                        padding="8px 16px"
-                        width="100%"
-                        $borderRadius="12px"
-                        mt="0.5rem"
-                      >
-                        <Trans>Claim UNI</Trans>
-                      </UNIbutton>
                     )}
                   </MenuFlyout>
                 )

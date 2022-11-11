@@ -6,10 +6,9 @@ import TopLevelModals from 'components/TopLevelModals'
 import { useFeatureFlagsIsLoaded } from 'featureFlags'
 import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { useIsDarkMode } from 'state/user/hooks'
 import styled from 'styled-components/macro'
-import { SpinnerSVG } from 'theme/components'
 import { Z_INDEX } from 'theme/zIndex'
 import { getBrowser } from 'utils/browser'
 import { getCLS, getFCP, getFID, getLCP, Metric } from 'web-vitals'
@@ -28,11 +27,10 @@ import Pool from './Pool'
 import { PositionPage } from './Pool/PositionPage'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
 import Swap from './Swap'
-import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
+import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
 import Tokens from './Tokens'
 
 const TokenDetails = lazy(() => import('./TokenDetails'))
-const Vote = lazy(() => import('./Vote'))
 
 const AppWrapper = styled.div`
   display: flex;
@@ -77,8 +75,6 @@ function getCurrentPageFromLocation(locationPathname: string): PageName | undefi
   switch (locationPathname) {
     case '/swap':
       return PageName.SWAP_PAGE
-    case '/vote':
-      return PageName.VOTE_PAGE
     case '/pool':
       return PageName.POOL_PAGE
     case '/tokens':
@@ -87,20 +83,6 @@ function getCurrentPageFromLocation(locationPathname: string): PageName | undefi
       return undefined
   }
 }
-
-// this is the same svg defined in assets/images/blue-loader.svg
-// it is defined here because the remote asset may not have had time to load when this file is executing
-const LazyLoadSpinner = () => (
-  <SpinnerSVG width="94" height="94" viewBox="0 0 94 94" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M92 47C92 22.1472 71.8528 2 47 2C22.1472 2 2 22.1472 2 47C2 71.8528 22.1472 92 47 92"
-      stroke="#2172E5"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </SpinnerSVG>
-)
 
 export default function App() {
   const isLoaded = useFeatureFlagsIsLoaded()
@@ -178,17 +160,6 @@ export default function App() {
                       </Suspense>
                     }
                   />
-                  <Route
-                    path="vote/*"
-                    element={
-                      <Suspense fallback={<LazyLoadSpinner />}>
-                        <Vote />
-                      </Suspense>
-                    }
-                  />
-                  <Route path="create-proposal" element={<Navigate to="/vote/create-proposal" replace />} />
-                  <Route path="claim" element={<OpenClaimAddressModalAndRedirectToSwap />} />
-
                   <Route path="send" element={<RedirectPathToSwapOnly />} />
                   <Route path="swap/:outputCurrency" element={<RedirectToSwap />} />
                   <Route path="swap" element={<Swap />} />

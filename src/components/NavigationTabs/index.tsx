@@ -10,7 +10,7 @@ import { resetMintState as resetMintV3State } from 'state/mint/v3/actions'
 import styled, { useTheme } from 'styled-components/macro'
 import { ThemedText } from 'theme'
 
-import Row, { RowBetween } from '../Row'
+import { RowBetween } from '../Row'
 import SettingsTab from '../Settings'
 
 const Tabs = styled.div`
@@ -109,19 +109,6 @@ export function AddRemoveTabs({
         <Box style={{ marginRight: '.5rem' }}>{children}</Box>
         <SettingsTab placeholderSlippage={defaultSlippage} />
       </RowBetween>
-    </Tabs>
-  )
-}
-
-export function CreateProposalTabs() {
-  return (
-    <Tabs>
-      <Row style={{ padding: '1rem 1rem 0 1rem' }}>
-        <HistoryLink to="/vote">
-          <StyledArrowLeft />
-        </HistoryLink>
-        <ActiveText style={{ marginLeft: 'auto', marginRight: 'auto' }}>Create Proposal</ActiveText>
-      </Row>
     </Tabs>
   )
 }

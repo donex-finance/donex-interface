@@ -1,5 +1,4 @@
 import { useWeb3React } from '@web3-react/core'
-import { UNI_ADDRESS } from 'constants/addresses'
 import { TransactionInfo, TransactionType } from 'state/transactions/types'
 import styled, { css } from 'styled-components/macro'
 
@@ -56,9 +55,6 @@ const getCurrency = ({ info, chainId }: { info: TransactionInfo; chainId: number
       return { currencyId0, currencyId1 }
     case TransactionType.APPROVAL:
       return { currencyId0: info.tokenAddress, currencyId1: undefined }
-    case TransactionType.CLAIM:
-      const uniAddress = chainId ? UNI_ADDRESS[chainId] : undefined
-      return { currencyId0: uniAddress, currencyId1: undefined }
     default:
       return { currencyId0: undefined, currencyId1: undefined }
   }

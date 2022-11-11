@@ -1,7 +1,5 @@
 import { TradeType } from '@uniswap/sdk-core'
 
-import { VoteOption } from '../governance/types'
-
 export interface SerializableTransactionReceipt {
   to: string
   from: string
@@ -22,9 +20,6 @@ export enum TransactionType {
   SWAP,
   DEPOSIT_LIQUIDITY_STAKING,
   WITHDRAW_LIQUIDITY_STAKING,
-  CLAIM,
-  VOTE,
-  DELEGATE,
   WRAP,
   CREATE_V3_POOL,
   ADD_LIQUIDITY_V3_POOL,
@@ -32,38 +27,10 @@ export enum TransactionType {
   MIGRATE_LIQUIDITY_V3,
   COLLECT_FEES,
   REMOVE_LIQUIDITY_V3,
-  SUBMIT_PROPOSAL,
-  QUEUE,
-  EXECUTE,
 }
 
 export interface BaseTransactionInfo {
   type: TransactionType
-}
-
-export interface VoteTransactionInfo extends BaseTransactionInfo {
-  type: TransactionType.VOTE
-  governorAddress: string
-  proposalId: number
-  decision: VoteOption
-  reason: string
-}
-
-export interface QueueTransactionInfo extends BaseTransactionInfo {
-  type: TransactionType.QUEUE
-  governorAddress: string
-  proposalId: number
-}
-
-export interface ExecuteTransactionInfo extends BaseTransactionInfo {
-  type: TransactionType.EXECUTE
-  governorAddress: string
-  proposalId: number
-}
-
-export interface DelegateTransactionInfo extends BaseTransactionInfo {
-  type: TransactionType.DELEGATE
-  delegatee: string
 }
 
 export interface ApproveTransactionInfo extends BaseTransactionInfo {
@@ -109,12 +76,6 @@ export interface WrapTransactionInfo {
   unwrapped: boolean
   currencyAmountRaw: string
   chainId?: number
-}
-
-export interface ClaimTransactionInfo {
-  type: TransactionType.CLAIM
-  recipient: string
-  uniAmountRaw?: string
 }
 
 export interface CreateV3PoolTransactionInfo {
@@ -164,19 +125,10 @@ export interface RemoveLiquidityV3TransactionInfo {
   expectedAmountQuoteRaw: string
 }
 
-export interface SubmitProposalTransactionInfo {
-  type: TransactionType.SUBMIT_PROPOSAL
-}
-
 export type TransactionInfo =
   | ApproveTransactionInfo
   | ExactOutputSwapTransactionInfo
   | ExactInputSwapTransactionInfo
-  | ClaimTransactionInfo
-  | VoteTransactionInfo
-  | QueueTransactionInfo
-  | ExecuteTransactionInfo
-  | DelegateTransactionInfo
   | DepositLiquidityStakingTransactionInfo
   | WithdrawLiquidityStakingTransactionInfo
   | WrapTransactionInfo
@@ -186,7 +138,6 @@ export type TransactionInfo =
   | MigrateV2LiquidityToV3TransactionInfo
   | CollectFeesTransactionInfo
   | RemoveLiquidityV3TransactionInfo
-  | SubmitProposalTransactionInfo
 
 export interface TransactionDetails {
   hash: string

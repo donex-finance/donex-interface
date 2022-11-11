@@ -4,7 +4,6 @@ import JSBI from 'jsbi'
 import {
   AddLiquidityV3PoolTransactionInfo,
   ApproveTransactionInfo,
-  ClaimTransactionInfo,
   CollectFeesTransactionInfo,
   ExactInputSwapTransactionInfo,
   ExactOutputSwapTransactionInfo,
@@ -17,8 +16,6 @@ import styled from 'styled-components/macro'
 
 import { nativeOnChain } from '../../constants/tokens'
 import { useCurrency, useToken } from '../../hooks/Tokens'
-import useENSName from '../../hooks/useENSName'
-import { shortenAddress } from '../../utils'
 import { TransactionState } from './index'
 
 const HighlightText = styled.span`
@@ -240,38 +237,6 @@ const ApprovalSummary = ({
   )
 }
 
-const ClaimSummary = ({
-  info: { recipient, uniAmountRaw },
-  transactionState,
-}: {
-  info: ClaimTransactionInfo
-  transactionState: TransactionState
-}) => {
-  const { ENSName } = useENSName()
-  const actionProps = {
-    transactionState,
-    pending: <Trans>Claiming</Trans>,
-    success: <Trans>Claimed</Trans>,
-    failed: <Trans>Claim</Trans>,
-  }
-
-  return (
-    <BodyWrap>
-      {uniAmountRaw && (
-        <>
-          <Action {...actionProps} />{' '}
-          <HighlightText>
-            {formatAmount(uniAmountRaw, 18, 4)}
-            UNI{' '}
-          </HighlightText>{' '}
-          <Trans>for</Trans> <HighlightText>{ENSName ?? shortenAddress(recipient)}</HighlightText>
-        </>
-      )}{' '}
-      <FailedText transactionState={transactionState} />
-    </BodyWrap>
-  )
-}
-
 const WrapSummary = ({
   info: { chainId, currencyAmountRaw, unwrapped },
   transactionState,
@@ -327,8 +292,6 @@ const TransactionBody = ({ info, transactionState }: { info: TransactionInfo; tr
       return <CollectFeesSummary info={info} transactionState={transactionState} />
     case TransactionType.APPROVAL:
       return <ApprovalSummary info={info} transactionState={transactionState} />
-    case TransactionType.CLAIM:
-      return <ClaimSummary info={info} transactionState={transactionState} />
     default:
       return <span />
   }

@@ -8,10 +8,8 @@ import NonfungiblePositionManagerJson from '@uniswap/v3-periphery/artifacts/cont
 import V3MigratorJson from '@uniswap/v3-periphery/artifacts/contracts/V3Migrator.sol/V3Migrator.json'
 import { useWeb3React } from '@web3-react/core'
 import ARGENT_WALLET_DETECTOR_ABI from 'abis/argent-wallet-detector.json'
-import EIP_2612 from 'abis/eip_2612.json'
 import ERC1155_ABI from 'abis/erc1155.json'
 import ERC20_ABI from 'abis/erc20.json'
-import ERC20_BYTES32_ABI from 'abis/erc20_bytes32.json'
 import ERC721_ABI from 'abis/erc721.json'
 import { ArgentWalletDetector, Erc1155, Erc20, Erc721, Weth } from 'abis/types'
 import WETH_ABI from 'abis/weth.json'
@@ -87,14 +85,6 @@ export function useERC1155Contract(nftAddress?: string) {
 
 export function useArgentWalletDetectorContract() {
   return useContract<ArgentWalletDetector>(ARGENT_WALLET_DETECTOR_ADDRESS, ARGENT_WALLET_DETECTOR_ABI, false)
-}
-
-export function useBytes32TokenContract(tokenAddress?: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract(tokenAddress, ERC20_BYTES32_ABI, withSignerIfPossible)
-}
-
-export function useEIP2612Contract(tokenAddress?: string): Contract | null {
-  return useContract(tokenAddress, EIP_2612, false)
 }
 
 export function useInterfaceMulticall() {

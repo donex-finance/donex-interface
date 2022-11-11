@@ -1,10 +1,9 @@
-import { MixedRouteSDK, Protocol } from '@uniswap/router-sdk'
+import { Protocol } from '@uniswap/router-sdk'
 import { Currency, CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core'
-import { Pair, Route as V2Route } from '@uniswap/v2-sdk'
 import { FeeAmount, Pool, Route as V3Route } from '@uniswap/v3-sdk'
 
 import { nativeOnChain } from '../../constants/tokens'
-import { GetQuoteResult, InterfaceTrade, V2PoolInRoute, V3PoolInRoute } from './types'
+import { GetQuoteResult, InterfaceTrade, V3PoolInRoute } from './types'
 
 /**
  * Transforms a Routing API quote into an array of routes that can be used to create
@@ -30,7 +29,8 @@ export function computeRoutes(
   const parsedCurrencyOut = currencyOut.isNative ? nativeOnChain(currencyOut.chainId) : parsedTokenOut
 
   try {
-    return quoteResult.route.map((route) => {
+    return quoteResult.route.map((_route) => {
+      const route = _route as V3PoolInRoute[]
       if (route.length === 0) {
         throw new Error('Expected route to have at least one pair or pool')
       }
@@ -48,14 +48,8 @@ export function computeRoutes(
           routeProtocol === Protocol.V3
             ? new V3Route(route.map(genericPoolPairParser) as Pool[], parsedCurrencyIn, parsedCurrencyOut)
             : null,
-        routev2:
-          routeProtocol === Protocol.V2
-            ? new V2Route(route.map(genericPoolPairParser) as Pair[], parsedCurrencyIn, parsedCurrencyOut)
-            : null,
-        mixedRoute:
-          routeProtocol === Protocol.MIXED
-            ? new MixedRouteSDK(route.map(genericPoolPairParser), parsedCurrencyIn, parsedCurrencyOut)
-            : null,
+        routev2: null,
+        mixedRoute: null,
         inputAmount: CurrencyAmount.fromRawAmount(parsedCurrencyIn, rawAmountIn),
         outputAmount: CurrencyAmount.fromRawAmount(parsedCurrencyOut, rawAmountOut),
       }
@@ -111,18 +105,10 @@ const parsePool = ({ fee, sqrtRatioX96, liquidity, tickCurrent, tokenIn, tokenOu
     parseInt(tickCurrent)
   )
 
-const parsePair = ({ reserve0, reserve1 }: V2PoolInRoute): Pair =>
-  new Pair(
-    CurrencyAmount.fromRawAmount(parseToken(reserve0.token), reserve0.quotient),
-    CurrencyAmount.fromRawAmount(parseToken(reserve1.token), reserve1.quotient)
-  )
-
-const genericPoolPairParser = (pool: V3PoolInRoute | V2PoolInRoute): Pool | Pair => {
-  return pool.type === 'v3-pool' ? parsePool(pool) : parsePair(pool)
+const genericPoolPairParser = (pool: V3PoolInRoute): Pool => {
+  return parsePool(pool)
 }
 
-function getRouteProtocol(route: (V3PoolInRoute | V2PoolInRoute)[]): Protocol {
-  if (route.every((pool) => pool.type === 'v2-pool')) return Protocol.V2
-  if (route.every((pool) => pool.type === 'v3-pool')) return Protocol.V3
-  return Protocol.MIXED
+function getRouteProtocol(route: V3PoolInRoute[]): Protocol {
+  return Protocol.V3
 }

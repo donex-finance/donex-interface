@@ -1,10 +1,8 @@
 import { MixedRoute, partitionMixedRouteByProtocol, Protocol, Trade } from '@uniswap/router-sdk'
 import { Currency, CurrencyAmount, Percent, TradeType } from '@uniswap/sdk-core'
-import { Pair } from '@uniswap/v2-sdk'
 import { Pool } from '@uniswap/v3-sdk'
 import { useWeb3React } from '@web3-react/core'
-import { SUPPORTED_GAS_ESTIMATE_CHAIN_IDS } from 'constants/chains'
-import { L2_CHAIN_IDS } from 'constants/chains'
+import { L2_CHAIN_IDS, SUPPORTED_GAS_ESTIMATE_CHAIN_IDS } from 'constants/chains'
 import JSBI from 'jsbi'
 import useNativeCurrency from 'lib/hooks/useNativeCurrency'
 import { useMemo } from 'react'
@@ -20,11 +18,9 @@ const GAS_ESTIMATE_BUFFER = new Percent(10, 100) // 10%
 
 // Base costs regardless of how many hops in the route
 const V3_SWAP_BASE_GAS_ESTIMATE = 100_000
-const V2_SWAP_BASE_GAS_ESTIMATE = 135_000
 
 // Extra cost per hop in the route
 const V3_SWAP_HOP_GAS_ESTIMATE = 70_000
-const V2_SWAP_HOP_GAS_ESTIMATE = 50_000
 
 /**
  * Return a guess of the gas cost used in computing slippage tolerance for a given trade
@@ -39,9 +35,7 @@ function guesstimateGas(trade: Trade<Currency, Currency, TradeType> | undefined)
   if (!!trade) {
     let gas = 0
     for (const { route } of trade.swaps) {
-      if (route.protocol === Protocol.V2) {
-        gas += V2_SWAP_BASE_GAS_ESTIMATE + route.pools.length * V2_SWAP_HOP_GAS_ESTIMATE
-      } else if (route.protocol === Protocol.V3) {
+      if (route.protocol === Protocol.V3) {
         // V3 gas costs scale on initialized ticks being crossed, but we don't have that data here.
         // We bake in some tick crossings into the base 100k cost.
         gas += V3_SWAP_BASE_GAS_ESTIMATE + route.pools.length * V3_SWAP_HOP_GAS_ESTIMATE
@@ -50,8 +44,6 @@ function guesstimateGas(trade: Trade<Currency, Currency, TradeType> | undefined)
         gas += sections.reduce((gas, section) => {
           if (section.every((pool) => pool instanceof Pool)) {
             return gas + V3_SWAP_BASE_GAS_ESTIMATE + section.length * V3_SWAP_HOP_GAS_ESTIMATE
-          } else if (section.every((pool) => pool instanceof Pair)) {
-            return gas + V2_SWAP_BASE_GAS_ESTIMATE + (section.length - 1) * V2_SWAP_HOP_GAS_ESTIMATE
           } else {
             console.warn('Invalid section')
             return gas

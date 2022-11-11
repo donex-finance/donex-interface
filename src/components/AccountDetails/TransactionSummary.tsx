@@ -5,19 +5,15 @@ import JSBI from 'jsbi'
 import { nativeOnChain } from '../../constants/tokens'
 import { useCurrency, useToken } from '../../hooks/Tokens'
 import {
-  AddLiquidityV2PoolTransactionInfo,
   AddLiquidityV3PoolTransactionInfo,
   ApproveTransactionInfo,
   CollectFeesTransactionInfo,
   CreateV3PoolTransactionInfo,
-  DepositLiquidityStakingTransactionInfo,
   ExactInputSwapTransactionInfo,
   ExactOutputSwapTransactionInfo,
-  MigrateV2LiquidityToV3TransactionInfo,
   RemoveLiquidityV3TransactionInfo,
   TransactionInfo,
   TransactionType,
-  WithdrawLiquidityStakingTransactionInfo,
   WrapTransactionInfo,
 } from '../../state/transactions/types'
 
@@ -101,31 +97,6 @@ function WrapSummary({ info: { chainId, currencyAmountRaw, unwrapped } }: { info
   }
 }
 
-function DepositLiquidityStakingSummary(_: { info: DepositLiquidityStakingTransactionInfo }) {
-  // not worth rendering the tokens since you can should no longer deposit liquidity in the staking contracts
-  // todo: deprecate and delete the code paths that allow this, show user more information
-  return <Trans>Deposit liquidity</Trans>
-}
-
-function WithdrawLiquidityStakingSummary(_: { info: WithdrawLiquidityStakingTransactionInfo }) {
-  return <Trans>Withdraw deposited liquidity</Trans>
-}
-
-function MigrateLiquidityToV3Summary({
-  info: { baseCurrencyId, quoteCurrencyId },
-}: {
-  info: MigrateV2LiquidityToV3TransactionInfo
-}) {
-  const baseCurrency = useCurrency(baseCurrencyId)
-  const quoteCurrency = useCurrency(quoteCurrencyId)
-
-  return (
-    <Trans>
-      Migrate {baseCurrency?.symbol}/{quoteCurrency?.symbol} liquidity to V3
-    </Trans>
-  )
-}
-
 function CreateV3PoolSummary({ info: { quoteCurrencyId, baseCurrencyId } }: { info: CreateV3PoolTransactionInfo }) {
   const baseCurrency = useCurrency(baseCurrencyId)
   const quoteCurrency = useCurrency(quoteCurrencyId)
@@ -181,20 +152,6 @@ function AddLiquidityV3PoolSummary({
   )
 }
 
-function AddLiquidityV2PoolSummary({
-  info: { quoteCurrencyId, expectedAmountBaseRaw, expectedAmountQuoteRaw, baseCurrencyId },
-}: {
-  info: AddLiquidityV2PoolTransactionInfo
-}) {
-  return (
-    <Trans>
-      Add <FormattedCurrencyAmountManaged rawAmount={expectedAmountBaseRaw} currencyId={baseCurrencyId} sigFigs={3} />{' '}
-      and <FormattedCurrencyAmountManaged rawAmount={expectedAmountQuoteRaw} currencyId={quoteCurrencyId} sigFigs={3} />{' '}
-      to Uniswap V2
-    </Trans>
-  )
-}
-
 function SwapSummary({ info }: { info: ExactInputSwapTransactionInfo | ExactOutputSwapTransactionInfo }) {
   if (info.tradeType === TradeType.EXACT_INPUT) {
     return (
@@ -238,15 +195,6 @@ export function TransactionSummary({ info }: { info: TransactionInfo }) {
     case TransactionType.ADD_LIQUIDITY_V3_POOL:
       return <AddLiquidityV3PoolSummary info={info} />
 
-    case TransactionType.ADD_LIQUIDITY_V2_POOL:
-      return <AddLiquidityV2PoolSummary info={info} />
-
-    case TransactionType.DEPOSIT_LIQUIDITY_STAKING:
-      return <DepositLiquidityStakingSummary info={info} />
-
-    case TransactionType.WITHDRAW_LIQUIDITY_STAKING:
-      return <WithdrawLiquidityStakingSummary info={info} />
-
     case TransactionType.SWAP:
       return <SwapSummary info={info} />
 
@@ -258,9 +206,6 @@ export function TransactionSummary({ info }: { info: TransactionInfo }) {
 
     case TransactionType.CREATE_V3_POOL:
       return <CreateV3PoolSummary info={info} />
-
-    case TransactionType.MIGRATE_LIQUIDITY_V3:
-      return <MigrateLiquidityToV3Summary info={info} />
 
     case TransactionType.COLLECT_FEES:
       return <CollectFeesSummary info={info} />

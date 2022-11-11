@@ -3,15 +3,14 @@ import { useWeb3React } from '@web3-react/core'
 import { ElementName, Event, EventName, PageName } from 'analytics/constants'
 import { Trace } from 'analytics/Trace'
 import { TraceEvent } from 'analytics/TraceEvent'
-import { ButtonGray, ButtonPrimary, ButtonText } from 'components/Button'
+import { ButtonPrimary, ButtonText } from 'components/Button'
 import { AutoColumn } from 'components/Column'
-import { FlyoutAlignment, NewMenu } from 'components/Menu'
 import PositionList from 'components/PositionList'
 import { RowBetween, RowFixed } from 'components/Row'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { isSupportedChain } from 'constants/chains'
 import { useV3Positions } from 'hooks/useV3Positions'
-import { AlertTriangle, BookOpen, ChevronDown, Inbox, PlusCircle } from 'react-feather'
+import { AlertTriangle, Inbox } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { useToggleWalletModal } from 'state/application/hooks'
 import { useUserHideClosedPositions } from 'state/user/hooks'
@@ -19,7 +18,6 @@ import styled, { css, useTheme } from 'styled-components/macro'
 import { HideSmall, ThemedText } from 'theme'
 import { PositionDetails } from 'types/position'
 
-import { V2_FACTORY_ADDRESSES } from '../../constants/addresses'
 import CTACards from './CTACards'
 import { LoadingRows } from './styleds'
 
@@ -63,38 +61,6 @@ const ButtonRow = styled(RowFixed)`
     justify-content: space-between;
     flex-direction: row-reverse;
   `};
-`
-const Menu = styled(NewMenu)`
-  margin-left: 0;
-  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
-    flex: 1 1 auto;
-    width: 49%;
-    right: 0px;
-  `};
-
-  a {
-    width: 100%;
-  }
-`
-const MenuItem = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  font-weight: 500;
-`
-const MoreOptionsButton = styled(ButtonGray)`
-  border-radius: 12px;
-  flex: 1 1 auto;
-  padding: 6px 8px;
-  width: 100%;
-  background-color: ${({ theme }) => theme.deprecated_bg0};
-  margin-right: 8px;
-`
-
-const MoreOptionsText = styled(ThemedText.DeprecatedBody)`
-  align-items: center;
-  display: flex;
 `
 
 const ErrorContainer = styled.div`
@@ -212,30 +178,6 @@ export default function Pool() {
 
   const filteredPositions = [...openPositions, ...(userHideClosedPositions ? [] : closedPositions)]
   const showConnectAWallet = Boolean(!account)
-  const showV2Features = Boolean(V2_FACTORY_ADDRESSES[chainId])
-
-  const menuItems = [
-    {
-      content: (
-        <MenuItem>
-          <Trans>Create a pool</Trans>
-          <PlusCircle size={16} />
-        </MenuItem>
-      ),
-      link: '/add/ETH',
-      external: false,
-    },
-    {
-      content: (
-        <MenuItem>
-          <Trans>Learn</Trans>
-          <BookOpen size={16} />
-        </MenuItem>
-      ),
-      link: 'https://docs.uniswap.org/',
-      external: true,
-    },
-  ]
 
   return (
     <Trace page={PageName.POOL_PAGE} shouldLogImpression>
@@ -248,20 +190,6 @@ export default function Pool() {
                   <Trans>Pools</Trans>
                 </ThemedText.LargeHeader>
                 <ButtonRow>
-                  {showV2Features && (
-                    <Menu
-                      menuItems={menuItems}
-                      flyoutAlignment={FlyoutAlignment.LEFT}
-                      ToggleUI={(props: any) => (
-                        <MoreOptionsButton {...props}>
-                          <MoreOptionsText>
-                            <Trans>More</Trans>
-                            <ChevronDown size={15} />
-                          </MoreOptionsText>
-                        </MoreOptionsButton>
-                      )}
-                    />
-                  )}
                   <ResponsiveButtonPrimary data-cy="join-pool-button" id="join-pool-button" as={Link} to="/add/ETH">
                     + <Trans>New Position</Trans>
                   </ResponsiveButtonPrimary>

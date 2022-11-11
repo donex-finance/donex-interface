@@ -15,32 +15,8 @@ export function swapErrorToUserReadableMessage(error: any): ReactNode {
   if (reason?.indexOf('execution reverted: ') === 0) reason = reason.substr('execution reverted: '.length)
 
   switch (reason) {
-    case 'UniswapV2Router: EXPIRED':
-      return (
-        <Trans>
-          The transaction could not be sent because the deadline has passed. Please check that your transaction deadline
-          is not too low.
-        </Trans>
-      )
-    case 'UniswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT':
-    case 'UniswapV2Router: EXCESSIVE_INPUT_AMOUNT':
-      return (
-        <Trans>
-          This transaction will not succeed either due to price movement or fee on transfer. Try increasing your
-          slippage tolerance.
-        </Trans>
-      )
     case 'TransferHelper: TRANSFER_FROM_FAILED':
       return <Trans>The input token cannot be transferred. There may be an issue with the input token.</Trans>
-    case 'UniswapV2: TRANSFER_FAILED':
-      return <Trans>The output token cannot be transferred. There may be an issue with the output token.</Trans>
-    case 'UniswapV2: K':
-      return (
-        <Trans>
-          The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are
-          swapping incorporates custom behavior on transfer.
-        </Trans>
-      )
     case 'Too little received':
     case 'Too much requested':
     case 'STF':

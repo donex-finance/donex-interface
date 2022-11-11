@@ -30,25 +30,6 @@ export type V3PoolInRoute = {
   address?: string
 }
 
-export type V2Reserve = {
-  token: TokenInRoute
-  quotient: string
-}
-
-export type V2PoolInRoute = {
-  type: 'v2-pool'
-  tokenIn: TokenInRoute
-  tokenOut: TokenInRoute
-  reserve0: V2Reserve
-  reserve1: V2Reserve
-  amountIn?: string
-  amountOut?: string
-
-  // not used in the interface
-  // avoid returning it from the client-side smart-order-router
-  address?: string
-}
-
 export interface GetQuoteResult {
   quoteId?: string
   blockNumber: string
@@ -64,7 +45,7 @@ export interface GetQuoteResult {
   quoteDecimals: string
   quoteGasAdjusted: string
   quoteGasAdjustedDecimals: string
-  route: Array<(V3PoolInRoute | V2PoolInRoute)[]>
+  route: Array<V3PoolInRoute[]>
   routeString: string
 }
 

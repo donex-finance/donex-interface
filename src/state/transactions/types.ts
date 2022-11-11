@@ -18,12 +18,9 @@ export interface SerializableTransactionReceipt {
 export enum TransactionType {
   APPROVAL = 0,
   SWAP,
-  DEPOSIT_LIQUIDITY_STAKING,
-  WITHDRAW_LIQUIDITY_STAKING,
   WRAP,
   CREATE_V3_POOL,
   ADD_LIQUIDITY_V3_POOL,
-  ADD_LIQUIDITY_V2_POOL,
   MIGRATE_LIQUIDITY_V3,
   COLLECT_FEES,
   REMOVE_LIQUIDITY_V3,
@@ -59,18 +56,6 @@ export interface ExactOutputSwapTransactionInfo extends BaseSwapTransactionInfo 
   maximumInputCurrencyAmountRaw: string
 }
 
-export interface DepositLiquidityStakingTransactionInfo {
-  type: TransactionType.DEPOSIT_LIQUIDITY_STAKING
-  token0Address: string
-  token1Address: string
-}
-
-export interface WithdrawLiquidityStakingTransactionInfo {
-  type: TransactionType.WITHDRAW_LIQUIDITY_STAKING
-  token0Address: string
-  token1Address: string
-}
-
 export interface WrapTransactionInfo {
   type: TransactionType.WRAP
   unwrapped: boolean
@@ -90,14 +75,6 @@ export interface AddLiquidityV3PoolTransactionInfo {
   baseCurrencyId: string
   quoteCurrencyId: string
   feeAmount: number
-  expectedAmountBaseRaw: string
-  expectedAmountQuoteRaw: string
-}
-
-export interface AddLiquidityV2PoolTransactionInfo {
-  type: TransactionType.ADD_LIQUIDITY_V2_POOL
-  baseCurrencyId: string
-  quoteCurrencyId: string
   expectedAmountBaseRaw: string
   expectedAmountQuoteRaw: string
 }
@@ -129,13 +106,9 @@ export type TransactionInfo =
   | ApproveTransactionInfo
   | ExactOutputSwapTransactionInfo
   | ExactInputSwapTransactionInfo
-  | DepositLiquidityStakingTransactionInfo
-  | WithdrawLiquidityStakingTransactionInfo
   | WrapTransactionInfo
   | CreateV3PoolTransactionInfo
   | AddLiquidityV3PoolTransactionInfo
-  | AddLiquidityV2PoolTransactionInfo
-  | MigrateV2LiquidityToV3TransactionInfo
   | CollectFeesTransactionInfo
   | RemoveLiquidityV3TransactionInfo
 

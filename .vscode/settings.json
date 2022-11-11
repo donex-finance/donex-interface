@@ -15,5 +15,13 @@
   "eslint.debug": true,
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "src/locales/**/*":true,
+    "yarn.lock":true,
   }
+
 }

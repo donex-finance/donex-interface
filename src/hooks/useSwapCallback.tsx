@@ -9,7 +9,6 @@ import { useTransactionAdder } from '../state/transactions/hooks'
 import { TransactionType } from '../state/transactions/types'
 import { currencyId } from '../utils/currencyId'
 import useENS from './useENS'
-import { SignatureData } from './useERC20Permit'
 import useTransactionDeadline from './useTransactionDeadline'
 
 // returns a function that will execute a swap, if the parameters are all valid
@@ -17,8 +16,7 @@ import useTransactionDeadline from './useTransactionDeadline'
 export function useSwapCallback(
   trade: Trade<Currency, Currency, TradeType> | undefined, // trade to execute, required
   allowedSlippage: Percent, // in bips
-  recipientAddressOrName: string | null, // the ENS name or address of the recipient of the trade, or null if swap should be returned to sender
-  signatureData: SignatureData | undefined | null
+  recipientAddressOrName: string | null // the ENS name or address of the recipient of the trade, or null if swap should be returned to sender
 ): { state: SwapCallbackState; callback: null | (() => Promise<string>); error: ReactNode | null } {
   const { account } = useWeb3React()
 
@@ -37,7 +35,6 @@ export function useSwapCallback(
     trade,
     allowedSlippage,
     recipientAddressOrName: recipient,
-    signatureData,
     deadline,
   })
 

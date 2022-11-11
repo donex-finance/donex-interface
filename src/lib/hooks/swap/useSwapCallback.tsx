@@ -7,7 +7,6 @@ import { Currency, Percent, TradeType } from '@uniswap/sdk-core'
 import { FeeOptions } from '@uniswap/v3-sdk'
 import { useWeb3React } from '@web3-react/core'
 import useENS from 'hooks/useENS'
-import { SignatureData } from 'hooks/useERC20Permit'
 import { useSwapCallArguments } from 'hooks/useSwapCallArguments'
 import { ReactNode, useMemo } from 'react'
 
@@ -28,7 +27,6 @@ interface UseSwapCallbackArgs {
   trade: Trade<Currency, Currency, TradeType> | undefined // trade to execute, required
   allowedSlippage: Percent // in bips
   recipientAddressOrName: string | null | undefined // the ENS name or address of the recipient of the trade, or null if swap should be returned to sender
-  signatureData: SignatureData | null | undefined
   deadline: BigNumber | undefined
   feeOptions?: FeeOptions
 }
@@ -39,20 +37,12 @@ export function useSwapCallback({
   trade,
   allowedSlippage,
   recipientAddressOrName,
-  signatureData,
   deadline,
   feeOptions,
 }: UseSwapCallbackArgs): UseSwapCallbackReturns {
   const { account, chainId, provider } = useWeb3React()
 
-  const swapCalls = useSwapCallArguments(
-    trade,
-    allowedSlippage,
-    recipientAddressOrName,
-    signatureData,
-    deadline,
-    feeOptions
-  )
+  const swapCalls = useSwapCallArguments(trade, allowedSlippage, recipientAddressOrName, deadline, feeOptions)
   const { callback } = useSendSwapTransaction(account, chainId, provider, trade, swapCalls)
 
   const { address: recipientAddress } = useENS(recipientAddressOrName)

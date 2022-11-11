@@ -16,16 +16,13 @@ import TokenSafetyModal from 'components/TokenSafety/TokenSafetyModal'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
 import { useSwapCallback } from 'hooks/useSwapCallback'
-import useTransactionDeadline from 'hooks/useTransactionDeadline'
 import JSBI from 'jsbi'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { ReactNode } from 'react'
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowDown, CheckCircle, HelpCircle } from 'react-feather'
 import { useNavigate } from 'react-router-dom'
 import { Text } from 'rebass'
 import { useToggleWalletModal } from 'state/application/hooks'
-import { InterfaceTrade } from 'state/routing/types'
-import { TradeState } from 'state/routing/types'
+import { InterfaceTrade, TradeState } from 'state/routing/types'
 import styled, { useTheme } from 'styled-components/macro'
 import { currencyAmountToPreciseFloat, formatTransactionAmount } from 'utils/formatNumbers'
 
@@ -45,7 +42,6 @@ import { TOKEN_SHORTHANDS } from '../../constants/tokens'
 import { useAllTokens, useCurrency } from '../../hooks/Tokens'
 import { ApprovalState, useApproveCallbackFromTrade } from '../../hooks/useApproveCallback'
 import useENSAddress from '../../hooks/useENSAddress'
-import { useERC20PermitFromTrade, UseERC20PermitState } from '../../hooks/useERC20Permit'
 import useIsArgentWallet from '../../hooks/useIsArgentWallet'
 import { useIsSwapUnsupported } from '../../hooks/useIsSwapUnsupported'
 import { useStablecoinValue } from '../../hooks/useStablecoinPrice'
@@ -291,39 +287,22 @@ export default function Swap() {
 
   // check whether the user has approved the router on the input token
   const [approvalState, approveCallback] = useApproveCallbackFromTrade(trade, allowedSlippage)
-  const transactionDeadline = useTransactionDeadline()
-  const {
-    state: signatureState,
-    signatureData,
-    gatherPermitSignature,
-  } = useERC20PermitFromTrade(trade, allowedSlippage, transactionDeadline)
 
   const [approvalPending, setApprovalPending] = useState<boolean>(false)
   const handleApprove = useCallback(async () => {
     setApprovalPending(true)
     try {
-      if (signatureState === UseERC20PermitState.NOT_SIGNED && gatherPermitSignature) {
-        try {
-          await gatherPermitSignature()
-        } catch (error) {
-          // try to approve if gatherPermitSignature failed for any reason other than the user rejecting it
-          if (error?.code !== 4001) {
-            await approveCallback()
-          }
-        }
-      } else {
-        await approveCallback()
+      await approveCallback()
 
-        sendEvent({
-          category: 'Swap',
-          action: 'Approve',
-          label: [TRADE_STRING, trade?.inputAmount?.currency.symbol].join('/'),
-        })
-      }
+      sendEvent({
+        category: 'Swap',
+        action: 'Approve',
+        label: [TRADE_STRING, trade?.inputAmount?.currency.symbol].join('/'),
+      })
     } finally {
       setApprovalPending(false)
     }
-  }, [signatureState, gatherPermitSignature, approveCallback, trade?.inputAmount?.currency.symbol])
+  }, [approveCallback, trade?.inputAmount?.currency.symbol])
 
   // check if user has gone through approval process, used to show two step buttons, reset on token change
   const [approvalSubmitted, setApprovalSubmitted] = useState<boolean>(false)
@@ -342,12 +321,7 @@ export default function Swap() {
   const showMaxButton = Boolean(maxInputAmount?.greaterThan(0) && !parsedAmounts[Field.INPUT]?.equalTo(maxInputAmount))
 
   // the callback to execute the swap
-  const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(
-    trade,
-    allowedSlippage,
-    recipient,
-    signatureData
-  )
+  const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(trade, allowedSlippage, recipient)
 
   const handleSwap = useCallback(() => {
     if (!swapCallback) {
@@ -492,8 +466,7 @@ export default function Swap() {
     setSwapQuoteReceivedDate,
   ])
 
-  const approveTokenButtonDisabled =
-    approvalState !== ApprovalState.NOT_APPROVED || approvalSubmitted || signatureState === UseERC20PermitState.SIGNED
+  const approveTokenButtonDisabled = approvalState !== ApprovalState.NOT_APPROVED || approvalSubmitted
 
   const showDetailsDropdown = Boolean(
     !showWrap && userHasSpecifiedInputOutput && (trade || routeIsLoading || routeIsSyncing)
@@ -674,15 +647,12 @@ export default function Swap() {
                         disabled={approveTokenButtonDisabled}
                         width="100%"
                         altDisabledStyle={approvalState === ApprovalState.PENDING} // show solid button while waiting
-                        confirmed={
-                          approvalState === ApprovalState.APPROVED || signatureState === UseERC20PermitState.SIGNED
-                        }
+                        confirmed={approvalState === ApprovalState.APPROVED}
                       >
                         <AutoRow justify="space-between" style={{ flexWrap: 'nowrap' }} height="20px">
                           <span style={{ display: 'flex', alignItems: 'center' }}>
                             {/* we need to shorten this string on mobile */}
-                            {approvalState === ApprovalState.APPROVED ||
-                            signatureState === UseERC20PermitState.SIGNED ? (
+                            {approvalState === ApprovalState.APPROVED ? (
                               <Trans>You can now trade {currencies[Field.INPUT]?.symbol}</Trans>
                             ) : (
                               <Trans>Allow the Uniswap Protocol to use your {currencies[Field.INPUT]?.symbol}</Trans>
@@ -690,8 +660,7 @@ export default function Swap() {
                           </span>
                           {approvalPending || approvalState === ApprovalState.PENDING ? (
                             <Loader stroke={theme.white} />
-                          ) : (approvalSubmitted && approvalState === ApprovalState.APPROVED) ||
-                            signatureState === UseERC20PermitState.SIGNED ? (
+                          ) : approvalSubmitted && approvalState === ApprovalState.APPROVED ? (
                             <CheckCircle size="20" color={theme.deprecated_green1} />
                           ) : (
                             <MouseoverTooltip
@@ -727,7 +696,7 @@ export default function Swap() {
                           !isValid ||
                           routeIsSyncing ||
                           routeIsLoading ||
-                          (approvalState !== ApprovalState.APPROVED && signatureState !== UseERC20PermitState.SIGNED) ||
+                          approvalState !== ApprovalState.APPROVED ||
                           priceImpactTooHigh
                         }
                         error={isValid && priceImpactSeverity > 2}

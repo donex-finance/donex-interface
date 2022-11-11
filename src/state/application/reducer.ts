@@ -14,7 +14,6 @@ export type PopupContent =
     }
 
 export enum ApplicationModal {
-  ADDRESS_CLAIM,
   BLOCKED_ACCOUNT,
   DELEGATE,
   MENU,

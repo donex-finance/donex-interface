@@ -1,0 +1,734 @@
+[
+  {
+    "members": [
+      {
+        "name": "low",
+        "offset": 0,
+        "type": "felt"
+      },
+      {
+        "name": "high",
+        "offset": 1,
+        "type": "felt"
+      }
+    ],
+    "name": "Uint256",
+    "size": 2,
+    "type": "struct"
+  },
+  {
+    "members": [
+      {
+        "name": "liquidity_gross",
+        "offset": 0,
+        "type": "felt"
+      },
+      {
+        "name": "liquidity_net",
+        "offset": 1,
+        "type": "felt"
+      },
+      {
+        "name": "fee_growth_outside0_x128",
+        "offset": 2,
+        "type": "Uint256"
+      },
+      {
+        "name": "fee_growth_outside1_x128",
+        "offset": 4,
+        "type": "Uint256"
+      },
+      {
+        "name": "initialized",
+        "offset": 6,
+        "type": "felt"
+      }
+    ],
+    "name": "TickInfo",
+    "size": 7,
+    "type": "struct"
+  },
+  {
+    "members": [
+      {
+        "name": "liquidity",
+        "offset": 0,
+        "type": "felt"
+      },
+      {
+        "name": "fee_growth_inside0_x128",
+        "offset": 1,
+        "type": "Uint256"
+      },
+      {
+        "name": "fee_growth_inside1_x128",
+        "offset": 3,
+        "type": "Uint256"
+      },
+      {
+        "name": "tokens_owed0",
+        "offset": 5,
+        "type": "felt"
+      },
+      {
+        "name": "tokens_owed1",
+        "offset": 6,
+        "type": "felt"
+      }
+    ],
+    "name": "PositionInfo",
+    "size": 7,
+    "type": "struct"
+  },
+  {
+    "data": [
+      {
+        "name": "previousOwner",
+        "type": "felt"
+      },
+      {
+        "name": "newOwner",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "recipient",
+        "type": "felt"
+      },
+      {
+        "name": "tick_lower",
+        "type": "felt"
+      },
+      {
+        "name": "tick_upper",
+        "type": "felt"
+      },
+      {
+        "name": "amount",
+        "type": "felt"
+      },
+      {
+        "name": "amount0",
+        "type": "Uint256"
+      },
+      {
+        "name": "amount1",
+        "type": "Uint256"
+      }
+    ],
+    "keys": [],
+    "name": "AddLiquidity",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "recipient",
+        "type": "felt"
+      },
+      {
+        "name": "tick_lower",
+        "type": "felt"
+      },
+      {
+        "name": "tick_upper",
+        "type": "felt"
+      },
+      {
+        "name": "amount",
+        "type": "felt"
+      },
+      {
+        "name": "amount0",
+        "type": "Uint256"
+      },
+      {
+        "name": "amount1",
+        "type": "Uint256"
+      }
+    ],
+    "keys": [],
+    "name": "RemoveLiquidity",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "recipient",
+        "type": "felt"
+      },
+      {
+        "name": "zero_for_one",
+        "type": "felt"
+      },
+      {
+        "name": "amount_specified",
+        "type": "Uint256"
+      },
+      {
+        "name": "amount0",
+        "type": "Uint256"
+      },
+      {
+        "name": "amount1",
+        "type": "Uint256"
+      },
+      {
+        "name": "sqrt_price_x96",
+        "type": "Uint256"
+      },
+      {
+        "name": "liquidity",
+        "type": "felt"
+      },
+      {
+        "name": "tick",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "Swap",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "caller",
+        "type": "felt"
+      },
+      {
+        "name": "recipient",
+        "type": "felt"
+      },
+      {
+        "name": "tick_lower",
+        "type": "felt"
+      },
+      {
+        "name": "tick_upper",
+        "type": "felt"
+      },
+      {
+        "name": "amount0_requested",
+        "type": "felt"
+      },
+      {
+        "name": "amount1_requested",
+        "type": "felt"
+      },
+      {
+        "name": "amount0",
+        "type": "felt"
+      },
+      {
+        "name": "amount1",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "Collect",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "recipient",
+        "type": "felt"
+      },
+      {
+        "name": "amount0_requested",
+        "type": "felt"
+      },
+      {
+        "name": "amount1_requested",
+        "type": "felt"
+      },
+      {
+        "name": "amount0",
+        "type": "felt"
+      },
+      {
+        "name": "amount1",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "CollectProtocol",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "token_contract",
+        "type": "felt"
+      },
+      {
+        "name": "to",
+        "type": "felt"
+      },
+      {
+        "name": "amount",
+        "type": "Uint256"
+      }
+    ],
+    "keys": [],
+    "name": "TransferToken",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "fee_protocol0",
+        "type": "felt"
+      },
+      {
+        "name": "fee_protocol1",
+        "type": "felt"
+      },
+      {
+        "name": "fee_protocol",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "SetFeeProtocol",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "constructor",
+    "outputs": [],
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "name": "tick_spacing",
+        "type": "felt"
+      },
+      {
+        "name": "fee",
+        "type": "felt"
+      },
+      {
+        "name": "token_a",
+        "type": "felt"
+      },
+      {
+        "name": "token_b",
+        "type": "felt"
+      },
+      {
+        "name": "owner",
+        "type": "felt"
+      }
+    ],
+    "name": "initializer",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "get_fee_protocol",
+    "outputs": [
+      {
+        "name": "slot",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "get_cur_slot",
+    "outputs": [
+      {
+        "name": "sqrt_price_x96",
+        "type": "Uint256"
+      },
+      {
+        "name": "tick",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "get_max_liquidity_per_tick",
+    "outputs": [
+      {
+        "name": "liquidity",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "get_protocol_fees",
+    "outputs": [
+      {
+        "name": "fee_token0",
+        "type": "felt"
+      },
+      {
+        "name": "fee_token1",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "tick",
+        "type": "felt"
+      }
+    ],
+    "name": "get_tick",
+    "outputs": [
+      {
+        "name": "tick",
+        "type": "TickInfo"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "get_tick_spacing",
+    "outputs": [
+      {
+        "name": "tick_spacing",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "address",
+        "type": "felt"
+      },
+      {
+        "name": "tick_lower",
+        "type": "felt"
+      },
+      {
+        "name": "tick_upper",
+        "type": "felt"
+      }
+    ],
+    "name": "get_position",
+    "outputs": [
+      {
+        "name": "position",
+        "type": "PositionInfo"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "get_liquidity",
+    "outputs": [
+      {
+        "name": "liquidity",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "balance0",
+    "outputs": [
+      {
+        "name": "balance",
+        "type": "Uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "balance1",
+    "outputs": [
+      {
+        "name": "balance",
+        "type": "Uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "tick_lower",
+        "type": "felt"
+      },
+      {
+        "name": "tick_upper",
+        "type": "felt"
+      }
+    ],
+    "name": "get_position_token_fee",
+    "outputs": [
+      {
+        "name": "token0_fee",
+        "type": "Uint256"
+      },
+      {
+        "name": "token1_fee",
+        "type": "Uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "sqrt_price_x96",
+        "type": "Uint256"
+      }
+    ],
+    "name": "initialize_price",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "zero_for_one",
+        "type": "felt"
+      },
+      {
+        "name": "amount_specified",
+        "type": "Uint256"
+      },
+      {
+        "name": "sqrt_price_limit_x96",
+        "type": "Uint256"
+      }
+    ],
+    "name": "get_swap_results",
+    "outputs": [
+      {
+        "name": "amount0",
+        "type": "Uint256"
+      },
+      {
+        "name": "amount1",
+        "type": "Uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "recipient",
+        "type": "felt"
+      },
+      {
+        "name": "zero_for_one",
+        "type": "felt"
+      },
+      {
+        "name": "amount_specified",
+        "type": "Uint256"
+      },
+      {
+        "name": "sqrt_price_limit_x96",
+        "type": "Uint256"
+      },
+      {
+        "name": "sender",
+        "type": "felt"
+      },
+      {
+        "name": "data_len",
+        "type": "felt"
+      },
+      {
+        "name": "data",
+        "type": "felt*"
+      }
+    ],
+    "name": "swap",
+    "outputs": [
+      {
+        "name": "amount0",
+        "type": "Uint256"
+      },
+      {
+        "name": "amount1",
+        "type": "Uint256"
+      }
+    ],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "recipient",
+        "type": "felt"
+      },
+      {
+        "name": "tick_lower",
+        "type": "felt"
+      },
+      {
+        "name": "tick_upper",
+        "type": "felt"
+      },
+      {
+        "name": "amount",
+        "type": "felt"
+      },
+      {
+        "name": "data",
+        "type": "felt"
+      }
+    ],
+    "name": "add_liquidity",
+    "outputs": [
+      {
+        "name": "amount0",
+        "type": "Uint256"
+      },
+      {
+        "name": "amount1",
+        "type": "Uint256"
+      }
+    ],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "tick_lower",
+        "type": "felt"
+      },
+      {
+        "name": "tick_upper",
+        "type": "felt"
+      },
+      {
+        "name": "amount",
+        "type": "felt"
+      }
+    ],
+    "name": "remove_liquidity",
+    "outputs": [
+      {
+        "name": "amount0",
+        "type": "Uint256"
+      },
+      {
+        "name": "amount1",
+        "type": "Uint256"
+      }
+    ],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "fee_protocol0",
+        "type": "felt"
+      },
+      {
+        "name": "fee_protocol1",
+        "type": "felt"
+      }
+    ],
+    "name": "set_fee_protocol",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "recipient",
+        "type": "felt"
+      },
+      {
+        "name": "tick_lower",
+        "type": "felt"
+      },
+      {
+        "name": "tick_upper",
+        "type": "felt"
+      },
+      {
+        "name": "amount0_requested",
+        "type": "felt"
+      },
+      {
+        "name": "amount1_requested",
+        "type": "felt"
+      }
+    ],
+    "name": "collect",
+    "outputs": [
+      {
+        "name": "amount0",
+        "type": "felt"
+      },
+      {
+        "name": "amount1",
+        "type": "felt"
+      }
+    ],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "recipient",
+        "type": "felt"
+      },
+      {
+        "name": "amount0_requested",
+        "type": "felt"
+      },
+      {
+        "name": "amount1_requested",
+        "type": "felt"
+      }
+    ],
+    "name": "collect_protocol",
+    "outputs": [
+      {
+        "name": "amount0",
+        "type": "felt"
+      },
+      {
+        "name": "amount1",
+        "type": "felt"
+      }
+    ],
+    "type": "function"
+  }
+]

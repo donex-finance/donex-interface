@@ -126,6 +126,7 @@ export function usePools(
       if (!slot0 || !liquidity) return [PoolState.NOT_EXISTS, null]
       const sqrtPriceX96 = uint256ToBN(slot0.sqrt_price_x96)
       if (!sqrtPriceX96 || sqrtPriceX96.eqn(0)) return [PoolState.NOT_EXISTS, null]
+      if (slot0.tick.toString().length > 10) return [PoolState.INVALID, null]
       const tick = slot0.tick.toNumber()
       try {
         const pool = PoolCache.getPool(token0, token1, fee, sqrtPriceX96.toString(), liquidity[0], tick)

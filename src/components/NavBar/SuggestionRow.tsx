@@ -1,4 +1,3 @@
-import { useWeb3React } from '@web3-react/core'
 import { sendAnalyticsEvent } from 'analytics'
 import { EventName } from 'analytics/constants'
 import clsx from 'clsx'
@@ -6,6 +5,7 @@ import { L2NetworkLogo, LogoContainer } from 'components/Tokens/TokenTable/Token
 import TokenSafetyIcon from 'components/TokenSafety/TokenSafetyIcon'
 import { getChainInfo } from 'constants/chainInfo'
 import { checkWarning } from 'constants/tokenSafety'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { getTokenDetailsURL } from 'graphql/data/util'
 import uriToHttp from 'lib/utils/uriToHttp'
 import { Box } from 'nft/components/Box'

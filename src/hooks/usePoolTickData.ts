@@ -1,8 +1,8 @@
-import { Currency } from '@uniswap/sdk-core'
-import { FeeAmount, nearestUsableTick, Pool, TICK_SPACINGS, tickToPrice } from '@uniswap/v3-sdk'
-import { useWeb3React } from '@web3-react/core'
-import { SupportedChainId } from 'constants/chains'
+// eslint-disable-next-line simple-import-sort/imports
 import { ZERO_ADDRESS } from 'constants/misc'
+import { Currency } from 'donex-sdk/sdk-core'
+import { FeeAmount, nearestUsableTick, Pool, tickToPrice, TICK_SPACINGS } from 'donex-sdk/v3-sdk'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import useAllV3TicksQuery, { TickData } from 'graphql/thegraph/AllV3TicksQuery'
 import JSBI from 'jsbi'
 import { useSingleContractMultipleData } from 'lib/hooks/multicall'
@@ -15,7 +15,6 @@ import { useTickLens } from './useContract'
 import { PoolState, usePool } from './usePools'
 
 const PRICE_FIXED_DIGITS = 8
-const CHAIN_IDS_MISSING_SUBGRAPH_DATA = [SupportedChainId.ARBITRUM_ONE, SupportedChainId.ARBITRUM_RINKEBY]
 
 // Tick with fields parsed to JSBIs, and active liquidity computed.
 export interface TickProcessed {
@@ -167,7 +166,7 @@ function useAllV3Ticks(
   error: unknown
   ticks: readonly TickData[] | undefined
 } {
-  const useSubgraph = currencyA ? !CHAIN_IDS_MISSING_SUBGRAPH_DATA.includes(currencyA.chainId) : true
+  const useSubgraph = false
 
   const tickLensTickData = useTicksFromTickLens(!useSubgraph ? currencyA : undefined, currencyB, feeAmount)
   const subgraphTickData = useTicksFromSubgraph(useSubgraph ? currencyA : undefined, currencyB, feeAmount)

@@ -1,6 +1,6 @@
-import { Percent } from '@uniswap/sdk-core'
 import { Slippage, SwapController, SwapEventHandlers } from '@uniswap/widgets'
 import { DEFAULT_DEADLINE_FROM_NOW } from 'constants/misc'
+import { Percent } from 'donex-sdk/sdk-core'
 import { useCallback, useMemo, useState } from 'react'
 import { useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks'
 

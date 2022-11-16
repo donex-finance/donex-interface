@@ -1,9 +1,9 @@
 import { Trans } from '@lingui/macro'
-import { useWeb3React } from '@web3-react/core'
 import { ElementName, Event, EventName } from 'analytics/constants'
 import { TraceEvent } from 'analytics/TraceEvent'
 import WalletDropdown from 'components/WalletDropdown'
 import { getConnection } from 'connection/utils'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { Portal } from 'nft/components/common/Portal'
 import { getIsValidSwapQuote } from 'pages/Swap'
 import { darken } from 'polished'
@@ -172,7 +172,7 @@ const CHEVRON_PROPS = {
 }
 
 function Web3StatusInner() {
-  const { account, connector, chainId, ENSName } = useWeb3React()
+  const { account, connector, chainId } = useWeb3React()
   const connectionType = getConnection(connector).type
   const {
     trade: { state: tradeState, trade },
@@ -197,7 +197,6 @@ function Web3StatusInner() {
 
   const hasPendingTransactions = !!pending.length
   const toggleWallet = toggleWalletDropdown
-
   if (!chainId) {
     return null
   } else if (error) {
@@ -226,7 +225,7 @@ function Web3StatusInner() {
           </RowBetween>
         ) : (
           <>
-            <Text>{ENSName || shortenAddress(account)}</Text>
+            <Text>{shortenAddress(account)}</Text>
             {walletIsOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
           </>
         )}
@@ -260,8 +259,6 @@ function Web3StatusInner() {
 }
 
 export default function Web3Status() {
-  const { ENSName } = useWeb3React()
-
   const allTransactions = useAllTransactions()
   const ref = useRef<HTMLDivElement>(null)
   const walletRef = useRef<HTMLDivElement>(null)
@@ -281,7 +278,7 @@ export default function Web3Status() {
   return (
     <span ref={ref}>
       <Web3StatusInner />
-      <WalletModal ENSName={ENSName ?? undefined} pendingTransactions={pending} confirmedTransactions={confirmed} />
+      <WalletModal pendingTransactions={pending} confirmedTransactions={confirmed} />
       <Portal>
         <span ref={walletRef}>
           <WalletDropdown />

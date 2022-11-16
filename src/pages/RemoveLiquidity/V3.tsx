@@ -1,9 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import type { TransactionResponse } from '@ethersproject/providers'
 import { Trans } from '@lingui/macro'
-import { CurrencyAmount, Percent } from '@uniswap/sdk-core'
-import { NonfungiblePositionManager } from '@uniswap/v3-sdk'
-import { useWeb3React } from '@web3-react/core'
 import { sendEvent } from 'components/analytics'
 import RangeBadge from 'components/Badge/RangeBadge'
 import { ButtonConfirmed, ButtonPrimary } from 'components/Button'
@@ -18,6 +14,10 @@ import { AddRemoveTabs } from 'components/NavigationTabs'
 import { AutoRow, RowBetween, RowFixed } from 'components/Row'
 import Slider from 'components/Slider'
 import Toggle from 'components/Toggle'
+import { toStarknetCall } from 'donex-sdk/redux-multicall/utils/callUtils'
+import { CurrencyAmount, Percent } from 'donex-sdk/sdk-core'
+import { NonfungiblePositionManager } from 'donex-sdk/v3-sdk'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useV3NFTPositionManagerContract } from 'hooks/useContract'
 import useDebouncedChangeHandler from 'hooks/useDebouncedChangeHandler'
 import useTransactionDeadline from 'hooks/useTransactionDeadline'
@@ -26,16 +26,16 @@ import useNativeCurrency from 'lib/hooks/useNativeCurrency'
 import { useCallback, useMemo, useState } from 'react'
 import { Navigate, useLocation, useParams } from 'react-router-dom'
 import { Text } from 'rebass'
+import { AccountInterface, InvokeFunctionResponse } from 'starknet'
 import { useBurnV3ActionHandlers, useBurnV3State, useDerivedV3BurnInfo } from 'state/burn/v3/hooks'
 import { useTransactionAdder } from 'state/transactions/hooks'
+import { TransactionType } from 'state/transactions/types'
 import { useUserSlippageToleranceWithDefault } from 'state/user/hooks'
 import { useTheme } from 'styled-components/macro'
 import { ThemedText } from 'theme'
 
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import { WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
-import { TransactionType } from '../../state/transactions/types'
-import { calculateGasMargin } from '../../utils/calculateGasMargin'
 import { currencyId } from '../../utils/currencyId'
 import AppBody from '../AppBody'
 import { ResponsiveHeaderText, SmallMaxButton, Wrapper } from './styled'
@@ -115,7 +115,7 @@ function Remove({ tokenId }: { tokenId: BigNumber }) {
 
     // we fall back to expecting 0 fees in case the fetch fails, which is safe in the
     // vast majority of cases
-    const { calldata, value } = NonfungiblePositionManager.removeCallParameters(positionSDK, {
+    const { calldata, calldatas, value } = NonfungiblePositionManager.removeCallParameters(positionSDK, {
       tokenId: tokenId.toString(),
       liquidityPercentage,
       slippageTolerance: allowedSlippage,
@@ -127,40 +127,37 @@ function Remove({ tokenId }: { tokenId: BigNumber }) {
       },
     })
 
-    const txn = {
-      to: positionManager.address,
-      data: calldata,
-      value,
-    }
-
-    provider
-      .getSigner()
-      .estimateGas(txn)
-      .then((estimate) => {
-        const newTxn = {
-          ...txn,
-          gasLimit: calculateGasMargin(estimate),
-        }
-
-        return provider
-          .getSigner()
-          .sendTransaction(newTxn)
-          .then((response: TransactionResponse) => {
-            sendEvent({
-              category: 'Liquidity',
-              action: 'RemoveV3',
-              label: [liquidityValue0.currency.symbol, liquidityValue1.currency.symbol].join('/'),
-            })
-            setTxnHash(response.hash)
-            setAttemptingTxn(false)
-            addTransaction(response, {
-              type: TransactionType.REMOVE_LIQUIDITY_V3,
-              baseCurrencyId: currencyId(liquidityValue0.currency),
-              quoteCurrencyId: currencyId(liquidityValue1.currency),
-              expectedAmountBaseRaw: liquidityValue0.quotient.toString(),
-              expectedAmountQuoteRaw: liquidityValue1.quotient.toString(),
-            })
+    const txn = calldata
+      ? toStarknetCall({
+          address: positionManager.address,
+          callData: calldata,
+        })
+      : calldatas
+      ? calldatas.map((v) =>
+          toStarknetCall({
+            address: positionManager.address,
+            callData: v,
           })
+        )
+      : []
+
+    return ((provider as any).provider as AccountInterface)
+      .execute(txn)
+      .then((response: InvokeFunctionResponse) => {
+        setAttemptingTxn(false)
+        addTransaction(response, {
+          type: TransactionType.REMOVE_LIQUIDITY_V3,
+          baseCurrencyId: currencyId(liquidityValue0.currency),
+          quoteCurrencyId: currencyId(liquidityValue1.currency),
+          expectedAmountBaseRaw: liquidityValue0.quotient.toString(),
+          expectedAmountQuoteRaw: liquidityValue1.quotient.toString(),
+        })
+        setTxnHash(response.transaction_hash)
+        sendEvent({
+          category: 'Liquidity',
+          action: 'RemoveV3',
+          label: [liquidityValue0.currency.symbol, liquidityValue1.currency.symbol].join('/'),
+        })
       })
       .catch((error) => {
         setAttemptingTxn(false)

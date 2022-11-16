@@ -1,4 +1,4 @@
-import { isAddress } from '@ethersproject/address'
+import { isAddress } from 'utils'
 
 /**
  * Shortens an Ethereum address by N characters
@@ -11,7 +11,7 @@ export function shortenAddress(address: string, charsStart = 4, charsEnd?: numbe
   const parsed = isAddress(address)
   if (!parsed) throw Error(`Invalid 'address' parameter '${address}'.`)
 
-  return `${address.substring(0, charsStart + 2)}...${address.substring(42 - (charsEnd || charsStart))}`
+  return `${address.substring(0, charsStart + 2)}...${address.substring(66 - (charsEnd || charsStart))}`
 }
 
 export function shortenEnsName(name?: string): string | undefined {

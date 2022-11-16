@@ -1,6 +1,6 @@
-import { Connector } from '@web3-react/types'
-import { Connection, gnosisSafeConnection, networkConnection } from 'connection'
+import { Connection, networkConnection } from 'connection'
 import { getConnection } from 'connection/utils'
+import { Connector } from 'donex-sdk/web3-react/types'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { updateSelectedWallet } from 'state/user/reducer'
@@ -32,7 +32,6 @@ export default function useEagerlyConnect() {
   }
 
   useEffect(() => {
-    connect(gnosisSafeConnection.connector)
     connect(networkConnection.connector)
 
     if (selectedConnection) {

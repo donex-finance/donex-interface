@@ -1,5 +1,5 @@
-import { Currency } from '@uniswap/sdk-core'
-import { useWeb3React } from '@web3-react/core'
+import { Currency } from 'donex-sdk/sdk-core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useMemo } from 'react'
 import { useCombinedActiveList } from 'state/lists/hooks'
 

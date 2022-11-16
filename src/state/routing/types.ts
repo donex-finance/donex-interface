@@ -1,7 +1,6 @@
-import { MixedRouteSDK, Trade } from '@uniswap/router-sdk'
-import { Currency, CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core'
-import { Route as V2Route } from '@uniswap/v2-sdk'
-import { Route as V3Route } from '@uniswap/v3-sdk'
+import { Trade } from 'donex-sdk/router-sdk'
+import { Currency, CurrencyAmount, Token, TradeType } from 'donex-sdk/sdk-core'
+import { Route as V3Route } from 'donex-sdk/v3-sdk'
 
 export enum TradeState {
   LOADING,
@@ -64,22 +63,14 @@ export class InterfaceTrade<
   }: {
     gasUseEstimateUSD?: CurrencyAmount<Token> | undefined | null
     blockNumber?: string | null | undefined
-    v2Routes: {
-      routev2: V2Route<TInput, TOutput>
-      inputAmount: CurrencyAmount<TInput>
-      outputAmount: CurrencyAmount<TOutput>
-    }[]
+    v2Routes: []
     v3Routes: {
       routev3: V3Route<TInput, TOutput>
       inputAmount: CurrencyAmount<TInput>
       outputAmount: CurrencyAmount<TOutput>
     }[]
     tradeType: TTradeType
-    mixedRoutes?: {
-      mixedRoute: MixedRouteSDK<TInput, TOutput>
-      inputAmount: CurrencyAmount<TInput>
-      outputAmount: CurrencyAmount<TOutput>
-    }[]
+    mixedRoutes?: []
   }) {
     super(routes)
     this.blockNumber = blockNumber

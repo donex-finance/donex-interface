@@ -1,7 +1,4 @@
 import { Trans } from '@lingui/macro'
-import { Trade } from '@uniswap/router-sdk'
-import { Currency, CurrencyAmount, Percent, Token, TradeType } from '@uniswap/sdk-core'
-import { useWeb3React } from '@web3-react/core'
 import { sendAnalyticsEvent } from 'analytics'
 import { ElementName, Event, EventName, PageName, SectionName } from 'analytics/constants'
 import { Trace } from 'analytics/Trace'
@@ -12,9 +9,11 @@ import { NetworkAlert } from 'components/NetworkAlert/NetworkAlert'
 import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
-import TokenSafetyModal from 'components/TokenSafety/TokenSafetyModal'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
+import { Trade } from 'donex-sdk/router-sdk'
+import { Currency, CurrencyAmount, Percent, Token, TradeType } from 'donex-sdk/sdk-core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useSwapCallback } from 'hooks/useSwapCallback'
 import JSBI from 'jsbi'
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
@@ -44,7 +43,6 @@ import { ApprovalState, useApproveCallbackFromTrade } from '../../hooks/useAppro
 import useENSAddress from '../../hooks/useENSAddress'
 import { useIsSwapUnsupported } from '../../hooks/useIsSwapUnsupported'
 import { useStablecoinValue } from '../../hooks/useStablecoinPrice'
-import useWrapCallback, { WrapErrorText, WrapType } from '../../hooks/useWrapCallback'
 import { Field } from '../../state/swap/actions'
 import {
   useDefaultsFromURLSearch,
@@ -197,27 +195,14 @@ export default function Swap() {
     currencies,
     inputError: swapInputError,
   } = useDerivedSwapInfo()
-
-  const {
-    wrapType,
-    execute: onWrap,
-    inputError: wrapInputError,
-  } = useWrapCallback(currencies[Field.INPUT], currencies[Field.OUTPUT], typedValue)
-  const showWrap: boolean = wrapType !== WrapType.NOT_APPLICABLE
   const { address: recipientAddress } = useENSAddress(recipient)
 
   const parsedAmounts = useMemo(
-    () =>
-      showWrap
-        ? {
-            [Field.INPUT]: parsedAmount,
-            [Field.OUTPUT]: parsedAmount,
-          }
-        : {
-            [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
-            [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
-          },
-    [independentField, parsedAmount, showWrap, trade]
+    () => ({
+      [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
+      [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
+    }),
+    [independentField, parsedAmount, trade]
   )
 
   const [routeNotFound, routeIsLoading, routeIsSyncing] = useMemo(
@@ -270,6 +255,7 @@ export default function Swap() {
     txHash: undefined,
   })
 
+  const showWrap = false
   const formattedAmounts = useMemo(
     () => ({
       [independentField]: typedValue,
@@ -277,7 +263,7 @@ export default function Swap() {
         ? parsedAmounts[independentField]?.toExact() ?? ''
         : formatTransactionAmount(currencyAmountToPreciseFloat(parsedAmounts[dependentField])),
     }),
-    [dependentField, independentField, parsedAmounts, showWrap, typedValue]
+    [dependentField, independentField, parsedAmounts, typedValue]
   )
 
   const userHasSpecifiedInputOutput = Boolean(
@@ -471,14 +457,14 @@ export default function Swap() {
   return (
     <Trace page={PageName.SWAP_PAGE} shouldLogImpression>
       <>
-        <TokenSafetyModal
+        {/* <TokenSafetyModal
           isOpen={importTokensNotInDefault.length > 0 && !dismissTokenWarning}
           tokenAddress={importTokensNotInDefault[0]?.address}
           secondTokenAddress={importTokensNotInDefault[1]?.address}
           onContinue={handleConfirmTokenWarning}
           onCancel={handleDismissTokenWarning}
           showCancel={true}
-        />
+        /> */}
         <PageWrapper>
           <SwapWrapper id="swap-page">
             <SwapHeader allowedSlippage={allowedSlippage} />
@@ -618,16 +604,6 @@ export default function Swap() {
                       <Trans>Connect Wallet</Trans>
                     </ButtonLight>
                   </TraceEvent>
-                ) : showWrap ? (
-                  <ButtonPrimary disabled={Boolean(wrapInputError)} onClick={onWrap} fontWeight={600}>
-                    {wrapInputError ? (
-                      <WrapErrorText wrapInputError={wrapInputError} />
-                    ) : wrapType === WrapType.WRAP ? (
-                      <Trans>Wrap</Trans>
-                    ) : wrapType === WrapType.UNWRAP ? (
-                      <Trans>Unwrap</Trans>
-                    ) : null}
-                  </ButtonPrimary>
                 ) : routeNotFound && userHasSpecifiedInputOutput && !routeIsLoading && !routeIsSyncing ? (
                   <GreyCard style={{ textAlign: 'center' }}>
                     <ThemedText.DeprecatedMain mb="4px">

@@ -1,6 +1,7 @@
+// eslint-disable-next-line simple-import-sort/imports
 import { SupportedChainId } from 'constants/chains'
 import { ZERO_ADDRESS } from 'constants/misc'
-import { NATIVE_CHAIN_ID, nativeOnChain, WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
+import { nativeOnChain, NATIVE_CHAIN_ID, WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 
 import { Chain, HistoryDuration } from './__generated__/TopTokens100Query.graphql'
 
@@ -28,16 +29,8 @@ export function toHistoryDuration(timePeriod: TimePeriod): HistoryDuration {
 }
 
 export const CHAIN_ID_TO_BACKEND_NAME: { [key: number]: Chain } = {
-  [SupportedChainId.MAINNET]: 'ETHEREUM',
-  [SupportedChainId.GOERLI]: 'ETHEREUM_GOERLI',
-  [SupportedChainId.POLYGON]: 'POLYGON',
-  [SupportedChainId.POLYGON_MUMBAI]: 'POLYGON',
-  [SupportedChainId.CELO]: 'CELO',
-  [SupportedChainId.CELO_ALFAJORES]: 'CELO',
-  [SupportedChainId.ARBITRUM_ONE]: 'ARBITRUM',
-  [SupportedChainId.ARBITRUM_RINKEBY]: 'ARBITRUM',
-  [SupportedChainId.OPTIMISM]: 'OPTIMISM',
-  [SupportedChainId.OPTIMISM_GOERLI]: 'OPTIMISM',
+  [SupportedChainId.MAINNET]: 'STARKNET_MAINNET',
+  [SupportedChainId.TESTNET]: 'STARKNET_TESTNET',
 }
 
 export function chainIdToBackendName(chainId: number | undefined) {
@@ -46,27 +39,17 @@ export function chainIdToBackendName(chainId: number | undefined) {
     : CHAIN_ID_TO_BACKEND_NAME[SupportedChainId.MAINNET]
 }
 
-export const URL_CHAIN_PARAM_TO_BACKEND: { [key: string]: Chain } = {
-  ethereum: 'ETHEREUM',
-  polygon: 'POLYGON',
-  celo: 'CELO',
-  arbitrum: 'ARBITRUM',
-  optimism: 'OPTIMISM',
-}
+export const URL_CHAIN_PARAM_TO_BACKEND: { [key: string]: Chain } = {}
 
 export function validateUrlChainParam(chainName: string | undefined) {
-  return chainName && URL_CHAIN_PARAM_TO_BACKEND[chainName] ? URL_CHAIN_PARAM_TO_BACKEND[chainName] : 'ETHEREUM'
+  return chainName && URL_CHAIN_PARAM_TO_BACKEND[chainName] ? URL_CHAIN_PARAM_TO_BACKEND[chainName] : 'STARKNET_MAINNET'
 }
 
 export const CHAIN_NAME_TO_CHAIN_ID: { [key: string]: SupportedChainId } = {
-  ETHEREUM: SupportedChainId.MAINNET,
-  POLYGON: SupportedChainId.POLYGON,
-  CELO: SupportedChainId.CELO,
-  ARBITRUM: SupportedChainId.ARBITRUM_ONE,
-  OPTIMISM: SupportedChainId.OPTIMISM,
+  STARKNET_MAINNET: SupportedChainId.MAINNET,
 }
 
-export const BACKEND_CHAIN_NAMES: Chain[] = ['ETHEREUM', 'POLYGON', 'OPTIMISM', 'ARBITRUM', 'CELO']
+export const BACKEND_CHAIN_NAMES: Chain[] = ['STARKNET_MAINNET']
 
 export function isValidBackendChainName(chainName: string | undefined): chainName is Chain {
   if (!chainName) return false

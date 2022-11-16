@@ -1,12 +1,10 @@
-import { useWeb3React } from '@web3-react/core'
+import ARGENTX_WALLET_ICON_URL from 'assets/images/argentXWalletIcon.svg'
+import BRAAVOS_WALLET_ICON_URL from 'assets/images/braavosWalletIcon.svg'
 import { ConnectionType } from 'connection'
-import useENSAvatar from 'hooks/useENSAvatar'
+import { useHasSocks } from 'hooks/useSocksBalance'
 import styled from 'styled-components/macro'
 
-import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
-import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
 import sockImg from '../../assets/svg/socks.svg'
-import { useHasSocks } from '../../hooks/useSocksBalance'
 import Identicon from '../Identicon'
 
 const IconWrapper = styled.div<{ size?: number }>`
@@ -50,18 +48,13 @@ const Socks = () => {
 }
 
 const useIcon = (connectionType: ConnectionType) => {
-  const { account } = useWeb3React()
-  const { avatar } = useENSAvatar(account ?? undefined)
-
-  if (avatar || connectionType === ConnectionType.INJECTED) {
+  if (connectionType === ConnectionType.ARGENTX_WALLET) {
+    return <img src={ARGENTX_WALLET_ICON_URL} alt="WalletConnect" />
+  } else if (connectionType === ConnectionType.BRAAVOS_WALLET) {
+    return <img src={BRAAVOS_WALLET_ICON_URL} alt="Coinbase Wallet" />
+  } else {
     return <Identicon />
-  } else if (connectionType === ConnectionType.WALLET_CONNECT) {
-    return <img src={WalletConnectIcon} alt="WalletConnect" />
-  } else if (connectionType === ConnectionType.COINBASE_WALLET) {
-    return <img src={CoinbaseWalletIcon} alt="Coinbase Wallet" />
   }
-
-  return undefined
 }
 
 export default function StatusIcon({ connectionType, size }: { connectionType: ConnectionType; size?: number }) {

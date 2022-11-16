@@ -1,105 +1,37 @@
-import { FACTORY_ADDRESS as V3_FACTORY_ADDRESS } from '@uniswap/v3-sdk'
+import { FACTORY_ADDRESS as V3_FACTORY_ADDRESS } from 'donex-sdk/v3-sdk'
 
 import { constructSameAddressMap } from '../utils/constructSameAddressMap'
 import { SupportedChainId } from './chains'
 
 type AddressMap = { [chainId: number]: string }
 
-export const UNI_ADDRESS: AddressMap = constructSameAddressMap('0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984')
-
-// celo v3 addresses
-const CELO_V3_CORE_FACTORY_ADDRESSES = '0xAfE208a311B21f13EF87E33A90049fC17A7acDEc'
-const CELO_ROUTER_ADDRESS = '0x5615CDAb10dc425a742d643d949a7F474C01abc4'
-const CELO_V3_MIGRATOR_ADDRESSES = '0x3cFd4d48EDfDCC53D3f173F596f621064614C582'
-const CELO_MULTICALL_ADDRESS = '0x633987602DE5C4F337e3DbF265303A1080324204'
-const CELO_QUOTER_ADDRESSES = '0x82825d0554fA07f7FC52Ab63c961F330fdEFa8E8'
-const CELO_NONFUNGIBLE_POSITION_MANAGER_ADDRESSES = '0x3d79EdAaBC0EaB6F08ED885C05Fc0B014290D95A'
-const CELO_TICK_LENS_ADDRESSES = '0x5f115D9113F88e0a0Db1b5033D90D4a9690AcD3D'
-
 /* V3 Contract Addresses */
 export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap(V3_FACTORY_ADDRESS, [
-    SupportedChainId.OPTIMISM,
-    SupportedChainId.OPTIMISM_GOERLI,
-    SupportedChainId.ARBITRUM_ONE,
-    SupportedChainId.ARBITRUM_RINKEBY,
-    SupportedChainId.POLYGON_MUMBAI,
-    SupportedChainId.POLYGON,
-  ]),
-  [SupportedChainId.CELO]: CELO_V3_CORE_FACTORY_ADDRESSES,
-  [SupportedChainId.CELO_ALFAJORES]: CELO_V3_CORE_FACTORY_ADDRESSES,
-}
-
-export const V3_MIGRATOR_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap('0xA5644E29708357803b5A882D272c41cC0dF92B34', [
-    SupportedChainId.ARBITRUM_ONE,
-    SupportedChainId.ARBITRUM_RINKEBY,
-    SupportedChainId.POLYGON_MUMBAI,
-    SupportedChainId.POLYGON,
-  ]),
-  [SupportedChainId.CELO]: CELO_V3_MIGRATOR_ADDRESSES,
-  [SupportedChainId.CELO_ALFAJORES]: CELO_V3_MIGRATOR_ADDRESSES,
+  ...constructSameAddressMap(V3_FACTORY_ADDRESS, []),
 }
 
 export const MULTICALL_ADDRESS: AddressMap = {
-  ...constructSameAddressMap('0x1F98415757620B543A52E61c46B32eB19261F984', [
-    SupportedChainId.OPTIMISM_GOERLI,
-    SupportedChainId.OPTIMISM,
-    SupportedChainId.POLYGON_MUMBAI,
-    SupportedChainId.POLYGON,
-  ]),
-  [SupportedChainId.ARBITRUM_ONE]: '0xadF885960B47eA2CD9B55E6DAc6B42b7Cb2806dB',
-  [SupportedChainId.ARBITRUM_RINKEBY]: '0xa501c031958F579dB7676fF1CE78AD305794d579',
-  [SupportedChainId.CELO]: CELO_MULTICALL_ADDRESS,
-  [SupportedChainId.CELO_ALFAJORES]: CELO_MULTICALL_ADDRESS,
+  [SupportedChainId.MAINNET]: '0x41838753cd8d2f0064f069ccc75793b1f374a7b86a0c122fb95a10dff223c98',
+  [SupportedChainId.TESTNET]: '0x41838753cd8d2f0064f069ccc75793b1f374a7b86a0c122fb95a10dff223c98',
 }
 
 export const SWAP_ROUTER_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap('0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', [
-    SupportedChainId.OPTIMISM,
-    SupportedChainId.OPTIMISM_GOERLI,
-    SupportedChainId.ARBITRUM_ONE,
-    SupportedChainId.ARBITRUM_RINKEBY,
-    SupportedChainId.POLYGON,
-    SupportedChainId.POLYGON_MUMBAI,
-  ]),
-  [SupportedChainId.CELO]: CELO_ROUTER_ADDRESS,
-  [SupportedChainId.CELO_ALFAJORES]: CELO_ROUTER_ADDRESS,
+  ...constructSameAddressMap('0x59b12dfeb4350cd811da70308a245bb8fb479cceccc9186d1f0c6d31bca1343', []),
 }
 
 export const QUOTER_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap('0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6', [
-    SupportedChainId.OPTIMISM,
-    SupportedChainId.OPTIMISM_GOERLI,
-    SupportedChainId.ARBITRUM_ONE,
-    SupportedChainId.ARBITRUM_RINKEBY,
-    SupportedChainId.POLYGON_MUMBAI,
-    SupportedChainId.POLYGON,
-  ]),
-  [SupportedChainId.CELO]: CELO_QUOTER_ADDRESSES,
-  [SupportedChainId.CELO_ALFAJORES]: CELO_QUOTER_ADDRESSES,
+  ...constructSameAddressMap('0x59b12dfeb4350cd811da70308a245bb8fb479cceccc9186d1f0c6d31bca1343', []),
 }
 
 export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap('0xC36442b4a4522E871399CD717aBDD847Ab11FE88', [
-    SupportedChainId.OPTIMISM,
-    SupportedChainId.OPTIMISM_GOERLI,
-    SupportedChainId.ARBITRUM_ONE,
-    SupportedChainId.ARBITRUM_RINKEBY,
-    SupportedChainId.POLYGON_MUMBAI,
-    SupportedChainId.POLYGON,
-  ]),
-  [SupportedChainId.CELO]: CELO_NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
-  [SupportedChainId.CELO_ALFAJORES]: CELO_NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
+  [SupportedChainId.MAINNET]: '0x59b12dfeb4350cd811da70308a245bb8fb479cceccc9186d1f0c6d31bca1343',
+  [SupportedChainId.TESTNET]: '0x59b12dfeb4350cd811da70308a245bb8fb479cceccc9186d1f0c6d31bca1343',
 }
 
 export const SOCKS_CONTROLLER_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x65770b5283117639760beA3F867b69b3697a91dd',
 }
 
-export const TICK_LENS_ADDRESSES: AddressMap = {
-  [SupportedChainId.ARBITRUM_ONE]: '0xbfd8137f7d1516D3ea5cA83523914859ec47F573',
-  [SupportedChainId.ARBITRUM_RINKEBY]: '0xbfd8137f7d1516D3ea5cA83523914859ec47F573',
-  [SupportedChainId.CELO]: CELO_TICK_LENS_ADDRESSES,
-  [SupportedChainId.CELO_ALFAJORES]: CELO_TICK_LENS_ADDRESSES,
-}
+export const TICK_LENS_ADDRESSES: AddressMap = {}
+
+export const AddressZero = ''

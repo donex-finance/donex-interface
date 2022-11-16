@@ -1,4 +1,4 @@
-import { useWeb3React } from '@web3-react/core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { atomWithImmer } from 'jotai/immer'
 import { useAtomValue } from 'jotai/utils'
 import { useCallback } from 'react'

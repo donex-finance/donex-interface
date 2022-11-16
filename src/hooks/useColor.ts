@@ -1,5 +1,5 @@
-import { Token } from '@uniswap/sdk-core'
 import { SupportedChainId } from 'constants/chains'
+import { Token } from 'donex-sdk/sdk-core'
 import uriToHttp from 'lib/utils/uriToHttp'
 import Vibrant from 'node-vibrant/lib/bundle.js'
 import { shade } from 'polished'

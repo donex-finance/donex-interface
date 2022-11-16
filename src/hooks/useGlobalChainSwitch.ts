@@ -1,6 +1,7 @@
-import { useWeb3React } from '@web3-react/core'
-import { Chain } from 'graphql/data/__generated__/TokenQuery.graphql'
+/* eslint-disable simple-import-sort/imports */
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { chainIdToBackendName } from 'graphql/data/util'
+import { Chain } from 'graphql/data/__generated__/TopTokens100Query.graphql'
 import { useEffect, useRef } from 'react'
 
 export const useOnGlobalChainSwitch = (callback: (chain: Chain) => void) => {

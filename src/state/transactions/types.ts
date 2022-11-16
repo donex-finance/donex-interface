@@ -1,14 +1,11 @@
-import { TradeType } from '@uniswap/sdk-core'
+import { TradeType } from 'donex-sdk/sdk-core'
+import { Status } from 'starknet'
 
 export interface SerializableTransactionReceipt {
-  to: string
-  from: string
-  contractAddress: string
-  transactionIndex: number
-  blockHash: string
-  transactionHash: string
-  blockNumber: number
-  status?: number
+  transaction_hash: string
+  status?: Status
+  actual_fee?: string
+  status_data?: string
 }
 
 /**

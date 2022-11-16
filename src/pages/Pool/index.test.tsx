@@ -4,8 +4,8 @@ import { render, screen } from 'test-utils'
 
 import Pool from '.'
 
-jest.mock('@web3-react/core', () => {
-  const web3React = jest.requireActual('@web3-react/core')
+jest.mock('donex-sdk/web3-react/core', () => {
+  const web3React = jest.requireActual('donex-sdk/web3-react/core')
   return {
     ...web3React,
     useWeb3React: () => ({

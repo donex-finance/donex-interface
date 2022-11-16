@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
-import { Currency, CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core'
 import { RowBetween } from 'components/Row'
 import { MouseoverTooltipContent } from 'components/Tooltip'
+import { Currency, CurrencyAmount, Token, TradeType } from 'donex-sdk/sdk-core'
 import { Info } from 'react-feather'
 import { InterfaceTrade } from 'state/routing/types'
 import styled from 'styled-components/macro'

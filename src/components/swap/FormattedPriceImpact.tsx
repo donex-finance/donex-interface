@@ -1,4 +1,4 @@
-import { Percent } from '@uniswap/sdk-core'
+import { Percent } from 'donex-sdk/sdk-core'
 
 import { warningSeverity } from '../../utils/prices'
 import { ErrorText } from './styleds'

@@ -1,6 +1,7 @@
-import { Currency, Token } from '@uniswap/sdk-core'
-import { useWeb3React } from '@web3-react/core'
 import { isSupportedChain } from 'constants/chains'
+import { feltToString } from 'donex-sdk/cc-core/utils/utils'
+import { Currency, Token } from 'donex-sdk/sdk-core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useTokenContract } from 'hooks/useContract'
 import { NEVER_RELOAD, useSingleCallResult } from 'lib/hooks/multicall'
 import useNativeCurrency from 'lib/hooks/useNativeCurrency'
@@ -29,15 +30,23 @@ export function useTokenFromActiveNetwork(tokenAddress: string | undefined): Tok
   const tokenName = useSingleCallResult(tokenContract, 'name', undefined, NEVER_RELOAD)
   const symbol = useSingleCallResult(tokenContract, 'symbol', undefined, NEVER_RELOAD)
   const decimals = useSingleCallResult(tokenContract, 'decimals', undefined, NEVER_RELOAD)
-
   const isLoading = useMemo(
     () => decimals.loading || symbol.loading || tokenName.loading,
     [decimals.loading, symbol.loading, tokenName.loading]
   )
-  const parsedDecimals = useMemo(() => decimals?.result?.[0] ?? DEFAULT_ERC20_DECIMALS, [decimals.result])
+  const parsedDecimals = useMemo(
+    () => (decimals?.result ? decimals.result.decimals.toNumber() : DEFAULT_ERC20_DECIMALS),
+    [decimals.result]
+  )
 
-  const parsedSymbol = useMemo(() => parseStringOrBytes32(symbol.result?.[0], 'UNKNOWN'), [symbol.result])
-  const parsedName = useMemo(() => parseStringOrBytes32(tokenName.result?.[0], 'Unknown Token'), [tokenName.result])
+  const parsedSymbol = useMemo(
+    () => parseStringOrBytes32(feltToString(symbol.result?.symbol), 'UNKNOWN'),
+    [symbol.result]
+  )
+  const parsedName = useMemo(
+    () => parseStringOrBytes32(feltToString(tokenName.result?.name), 'Unknown Token'),
+    [tokenName.result]
+  )
 
   return useMemo(() => {
     // If the token is on another chain, we cannot fetch it on-chain, and it is invalid.
@@ -59,7 +68,7 @@ export function useTokenFromMapOrNetwork(tokens: TokenMap, tokenAddress?: string
   const address = isAddress(tokenAddress)
   const token: Token | undefined = address ? tokens[address] : undefined
   const tokenFromNetwork = useTokenFromActiveNetwork(token ? undefined : address ? address : undefined)
-
+  if (tokenFromNetwork?.symbol === 'UNKNOWN') return token
   return tokenFromNetwork ?? token
 }
 

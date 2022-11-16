@@ -1,12 +1,11 @@
 import { Trans } from '@lingui/macro'
-import { Protocol } from '@uniswap/router-sdk'
-import { Currency } from '@uniswap/sdk-core'
-import { FeeAmount } from '@uniswap/v3-sdk'
 import Badge from 'components/Badge'
 import CurrencyLogo from 'components/CurrencyLogo'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
 import Row, { AutoRow } from 'components/Row'
 import { RoutingDiagramEntry } from 'components/swap/SwapRoute'
+import { Currency } from 'donex-sdk/sdk-core'
+import { FeeAmount } from 'donex-sdk/v3-sdk'
 import { useTokenInfoFromActiveList } from 'hooks/useTokenInfoFromActiveList'
 import { Box } from 'rebass'
 import styled from 'styled-components/macro'
@@ -115,15 +114,10 @@ function Route({ entry: { percent, path, protocol } }: { entry: RoutingDiagramEn
         <DotColor />
       </DottedLine>
       <OpaqueBadge>
-        {protocol === Protocol.MIXED ? (
-          <MixedProtocolBadge>
-            <BadgeText fontSize={12}>{'V3 + V2'}</BadgeText>
-          </MixedProtocolBadge>
-        ) : (
-          <ProtocolBadge>
-            <BadgeText fontSize={12}>{protocol.toUpperCase()}</BadgeText>
-          </ProtocolBadge>
-        )}
+        <ProtocolBadge>
+          <BadgeText fontSize={12}>{protocol.toUpperCase()}</BadgeText>
+        </ProtocolBadge>
+
         <BadgeText fontSize={14} style={{ minWidth: 'auto' }}>
           {percent.toSignificant(2)}%
         </BadgeText>

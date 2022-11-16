@@ -1,23 +1,23 @@
-import type { TransactionResponse } from '@ethersproject/providers'
-import { Token } from '@uniswap/sdk-core'
-import { useWeb3React } from '@web3-react/core'
+import { Token } from 'donex-sdk/sdk-core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useCallback, useMemo } from 'react'
+import { InvokeFunctionResponse } from 'starknet'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 
 import { addTransaction } from './reducer'
 import { TransactionDetails, TransactionInfo, TransactionType } from './types'
 
 // helper that can take a ethers library transaction response and add it to the list of transactions
-export function useTransactionAdder(): (response: TransactionResponse, info: TransactionInfo) => void {
+export function useTransactionAdder(): (response: InvokeFunctionResponse, info: TransactionInfo) => void {
   const { chainId, account } = useWeb3React()
   const dispatch = useAppDispatch()
 
   return useCallback(
-    (response: TransactionResponse, info: TransactionInfo) => {
+    (response: InvokeFunctionResponse, info: TransactionInfo) => {
       if (!account) return
       if (!chainId) return
 
-      const { hash } = response
+      const { transaction_hash: hash } = response
       if (!hash) {
         throw Error('No transaction hash found.')
       }

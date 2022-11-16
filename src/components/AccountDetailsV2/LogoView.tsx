@@ -1,4 +1,4 @@
-import { useWeb3React } from '@web3-react/core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { TransactionInfo, TransactionType } from 'state/transactions/types'
 import styled, { css } from 'styled-components/macro'
 

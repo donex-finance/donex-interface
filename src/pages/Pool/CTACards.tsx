@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
-import { useWeb3React } from '@web3-react/core'
 import { AutoColumn } from 'components/Column'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import styled from 'styled-components/macro'
 import { ThemedText } from 'theme'
 

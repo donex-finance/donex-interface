@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro'
-import { Percent } from '@uniswap/sdk-core'
 import { OutlineCard } from 'components/Card'
+import { Percent } from 'donex-sdk/sdk-core'
 import styled, { useTheme } from 'styled-components/macro'
 import { opacify } from 'theme/utils'
 

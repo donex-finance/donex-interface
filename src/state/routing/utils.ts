@@ -1,6 +1,6 @@
-import { Protocol } from '@uniswap/router-sdk'
-import { Currency, CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core'
-import { FeeAmount, Pool, Route as V3Route } from '@uniswap/v3-sdk'
+import { Protocol } from 'donex-sdk/router-sdk'
+import { Currency, CurrencyAmount, Token, TradeType } from 'donex-sdk/sdk-core'
+import { FeeAmount, Pool, Route as V3Route } from 'donex-sdk/v3-sdk'
 
 import { nativeOnChain } from '../../constants/tokens'
 import { GetQuoteResult, InterfaceTrade, V3PoolInRoute } from './types'
@@ -70,21 +70,12 @@ export function transformRoutesToTrade<TTradeType extends TradeType>(
   gasUseEstimateUSD?: CurrencyAmount<Token> | null
 ): InterfaceTrade<Currency, Currency, TTradeType> {
   return new InterfaceTrade({
-    v2Routes:
-      route
-        ?.filter((r): r is typeof route[0] & { routev2: NonNullable<typeof route[0]['routev2']> } => r.routev2 !== null)
-        .map(({ routev2, inputAmount, outputAmount }) => ({ routev2, inputAmount, outputAmount })) ?? [],
+    v2Routes: [],
     v3Routes:
       route
         ?.filter((r): r is typeof route[0] & { routev3: NonNullable<typeof route[0]['routev3']> } => r.routev3 !== null)
         .map(({ routev3, inputAmount, outputAmount }) => ({ routev3, inputAmount, outputAmount })) ?? [],
-    mixedRoutes:
-      route
-        ?.filter(
-          (r): r is typeof route[0] & { mixedRoute: NonNullable<typeof route[0]['mixedRoute']> } =>
-            r.mixedRoute !== null
-        )
-        .map(({ mixedRoute, inputAmount, outputAmount }) => ({ mixedRoute, inputAmount, outputAmount })) ?? [],
+    mixedRoutes: [],
     tradeType,
     gasUseEstimateUSD,
     blockNumber,

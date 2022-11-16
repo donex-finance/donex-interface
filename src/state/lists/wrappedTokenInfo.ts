@@ -1,5 +1,5 @@
-import { Currency, Token } from '@uniswap/sdk-core'
-import { Tags, TokenInfo, TokenList } from '@uniswap/token-lists'
+import { Currency, Token } from 'donex-sdk/sdk-core'
+import { Tags, TokenInfo, TokenList } from 'donex-sdk/token-lists'
 
 import { isAddress } from '../../utils'
 

@@ -5,12 +5,11 @@ import {
   TransactionInfo,
   TransactionType as WidgetTransactionType,
 } from '@uniswap/widgets'
-import { useWeb3React } from '@web3-react/core'
 import { sendAnalyticsEvent } from 'analytics'
 import { EventName, SectionName } from 'analytics/constants'
 import { useTrace } from 'analytics/Trace'
-import { formatToDecimal, getTokenAddress } from 'analytics/utils'
-import { formatSwapSignedAnalyticsEventProperties } from 'analytics/utils'
+import { formatSwapSignedAnalyticsEventProperties, formatToDecimal, getTokenAddress } from 'analytics/utils'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { WrapType } from 'hooks/useWrapCallback'
 import { useCallback, useMemo } from 'react'
 import { useTransactionAdder } from 'state/transactions/hooks'
@@ -40,20 +39,20 @@ export function useSyncWidgetTransactions() {
 
         const eventProperties = {
           // get this info from widget handlers
-          token_in_address: getTokenAddress(transactionAmount.currency),
+          token_in_address: getTokenAddress(transactionAmount.currency as any),
           token_out_address: getTokenAddress(transactionAmount.currency.wrapped),
           token_in_symbol: transactionAmount.currency.symbol,
           token_out_symbol: transactionAmount.currency.wrapped.symbol,
           chain_id: transactionAmount.currency.chainId,
           amount: transactionAmount
-            ? formatToDecimal(transactionAmount, transactionAmount?.currency.decimals)
+            ? formatToDecimal(transactionAmount as any, transactionAmount?.currency.decimals)
             : undefined,
           type: type === WidgetTransactionType.WRAP ? WrapType.WRAP : WrapType.UNWRAP,
           ...trace,
         }
         sendAnalyticsEvent(EventName.WRAP_TOKEN_TXN_SUBMITTED, eventProperties)
         const { amount } = transaction.info
-        addTransaction(response, {
+        addTransaction({ transaction_hash: response.hash }, {
           type: AppTransactionType.WRAP,
           unwrapped: type === WidgetTransactionType.UNWRAP,
           currencyAmountRaw: amount.quotient.toString(),
@@ -64,7 +63,7 @@ export function useSyncWidgetTransactions() {
 
         const eventProperties = {
           ...formatSwapSignedAnalyticsEventProperties({
-            trade,
+            trade: trade as any,
             txHash: transaction.receipt?.transactionHash ?? '',
           }),
           ...trace,
@@ -73,18 +72,18 @@ export function useSyncWidgetTransactions() {
         const baseTxInfo = {
           type: AppTransactionType.SWAP,
           tradeType,
-          inputCurrencyId: currencyId(trade.inputAmount.currency),
-          outputCurrencyId: currencyId(trade.outputAmount.currency),
+          inputCurrencyId: currencyId(trade.inputAmount.currency as any),
+          outputCurrencyId: currencyId(trade.outputAmount.currency as any),
         }
         if (tradeType === TradeType.EXACT_OUTPUT) {
-          addTransaction(response, {
+          addTransaction({ transaction_hash: response.hash }, {
             ...baseTxInfo,
             maximumInputCurrencyAmountRaw: trade.maximumAmountIn(slippageTolerance).quotient.toString(),
             outputCurrencyAmountRaw: trade.outputAmount.quotient.toString(),
             expectedInputCurrencyAmountRaw: trade.inputAmount.quotient.toString(),
           } as ExactOutputSwapTransactionInfo)
         } else {
-          addTransaction(response, {
+          addTransaction({ transaction_hash: response.hash }, {
             ...baseTxInfo,
             inputCurrencyAmountRaw: trade.inputAmount.quotient.toString(),
             expectedOutputCurrencyAmountRaw: trade.outputAmount.quotient.toString(),

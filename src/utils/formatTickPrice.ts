@@ -1,4 +1,4 @@
-import { Price, Token } from '@uniswap/sdk-core'
+import { Price, Token } from 'donex-sdk/sdk-core'
 
 import { Bound } from '../state/mint/v3/actions'
 import { formatPrice } from './formatCurrencyAmount'

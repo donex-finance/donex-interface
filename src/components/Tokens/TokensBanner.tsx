@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
-import { useWeb3React } from '@web3-react/core'
 import { ElementName, Event, EventName } from 'analytics/constants'
 import { TraceEvent } from 'analytics/TraceEvent'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { chainIdToBackendName } from 'graphql/data/util'
 import { X } from 'react-feather'
 import { Link } from 'react-router-dom'

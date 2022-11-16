@@ -1,9 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import type { TransactionResponse } from '@ethersproject/providers'
 import { Trans } from '@lingui/macro'
-import { Currency, CurrencyAmount, Fraction, Percent, Price, Token } from '@uniswap/sdk-core'
-import { NonfungiblePositionManager, Pool, Position } from '@uniswap/v3-sdk'
-import { useWeb3React } from '@web3-react/core'
 import { PageName } from 'analytics/constants'
 import { Trace } from 'analytics/Trace'
 import { sendEvent } from 'components/analytics'
@@ -18,10 +14,15 @@ import { RowBetween, RowFixed } from 'components/Row'
 import { Dots } from 'components/swap/styleds'
 import Toggle from 'components/Toggle'
 import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
+import { toStarknetCall } from 'donex-sdk/redux-multicall/utils/callUtils'
+import { Currency, CurrencyAmount, Fraction, Percent, Price, Token } from 'donex-sdk/sdk-core'
+import { NonfungiblePositionManager, Pool, Position } from 'donex-sdk/v3-sdk'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useToken } from 'hooks/Tokens'
 import { useV3NFTPositionManagerContract } from 'hooks/useContract'
 import useIsTickAtLimit from 'hooks/useIsTickAtLimit'
 import { PoolState, usePool } from 'hooks/usePools'
+import { usePositionTokenURI } from 'hooks/usePositionTokenURI'
 import useStablecoinPrice from 'hooks/useStablecoinPrice'
 import { useV3PositionFees } from 'hooks/useV3PositionFees'
 import { useV3PositionFromTokenId } from 'hooks/useV3Positions'
@@ -29,10 +30,14 @@ import { useSingleCallResult } from 'lib/hooks/multicall'
 import useNativeCurrency from 'lib/hooks/useNativeCurrency'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { InvokeFunctionResponse } from 'starknet'
+import { toHex } from 'starknet/utils/number'
+import { bnToUint256 } from 'starknet/utils/uint256'
 import { Bound } from 'state/mint/v3/actions'
 import { useIsTransactionPending, useTransactionAdder } from 'state/transactions/hooks'
 import styled, { useTheme } from 'styled-components/macro'
 import { ExternalLink, HideExtraSmall, ThemedText } from 'theme'
+import { isAddress } from 'utils'
 import { currencyId } from 'utils/currencyId'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
 import { formatTickPrice } from 'utils/formatTickPrice'
@@ -42,9 +47,7 @@ import RangeBadge from '../../components/Badge/RangeBadge'
 import { getPriceOrderingFromPositionForUI } from '../../components/PositionListItem'
 import RateToggle from '../../components/RateToggle'
 import { SwitchLocaleLink } from '../../components/SwitchLocaleLink'
-import { usePositionTokenURI } from '../../hooks/usePositionTokenURI'
 import { TransactionType } from '../../state/transactions/types'
-import { calculateGasMargin } from '../../utils/calculateGasMargin'
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
 import { LoadingRows } from './styleds'
 
@@ -456,44 +459,32 @@ export function PositionPage() {
       recipient: account,
     })
 
-    const txn = {
-      to: positionManager.address,
-      data: calldata,
-      value,
-    }
+    const tx = toStarknetCall({
+      address: positionManager.address,
+      callData: calldata,
+    })
 
-    provider
-      .getSigner()
-      .estimateGas(txn)
-      .then((estimate) => {
-        const newTxn = {
-          ...txn,
-          gasLimit: calculateGasMargin(estimate),
-        }
+    return (provider as any)
+      .execute(tx)
+      .then((response: InvokeFunctionResponse) => {
+        setCollectMigrationHash(response.transaction_hash)
+        setCollecting(false)
 
-        return provider
-          .getSigner()
-          .sendTransaction(newTxn)
-          .then((response: TransactionResponse) => {
-            setCollectMigrationHash(response.hash)
-            setCollecting(false)
+        sendEvent({
+          category: 'Liquidity',
+          action: 'CollectV3',
+          label: [currency0ForFeeCollectionPurposes.symbol, currency1ForFeeCollectionPurposes.symbol].join('/'),
+        })
 
-            sendEvent({
-              category: 'Liquidity',
-              action: 'CollectV3',
-              label: [currency0ForFeeCollectionPurposes.symbol, currency1ForFeeCollectionPurposes.symbol].join('/'),
-            })
-
-            addTransaction(response, {
-              type: TransactionType.COLLECT_FEES,
-              currencyId0: currencyId(currency0ForFeeCollectionPurposes),
-              currencyId1: currencyId(currency1ForFeeCollectionPurposes),
-              expectedCurrencyOwed0: CurrencyAmount.fromRawAmount(currency0ForFeeCollectionPurposes, 0).toExact(),
-              expectedCurrencyOwed1: CurrencyAmount.fromRawAmount(currency1ForFeeCollectionPurposes, 0).toExact(),
-            })
-          })
+        addTransaction(response, {
+          type: TransactionType.COLLECT_FEES,
+          currencyId0: currencyId(currency0ForFeeCollectionPurposes),
+          currencyId1: currencyId(currency1ForFeeCollectionPurposes),
+          expectedCurrencyOwed0: CurrencyAmount.fromRawAmount(currency0ForFeeCollectionPurposes, 0).toExact(),
+          expectedCurrencyOwed1: CurrencyAmount.fromRawAmount(currency1ForFeeCollectionPurposes, 0).toExact(),
+        })
       })
-      .catch((error) => {
+      .catch((error: any) => {
         setCollecting(false)
         console.error(error)
       })
@@ -510,7 +501,10 @@ export function PositionPage() {
     provider,
   ])
 
-  const owner = useSingleCallResult(!!tokenId ? positionManager : null, 'ownerOf', [tokenId]).result?.[0]
+  const { result } = useSingleCallResult(!!tokenId ? positionManager : null, 'ownerOf', [
+    bnToUint256(tokenId?.toString() || 0),
+  ])
+  const owner = isAddress(result ? toHex(result.owner) : '')
   const ownsNFT = owner === account || positionDetails?.operator === account
 
   const feeValueUpper = inverted ? feeValue0 : feeValue1

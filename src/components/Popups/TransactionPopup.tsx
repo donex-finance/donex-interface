@@ -1,10 +1,9 @@
-import { useWeb3React } from '@web3-react/core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { AlertCircle, CheckCircle } from 'react-feather'
 import styled, { useTheme } from 'styled-components/macro'
 
 import { useTransaction } from '../../state/transactions/hooks'
-import { ThemedText } from '../../theme'
-import { ExternalLink } from '../../theme'
+import { ExternalLink, ThemedText } from '../../theme'
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
 import { TransactionSummary } from '../AccountDetails/TransactionSummary'
 import { AutoColumn } from '../Column'
@@ -21,7 +20,7 @@ export default function TransactionPopup({ hash }: { hash: string }) {
   const theme = useTheme()
 
   if (!tx) return null
-  const success = Boolean(tx.receipt && tx.receipt.status === 1)
+  const success = Boolean(tx.receipt && tx.receipt.status === 'ACCEPTED_ON_L2')
 
   return (
     <RowNoFlex>

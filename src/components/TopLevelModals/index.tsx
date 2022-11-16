@@ -1,6 +1,5 @@
-import { useWeb3React } from '@web3-react/core'
 import ConnectedAccountBlocked from 'components/ConnectedAccountBlocked'
-import TokensBanner from 'components/Tokens/TokensBanner'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import useAccountRiskCheck from 'hooks/useAccountRiskCheck'
 import { useLocation } from 'react-router-dom'
 import { useModalIsOpen } from 'state/application/hooks'
@@ -16,7 +15,7 @@ export default function TopLevelModals() {
   return (
     <>
       <ConnectedAccountBlocked account={account} isOpen={open} />
-      {(location.pathname.includes('/pool') || location.pathname.includes('/swap')) && <TokensBanner />}
+      {/* {(location.pathname.includes('/pool') || location.pathname.includes('/swap')) && <TokensBanner />} */}
     </>
   )
 }

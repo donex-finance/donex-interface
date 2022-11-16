@@ -1,14 +1,14 @@
 import { MaxUint256 } from '@ethersproject/constants'
-import type { TransactionResponse } from '@ethersproject/providers'
-import { Currency, CurrencyAmount, Token } from '@uniswap/sdk-core'
-import { useWeb3React } from '@web3-react/core'
 import { sendAnalyticsEvent } from 'analytics'
 import { EventName } from 'analytics/constants'
 import { getTokenAddress } from 'analytics/utils'
+import { Currency, CurrencyAmount, Token } from 'donex-sdk/sdk-core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useTokenContract } from 'hooks/useContract'
 import { useTokenAllowance } from 'hooks/useTokenAllowance'
 import { useCallback, useMemo } from 'react'
-import { calculateGasMargin } from 'utils/calculateGasMargin'
+import { AccountInterface, InvokeFunctionResponse } from 'starknet'
+import { bnToUint256 } from 'starknet/utils/uint256'
 
 export enum ApprovalState {
   UNKNOWN = 'UNKNOWN',
@@ -49,9 +49,9 @@ export function useApproval(
   useIsPendingApproval: (token?: Token, spender?: string) => boolean
 ): [
   ApprovalState,
-  () => Promise<{ response: TransactionResponse; tokenAddress: string; spenderAddress: string } | undefined>
+  () => Promise<{ response: InvokeFunctionResponse; tokenAddress: string; spenderAddress: string } | undefined>
 ] {
-  const { chainId } = useWeb3React()
+  const { chainId, provider } = useWeb3React()
   const token = amountToApprove?.currency?.isToken ? amountToApprove.currency : undefined
 
   // check the current approval status
@@ -80,18 +80,21 @@ export function useApproval(
       return logFailure('no spender')
     }
 
-    let useExact = false
-    const estimatedGas = await tokenContract.estimateGas.approve(spender, MaxUint256).catch(() => {
-      // general fallback for tokens which restrict approval amounts
-      useExact = true
-      return tokenContract.estimateGas.approve(spender, amountToApprove.quotient.toString())
-    })
+    const useExact = false
+    // const estimatedGas = await tokenContract.estimateFee.approve(spender, MaxUint256).catch(() => {
+    //   // general fallback for tokens which restrict approval amounts
+    //   useExact = true
+    //   return tokenContract.estimateFee.approve(spender, bnToUint256(amountToApprove.quotient.toString()))
+    // })
 
-    return tokenContract
-      .approve(spender, useExact ? amountToApprove.quotient.toString() : MaxUint256, {
-        gasLimit: calculateGasMargin(estimatedGas),
-      })
-      .then((response) => {
+    const txn = tokenContract.populate('approve', [
+      spender,
+      useExact ? bnToUint256(amountToApprove.quotient.toString()) : bnToUint256(MaxUint256.toString()),
+    ])
+
+    return ((provider as any).provider as AccountInterface)
+      .execute(txn)
+      .then((response: InvokeFunctionResponse) => {
         const eventProperties = {
           chain_id: chainId,
           token_symbol: token?.symbol,
@@ -108,7 +111,7 @@ export function useApproval(
         logFailure(error)
         throw error
       })
-  }, [approvalState, token, tokenContract, amountToApprove, spender, chainId])
+  }, [approvalState, chainId, token, tokenContract, amountToApprove, spender, provider])
 
   return [approvalState, approve]
 }

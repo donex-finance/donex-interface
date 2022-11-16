@@ -1,7 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { X } from 'react-feather'
-import { animated } from 'react-spring'
-import { useSpring } from 'react-spring'
+import { animated, useSpring } from 'react-spring'
 import styled, { useTheme } from 'styled-components/macro'
 
 import { useRemovePopup } from '../../state/application/hooks'

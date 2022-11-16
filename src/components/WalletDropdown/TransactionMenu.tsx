@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro'
-import { useWeb3React } from '@web3-react/core'
 import { getYear, isSameDay, isSameWeek, isSameYear } from 'date-fns'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import ms from 'ms.macro'
 import { useCallback, useMemo } from 'react'
 import { useAppDispatch } from 'state/hooks'

@@ -1,7 +1,7 @@
-import { Currency, CurrencyAmount, Price } from '@uniswap/sdk-core'
-import { Position } from '@uniswap/v3-sdk'
 import { AutoColumn } from 'components/Column'
 import { PositionPreview } from 'components/PositionPreview'
+import { Currency, CurrencyAmount, Price } from 'donex-sdk/sdk-core'
+import { Position } from 'donex-sdk/v3-sdk'
 import styled from 'styled-components/macro'
 
 import { Bound, Field } from '../../state/mint/v3/actions'

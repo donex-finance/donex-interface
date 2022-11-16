@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import { Fraction, TradeType } from '@uniswap/sdk-core'
+import { Fraction, TradeType } from 'donex-sdk/sdk-core'
 import JSBI from 'jsbi'
 import {
   AddLiquidityV3PoolTransactionInfo,

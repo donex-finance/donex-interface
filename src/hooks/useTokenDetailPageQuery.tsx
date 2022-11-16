@@ -100,7 +100,6 @@ const useTokenDetailPageQuery = (tokenAddress: string | undefined): UseTokenDeta
       if (Math.random() < 0.05) {
         throw new Error('fake error')
       }
-      console.log('fetchTokenDetails', addresses)
       return FAKE_TOKEN_DETAIL_PAGE_QUERY_RESULT
     } catch (e) {
       setError('something went wrong')

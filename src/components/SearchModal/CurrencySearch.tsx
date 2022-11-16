@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-restricted-imports
 import { t, Trans } from '@lingui/macro'
-import { Currency, Token } from '@uniswap/sdk-core'
-import { useWeb3React } from '@web3-react/core'
 import { EventName, ModalName } from 'analytics/constants'
 import { Trace } from 'analytics/Trace'
 import { sendEvent } from 'components/analytics'
+import { Currency, Token } from 'donex-sdk/sdk-core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import useDebounce from 'hooks/useDebounce'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import useToggle from 'hooks/useToggle'
@@ -24,8 +24,7 @@ import { isAddress } from '../../utils'
 import Column from '../Column'
 import Row, { RowBetween } from '../Row'
 import CommonBases from './CommonBases'
-import { CurrencyRow, formatAnalyticsEventProperties } from './CurrencyList'
-import CurrencyList from './CurrencyList'
+import CurrencyList, { CurrencyRow, formatAnalyticsEventProperties } from './CurrencyList'
 import { PaddedColumn, SearchInput, Separator } from './styleds'
 
 const ContentWrapper = styled(Column)`
@@ -74,7 +73,6 @@ export function CurrencySearch({
   const isAddressSearch = isAddress(debouncedQuery)
 
   const searchToken = useToken(debouncedQuery)
-
   const searchTokenIsAdded = useIsUserAddedToken(searchToken)
 
   useEffect(() => {
@@ -99,7 +97,6 @@ export function CurrencySearch({
   const isLoading = Boolean(balancesAreLoading && !tokenLoaderTimerElapsed)
 
   const filteredSortedTokens = useSortTokensByQuery(debouncedQuery, sortedTokens)
-
   const native = useNativeCurrency()
   const wrapped = native.wrapped
 

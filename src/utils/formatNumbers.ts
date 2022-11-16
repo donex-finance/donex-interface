@@ -1,6 +1,6 @@
 /* Copied from Uniswap/v-3: https://github.com/Uniswap/v3-info/blob/master/src/utils/numbers.ts */
-import { Currency, CurrencyAmount, Price } from '@uniswap/sdk-core'
 import { DEFAULT_LOCALE } from 'constants/locales'
+import { Currency, CurrencyAmount, Price } from 'donex-sdk/sdk-core'
 import numbro from 'numbro'
 
 // Convert [CurrencyAmount] to number with necessary precision for price formatting.

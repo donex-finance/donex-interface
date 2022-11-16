@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { useWeb3React } from '@web3-react/core'
 import { L2_CHAIN_IDS } from 'constants/chains'
 import { L2_DEADLINE_FROM_NOW } from 'constants/misc'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useMemo } from 'react'
 import { useAppSelector } from 'state/hooks'
 

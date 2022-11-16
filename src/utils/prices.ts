@@ -1,6 +1,6 @@
-import { Trade } from '@uniswap/router-sdk'
-import { Currency, CurrencyAmount, Fraction, Percent, TradeType } from '@uniswap/sdk-core'
-import { Pool } from '@uniswap/v3-sdk'
+import { Trade } from 'donex-sdk/router-sdk'
+import { Currency, CurrencyAmount, Fraction, Percent, TradeType } from 'donex-sdk/sdk-core'
+import { Pool } from 'donex-sdk/v3-sdk'
 
 import {
   ALLOWED_PRICE_IMPACT_HIGH,

@@ -54,7 +54,6 @@ const useTokenRelevantResources = (addresses: Set<string>): useTokenRelevantReso
     try {
       setLoading(true)
       setError(null)
-      console.log('useTokenRelevantResources.fetchRelevantResources', addresses)
       await waitRandom(250, 2000)
       if (Math.random() < 0.05) {
         throw new Error('fake error')

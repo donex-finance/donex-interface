@@ -1,4 +1,4 @@
-import { useWeb3React } from '@web3-react/core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { CheckCircle, Triangle } from 'react-feather'
 import styled from 'styled-components/macro'
 
@@ -42,7 +42,8 @@ export default function Transaction({ hash }: { hash: string }) {
   const tx = allTransactions?.[hash]
   const info = tx?.info
   const pending = !tx?.receipt
-  const success = !pending && tx && (tx.receipt?.status === 1 || typeof tx.receipt?.status === 'undefined')
+  const success =
+    !pending && tx && (tx.receipt?.status === 'ACCEPTED_ON_L2' || typeof tx.receipt?.status === 'undefined')
 
   if (!chainId) return null
 

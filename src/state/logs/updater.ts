@@ -1,7 +1,8 @@
 import type { Filter } from '@ethersproject/providers'
-import { useWeb3React } from '@web3-react/core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import useBlockNumber from 'lib/hooks/useBlockNumber'
 import { useEffect, useMemo } from 'react'
+import { RpcProvider } from 'starknet'
 
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { fetchedLogs, fetchedLogsError, fetchingLogs } from './slice'
@@ -43,18 +44,21 @@ export default function Updater(): null {
       let toBlock = filter.toBlock ?? blockNumber
       if (typeof fromBlock === 'string') fromBlock = Number.parseInt(fromBlock)
       if (typeof toBlock === 'string') toBlock = Number.parseInt(toBlock)
-      provider
-        .getLogs({
+      const rpcProvider = provider as any as RpcProvider
+      rpcProvider
+        .getEvents({
           ...filter,
-          fromBlock,
-          toBlock,
+          from_block: fromBlock,
+          to_block: toBlock,
+          page_size: 100,
+          page_number: 0,
         })
         .then((logs) => {
           dispatch(
             fetchedLogs({
               chainId,
               filter,
-              results: { logs, blockNumber },
+              results: { logs: logs as any, blockNumber },
             })
           )
         })

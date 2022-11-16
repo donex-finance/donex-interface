@@ -1,6 +1,6 @@
-import { Currency, Token } from '@uniswap/sdk-core'
-import { FeeAmount } from '@uniswap/v3-sdk'
 import { sendEvent } from 'components/analytics'
+import { Currency, Token } from 'donex-sdk/sdk-core'
+import { FeeAmount } from 'donex-sdk/v3-sdk'
 import useBlockNumber from 'lib/hooks/useBlockNumber'
 import ms from 'ms.macro'
 import { useMemo } from 'react'

@@ -1,6 +1,6 @@
-import { getVersionUpgrade, minVersionBump, VersionUpgrade } from '@uniswap/token-lists'
-import { useWeb3React } from '@web3-react/core'
 import { UNSUPPORTED_LIST_URLS } from 'constants/lists'
+import { getVersionUpgrade, minVersionBump, VersionUpgrade } from 'donex-sdk/token-lists'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import useInterval from 'lib/hooks/useInterval'
 import { useCallback, useEffect } from 'react'
 import { useAppDispatch } from 'state/hooks'

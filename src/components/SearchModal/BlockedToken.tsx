@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro'
-import { Token } from '@uniswap/sdk-core'
 import { ButtonPrimary } from 'components/Button'
+import { Token } from 'donex-sdk/sdk-core'
 import { AlertCircle, ArrowLeft } from 'react-feather'
 import styled from 'styled-components/macro'
 import { CloseIcon, ThemedText } from 'theme'

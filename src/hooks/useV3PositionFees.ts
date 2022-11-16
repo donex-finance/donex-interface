@@ -1,9 +1,12 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { Currency, CurrencyAmount } from '@uniswap/sdk-core'
-import { Pool } from '@uniswap/v3-sdk'
+import { stringToFelt } from 'donex-sdk/cc-core/utils/utils'
+import { Currency, CurrencyAmount } from 'donex-sdk/sdk-core'
+import { Pool } from 'donex-sdk/v3-sdk'
 import { useSingleCallResult } from 'lib/hooks/multicall'
 import useBlockNumber from 'lib/hooks/useBlockNumber'
 import { useEffect, useState } from 'react'
+import { toBN, toFelt } from 'starknet/utils/number'
+import { bnToUint256, uint256ToBN } from 'starknet/utils/uint256'
 import { unwrappedToken } from 'utils/unwrappedToken'
 
 import { useV3NFTPositionManagerContract } from './useContract'
@@ -17,8 +20,9 @@ export function useV3PositionFees(
   asWETH = false
 ): [CurrencyAmount<Currency>, CurrencyAmount<Currency>] | [undefined, undefined] {
   const positionManager = useV3NFTPositionManagerContract(false)
-  const owner: string | undefined = useSingleCallResult(tokenId ? positionManager : null, 'ownerOf', [tokenId])
-    .result?.[0]
+  const owner: string | undefined = useSingleCallResult(tokenId ? positionManager : null, 'ownerOf', [
+    bnToUint256(tokenId?.toString() || 0),
+  ]).result?.[0]
 
   const tokenIdHexString = tokenId?.toHexString()
   const latestBlockNumber = useBlockNumber()
@@ -30,19 +34,19 @@ export function useV3PositionFees(
     if (positionManager && tokenIdHexString && owner) {
       positionManager.callStatic
         .collect(
-          {
-            tokenId: tokenIdHexString,
-            recipient: owner, // some tokens might fail if transferred to address(0)
-            amount0Max: MAX_UINT128,
-            amount1Max: MAX_UINT128,
-          },
-          { from: owner } // need to simulate the call as the owner
+          bnToUint256(tokenId?.toString() || 0),
+          stringToFelt(owner),
+          toFelt(toBN(MAX_UINT128.toString())),
+          toFelt(toBN(MAX_UINT128.toString()))
         )
         .then((results) => {
-          setAmounts([results.amount0, results.amount1])
+          setAmounts([
+            BigNumber.from(uint256ToBN(results.amount0).toString()),
+            BigNumber.from(uint256ToBN(results.amount1).toString()),
+          ])
         })
     }
-  }, [positionManager, tokenIdHexString, owner, latestBlockNumber])
+  }, [positionManager, tokenIdHexString, owner, latestBlockNumber, tokenId])
 
   if (pool && amounts) {
     return [

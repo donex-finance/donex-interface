@@ -1,8 +1,7 @@
-import { MixedRoute, partitionMixedRouteByProtocol, Protocol, Trade } from '@uniswap/router-sdk'
-import { Currency, CurrencyAmount, Percent, TradeType } from '@uniswap/sdk-core'
-import { Pool } from '@uniswap/v3-sdk'
-import { useWeb3React } from '@web3-react/core'
 import { L2_CHAIN_IDS, SUPPORTED_GAS_ESTIMATE_CHAIN_IDS } from 'constants/chains'
+import { Protocol, Trade } from 'donex-sdk/router-sdk'
+import { Currency, CurrencyAmount, Percent, TradeType } from 'donex-sdk/sdk-core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import JSBI from 'jsbi'
 import useNativeCurrency from 'lib/hooks/useNativeCurrency'
 import { useMemo } from 'react'
@@ -27,9 +26,6 @@ const V3_SWAP_HOP_GAS_ESTIMATE = 70_000
  * @param trade the trade for which to _guess_ the amount of gas it would cost to execute
  *
  * V3 logic is inspired by:
- * https://github.com/Uniswap/smart-order-router/blob/main/src/routers/alpha-router/gas-models/v3/v3-heuristic-gas-model.ts
- * V2 logic is inspired by:
- * https://github.com/Uniswap/smart-order-router/blob/main/src/routers/alpha-router/gas-models/v2/v2-heuristic-gas-model.ts
  */
 function guesstimateGas(trade: Trade<Currency, Currency, TradeType> | undefined): number | undefined {
   if (!!trade) {
@@ -39,16 +35,6 @@ function guesstimateGas(trade: Trade<Currency, Currency, TradeType> | undefined)
         // V3 gas costs scale on initialized ticks being crossed, but we don't have that data here.
         // We bake in some tick crossings into the base 100k cost.
         gas += V3_SWAP_BASE_GAS_ESTIMATE + route.pools.length * V3_SWAP_HOP_GAS_ESTIMATE
-      } else if (route.protocol === Protocol.MIXED) {
-        const sections = partitionMixedRouteByProtocol(route as MixedRoute<Currency, Currency>)
-        gas += sections.reduce((gas, section) => {
-          if (section.every((pool) => pool instanceof Pool)) {
-            return gas + V3_SWAP_BASE_GAS_ESTIMATE + section.length * V3_SWAP_HOP_GAS_ESTIMATE
-          } else {
-            console.warn('Invalid section')
-            return gas
-          }
-        }, 0)
       } else {
         // fallback general gas estimation
         gas += V3_SWAP_BASE_GAS_ESTIMATE + route.pools.length * V3_SWAP_HOP_GAS_ESTIMATE

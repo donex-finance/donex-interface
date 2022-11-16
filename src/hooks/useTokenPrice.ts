@@ -59,7 +59,6 @@ const useTokenPrice = (tokenAddresses: Set<string>): UseTokenPriceResult => {
       if (Math.random() < 0.05) {
         throw new Error('fake error')
       }
-      console.log('fetchTokenPrices', addresses)
       return FAKE_TOKEN_PRICE_RESULT
     } catch (e) {
       setError('something went wrong')

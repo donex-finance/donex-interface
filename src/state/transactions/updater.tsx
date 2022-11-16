@@ -1,21 +1,18 @@
-import { Currency, Percent, TradeType } from '@uniswap/sdk-core'
-import { useWeb3React } from '@web3-react/core'
-import { sendAnalyticsEvent } from 'analytics'
-import { EventName } from 'analytics/constants'
 import { formatPercentInBasisPointsNumber, formatToDecimal, getTokenAddress } from 'analytics/utils'
 import { DEFAULT_TXN_DISMISS_MS, L2_TXN_DISMISS_MS } from 'constants/misc'
+import { Currency, Percent, TradeType } from 'donex-sdk/sdk-core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import LibUpdater from 'lib/hooks/transactions/updater'
 import { useCallback, useMemo } from 'react'
+import { GetTransactionReceiptResponse } from 'starknet'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { InterfaceTrade } from 'state/routing/types'
-import { TransactionType } from 'state/transactions/types'
 import { computeRealizedPriceImpact } from 'utils/prices'
 
 import { L2_CHAIN_IDS } from '../../constants/chains'
 import { useDerivedSwapInfo } from '../../state/swap/hooks'
 import { useAddPopup } from '../application/hooks'
 import { checkedTransaction, finalizeTransaction } from './reducer'
-import { SerializableTransactionReceipt } from './types'
 
 interface AnalyticsEventProps {
   trade: InterfaceTrade<Currency, Currency, TradeType>
@@ -61,37 +58,33 @@ export default function Updater() {
     [dispatch]
   )
   const onReceipt = useCallback(
-    ({ chainId, hash, receipt }: { chainId: number; hash: string; receipt: SerializableTransactionReceipt }) => {
+    ({ chainId, hash, receipt }: { chainId: number; hash: string; receipt: GetTransactionReceiptResponse }) => {
       dispatch(
         finalizeTransaction({
           chainId,
           hash,
           receipt: {
-            blockHash: receipt.blockHash,
-            blockNumber: receipt.blockNumber,
-            contractAddress: receipt.contractAddress,
-            from: receipt.from,
+            transaction_hash: receipt.transaction_hash,
             status: receipt.status,
-            to: receipt.to,
-            transactionHash: receipt.transactionHash,
-            transactionIndex: receipt.transactionIndex,
+            actual_fee: receipt.actual_fee,
+            status_data: receipt.status_data,
           },
         })
       )
 
       const tx = transactions[chainId]?.[hash]
 
-      if (tx.info.type === TransactionType.SWAP && trade) {
-        sendAnalyticsEvent(
-          EventName.SWAP_TRANSACTION_COMPLETED,
-          formatAnalyticsEventProperties({
-            trade,
-            hash,
-            allowedSlippage,
-            succeeded: receipt.status === 1,
-          })
-        )
-      }
+      // if (tx.info.type === TransactionType.SWAP && trade) {
+      //   sendAnalyticsEvent(
+      //     EventName.SWAP_TRANSACTION_COMPLETED,
+      //     formatAnalyticsEventProperties({
+      //       trade,
+      //       hash,
+      //       allowedSlippage,
+      //       succeeded: receipt.status === 1,
+      //     })
+      //   )
+      // }
       addPopup(
         {
           txn: { hash },
@@ -100,7 +93,7 @@ export default function Updater() {
         isL2 ? L2_TXN_DISMISS_MS : DEFAULT_TXN_DISMISS_MS
       )
     },
-    [addPopup, allowedSlippage, dispatch, isL2, trade, transactions]
+    [addPopup, dispatch, isL2, transactions]
   )
 
   const pendingTransactions = useMemo(() => (chainId ? transactions[chainId] ?? {} : {}), [chainId, transactions])

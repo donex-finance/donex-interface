@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro'
-import { FeeAmount } from '@uniswap/v3-sdk'
 import Badge from 'components/Badge'
+import { FeeAmount } from 'donex-sdk/v3-sdk'
 import { useFeeTierDistribution } from 'hooks/useFeeTierDistribution'
 import { PoolState } from 'hooks/usePools'
 import React from 'react'

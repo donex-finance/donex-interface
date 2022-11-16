@@ -1,13 +1,13 @@
 import { Trans } from '@lingui/macro'
-import { useWeb3React } from '@web3-react/core'
-import { Connector } from '@web3-react/types'
 import { sendAnalyticsEvent, user } from 'analytics'
 import { CUSTOM_USER_PROPERTIES, EventName, WALLET_CONNECTION_RESULT } from 'analytics/constants'
 import { sendEvent } from 'components/analytics'
 import { AutoColumn } from 'components/Column'
 import { AutoRow } from 'components/Row'
 import { networkConnection } from 'connection'
-import { getConnection, getConnectionName, getIsCoinbaseWallet, getIsInjected, getIsMetaMask } from 'connection/utils'
+import { getConnection, getConnectionName, getIsArgentX, getIsBraavos } from 'connection/utils'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
+import { Connector } from 'donex-sdk/web3-react/types'
 import usePrevious from 'hooks/usePrevious'
 import { useCallback, useEffect, useState } from 'react'
 import { ArrowLeft } from 'react-feather'
@@ -16,7 +16,6 @@ import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { updateSelectedWallet } from 'state/user/reducer'
 import { useConnectedWallets } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
-import { isMobile } from 'utils/userAgent'
 
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import { useModalIsOpen, useToggleWalletModal } from '../../state/application/hooks'
@@ -25,10 +24,9 @@ import { ExternalLink, ThemedText } from '../../theme'
 import AccountDetails from '../AccountDetails'
 import { LightCard } from '../Card'
 import Modal from '../Modal'
-import { CoinbaseWalletOption, OpenCoinbaseWalletOption } from './CoinbaseWalletOption'
-import { InjectedOption, InstallMetaMaskOption, MetaMaskOption } from './InjectedOption'
+import { ArgentXWalletOption, InstallArgentXOption } from './ArgentXWalletOption'
+import { BraavosWalletOption, InstallBraavosOption } from './BraavosWalletOption'
 import PendingView from './PendingView'
-import { WalletConnectOption } from './WalletConnectOption'
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -141,11 +139,9 @@ const sendAnalyticsEventAndUserInfo = (
 export default function WalletModal({
   pendingTransactions,
   confirmedTransactions,
-  ENSName,
 }: {
   pendingTransactions: string[] // hashes of pending
   confirmedTransactions: string[] // hashes of confirmed
-  ENSName?: string
 }) {
   const dispatch = useAppDispatch()
   const { connector, account, chainId } = useWeb3React()
@@ -197,7 +193,7 @@ export default function WalletModal({
   // When new wallet is successfully set by the user, trigger logging of Amplitude analytics event.
   useEffect(() => {
     if (account && account !== lastActiveWalletAddress) {
-      const walletType = getConnectionName(getConnection(connector).type, getIsMetaMask())
+      const walletType = getConnectionName(getConnection(connector).type)
       const isReconnect =
         connectedWallets.filter((wallet) => wallet.account === account && wallet.walletType === walletType).length > 0
       sendAnalyticsEventAndUserInfo(account, walletType, chainId, isReconnect)
@@ -231,7 +227,7 @@ export default function WalletModal({
 
         sendAnalyticsEvent(EventName.WALLET_CONNECT_TXN_COMPLETED, {
           result: WALLET_CONNECTION_RESULT.FAILED,
-          wallet_type: getConnectionName(connectionType, getIsMetaMask()),
+          wallet_type: getConnectionName(connectionType),
         })
       }
     },
@@ -239,42 +235,27 @@ export default function WalletModal({
   )
 
   function getOptions() {
-    const isInjected = getIsInjected()
-    const isMetaMask = getIsMetaMask()
-    const isCoinbaseWallet = getIsCoinbaseWallet()
+    const isArgentX = getIsArgentX()
+    const isBraavos = getIsBraavos()
 
-    const isCoinbaseWalletBrowser = isMobile && isCoinbaseWallet
-    const isMetaMaskBrowser = isMobile && isMetaMask
-    const isInjectedMobileBrowser = isCoinbaseWalletBrowser || isMetaMaskBrowser
-
-    let injectedOption
-    if (!isInjected) {
-      if (!isMobile) {
-        injectedOption = <InstallMetaMaskOption />
-      }
-    } else if (!isCoinbaseWallet) {
-      if (isMetaMask) {
-        injectedOption = <MetaMaskOption tryActivation={tryActivation} />
-      } else {
-        injectedOption = <InjectedOption tryActivation={tryActivation} />
-      }
+    let argentXWalletOption
+    if (!isArgentX) {
+      argentXWalletOption = <InstallArgentXOption />
+    } else {
+      argentXWalletOption = <ArgentXWalletOption tryActivation={tryActivation} />
     }
 
-    let coinbaseWalletOption
-    if (isMobile && !isInjectedMobileBrowser) {
-      coinbaseWalletOption = <OpenCoinbaseWalletOption />
-    } else if (!isMobile || isCoinbaseWalletBrowser) {
-      coinbaseWalletOption = <CoinbaseWalletOption tryActivation={tryActivation} />
+    let braavosWalletOption
+    if (!isBraavos) {
+      braavosWalletOption = <InstallBraavosOption />
+    } else {
+      braavosWalletOption = <BraavosWalletOption tryActivation={tryActivation} />
     }
-
-    const walletConnectionOption =
-      (!isInjectedMobileBrowser && <WalletConnectOption tryActivation={tryActivation} />) ?? null
 
     return (
       <>
-        {injectedOption}
-        {coinbaseWalletOption}
-        {walletConnectionOption}
+        {argentXWalletOption}
+        {braavosWalletOption}
       </>
     )
   }
@@ -286,7 +267,6 @@ export default function WalletModal({
           toggleWalletModal={toggleWalletModal}
           pendingTransactions={pendingTransactions}
           confirmedTransactions={confirmedTransactions}
-          ENSName={ENSName}
           openOptions={openOptions}
         />
       )

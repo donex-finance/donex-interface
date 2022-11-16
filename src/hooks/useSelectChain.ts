@@ -1,6 +1,6 @@
-import { useWeb3React } from '@web3-react/core'
 import { getConnection } from 'connection/utils'
 import { SupportedChainId } from 'constants/chains'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useCallback } from 'react'
 import { addPopup } from 'state/application/reducer'
 import { updateConnectionError } from 'state/connection/reducer'

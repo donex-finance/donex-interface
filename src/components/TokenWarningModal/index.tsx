@@ -1,5 +1,5 @@
-import { Token } from '@uniswap/sdk-core'
 import { ImportToken } from 'components/SearchModal/ImportToken'
+import { Token } from 'donex-sdk/sdk-core'
 
 import Modal from '../Modal'
 

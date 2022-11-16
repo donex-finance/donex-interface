@@ -1,6 +1,6 @@
-import { useWeb3React } from '@web3-react/core'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useMemo } from 'react'
 import { AlertTriangle, CheckCircle } from 'react-feather'
 import styled from 'styled-components/macro'
@@ -54,7 +54,7 @@ export const TransactionSummary = ({ transactionDetails }: { transactionDetails:
 
   const transactionState = useMemo(() => {
     const pending = !receipt
-    const success = !pending && tx && (receipt?.status === 1 || typeof receipt?.status === 'undefined')
+    const success = !pending && tx && (receipt?.status === 'ACCEPTED_ON_L2' || typeof receipt?.status === 'undefined')
     const transactionState = pending
       ? TransactionState.Pending
       : success

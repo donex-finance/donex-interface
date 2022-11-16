@@ -1,5 +1,5 @@
 import { nanoid } from '@reduxjs/toolkit'
-import { TokenList } from '@uniswap/token-lists'
+import { TokenList } from 'donex-sdk/token-lists'
 import getTokenList from 'lib/hooks/useTokenList/fetchTokenList'
 import { useCallback } from 'react'
 import { useAppDispatch } from 'state/hooks'

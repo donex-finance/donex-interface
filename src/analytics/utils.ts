@@ -1,6 +1,6 @@
-import { Trade } from '@uniswap/router-sdk'
-import { Currency, CurrencyAmount, Percent, Price, Token, TradeType } from '@uniswap/sdk-core'
 import { NATIVE_CHAIN_ID } from 'constants/tokens'
+import { Trade } from 'donex-sdk/router-sdk'
+import { Currency, CurrencyAmount, Percent, Price, Token, TradeType } from 'donex-sdk/sdk-core'
 import { InterfaceTrade } from 'state/routing/types'
 import { computeRealizedPriceImpact } from 'utils/prices'
 

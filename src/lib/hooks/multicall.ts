@@ -1,10 +1,11 @@
-import { useWeb3React } from '@web3-react/core'
+/* eslint-disable simple-import-sort/exports */
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import useBlockNumber from 'lib/hooks/useBlockNumber'
 import multicall from 'lib/state/multicall'
 import { SkipFirst } from 'types/tuple'
 
-export type { CallStateResult } from '@uniswap/redux-multicall' // re-export for convenience
-export { NEVER_RELOAD } from '@uniswap/redux-multicall' // re-export for convenience
+export { NEVER_RELOAD } from 'donex-sdk/redux-multicall'
+export type { CallStateResult } from 'donex-sdk/redux-multicall'
 
 // Create wrappers for hooks so consumers don't need to get latest block themselves
 

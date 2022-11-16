@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro'
-import { Currency, CurrencyAmount, Percent, Token, TradeType } from '@uniswap/sdk-core'
 import { ElementName, Event, EventName } from 'analytics/constants'
 import { TraceEvent } from 'analytics/TraceEvent'
 import {
@@ -10,6 +9,7 @@ import {
   getDurationUntilTimestampSeconds,
   getTokenAddress,
 } from 'analytics/utils'
+import { Currency, CurrencyAmount, Percent, Token, TradeType } from 'donex-sdk/sdk-core'
 import useTransactionDeadline from 'hooks/useTransactionDeadline'
 import { ReactNode } from 'react'
 import { Text } from 'rebass'

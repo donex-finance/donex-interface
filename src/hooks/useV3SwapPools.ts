@@ -1,7 +1,7 @@
-import { Currency, Token } from '@uniswap/sdk-core'
-import { FeeAmount, Pool } from '@uniswap/v3-sdk'
-import { useWeb3React } from '@web3-react/core'
 import { SupportedChainId } from 'constants/chains'
+import { Currency, Token } from 'donex-sdk/sdk-core'
+import { FeeAmount, Pool } from 'donex-sdk/v3-sdk'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useMemo } from 'react'
 
 import { useAllCurrencyCombinations } from './useAllCurrencyCombinations'
@@ -43,7 +43,6 @@ export function useV3SwapPools(
   )
 
   const pools = usePools(allCurrencyCombinationsWithAllFees)
-
   return useMemo(() => {
     return {
       pools: pools

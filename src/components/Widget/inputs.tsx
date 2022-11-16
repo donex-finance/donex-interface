@@ -90,12 +90,15 @@ export function useSyncWidgetInputs({
     },
     [onTokenChange, selectingField, tokens]
   )
+
+  const selectedCurrency: any = selectingField && tokens[selectingField]
+  const otherSelectedCurrency: any = selectingField && tokens[invertField(selectingField)]
   const tokenSelector = (
     <CurrencySearchModal
       isOpen={selectingField !== undefined}
       onDismiss={() => setSelectingField(undefined)}
-      selectedCurrency={selectingField && tokens[selectingField]}
-      otherSelectedCurrency={selectingField && tokens[invertField(selectingField)]}
+      selectedCurrency={selectedCurrency}
+      otherSelectedCurrency={otherSelectedCurrency}
       onCurrencySelect={onTokenSelect}
     />
   )
@@ -117,7 +120,7 @@ export function useSyncWidgetInputs({
   return { inputs: { value, ...valueHandlers }, tokenSelector }
 }
 
-// TODO(zzmp): Move to @uniswap/widgets.
+// TODO(zzmp): Move to donex-sdk/widgets.
 function invertField(field: Field) {
   switch (field) {
     case Field.INPUT:
@@ -127,7 +130,7 @@ function invertField(field: Field) {
   }
 }
 
-// TODO(zzmp): Move to @uniswap/widgets.
+// TODO(zzmp): Move to donex-sdk/widgets.
 function toTradeType(modifiedField: Field) {
   switch (modifiedField) {
     case Field.INPUT:
@@ -137,7 +140,7 @@ function toTradeType(modifiedField: Field) {
   }
 }
 
-// TODO(zzmp): Include in @uniswap/sdk-core (on TradeType, if possible).
+// TODO(zzmp): Include in donex-sdk/sdk-core (on TradeType, if possible).
 function invertTradeType(tradeType: TradeType) {
   switch (tradeType) {
     case TradeType.EXACT_INPUT:

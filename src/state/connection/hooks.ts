@@ -1,5 +1,5 @@
-import { CurrencyAmount, Token } from '@uniswap/sdk-core'
-import { useWeb3React } from '@web3-react/core'
+import { CurrencyAmount, Token } from 'donex-sdk/sdk-core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useTokenBalancesWithLoadingIndicator } from 'lib/hooks/useCurrencyBalance'
 import { useMemo } from 'react'
 
@@ -9,7 +9,6 @@ export {
   default as useCurrencyBalance,
   useCurrencyBalances,
   useCurrencyBalanceString,
-  useNativeCurrencyBalances,
   useTokenBalance,
   useTokenBalances,
   useTokenBalancesWithLoadingIndicator,

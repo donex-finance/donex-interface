@@ -1,16 +1,14 @@
-import { getAddress } from '@ethersproject/address'
-import { AddressZero } from '@ethersproject/constants'
-import { Contract } from '@ethersproject/contracts'
-import type { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers'
-import { Token } from '@uniswap/sdk-core'
+import { AddressZero } from 'constants/addresses'
+import { Token } from 'donex-sdk/sdk-core'
 import { ChainTokenMap } from 'lib/hooks/useTokenList/utils'
-
+import { AccountInterface, Contract, getChecksumAddress, ProviderInterface } from 'starknet'
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
   try {
+    if (!value) return false
     // Alphabetical letters must be made lowercase for getAddress to work.
     // See documentation here: https://docs.ethers.io/v5/api/utils/address/
-    return getAddress(value.toLowerCase())
+    return getChecksumAddress(value.toLowerCase())
   } catch {
     return false
   }
@@ -22,26 +20,21 @@ export function shortenAddress(address: string, chars = 4): string {
   if (!parsed) {
     throw Error(`Invalid 'address' parameter '${address}'.`)
   }
-  return `${parsed.substring(0, chars + 2)}...${parsed.substring(42 - chars)}`
-}
-
-// account is not optional
-function getSigner(provider: JsonRpcProvider, account: string): JsonRpcSigner {
-  return provider.getSigner(account).connectUnchecked()
+  return `${parsed.substring(0, chars + 2)}...${parsed.substring(66 - chars)}`
 }
 
 // account is optional
-function getProviderOrSigner(provider: JsonRpcProvider, account?: string): JsonRpcProvider | JsonRpcSigner {
-  return account ? getSigner(provider, account) : provider
-}
-
-// account is optional
-export function getContract(address: string, ABI: any, provider: JsonRpcProvider, account?: string): Contract {
+export function getContract(
+  address: string,
+  ABI: any,
+  provider: ProviderInterface | AccountInterface,
+  account?: string
+): Contract {
   if (!isAddress(address) || address === AddressZero) {
     throw Error(`Invalid 'address' parameter '${address}'.`)
   }
 
-  return new Contract(address, ABI, getProviderOrSigner(provider, account) as any)
+  return new Contract(ABI, address, provider)
 }
 
 export function escapeRegExp(string: string): string {

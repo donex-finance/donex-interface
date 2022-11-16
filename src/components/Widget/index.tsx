@@ -1,5 +1,3 @@
-import { Trade } from '@uniswap/router-sdk'
-import { Currency, TradeType } from '@uniswap/sdk-core'
 import {
   AddEthereumChainParameter,
   EMPTY_TOKEN_LIST,
@@ -7,7 +5,6 @@ import {
   SwapWidget,
   SwapWidgetSkeleton,
 } from '@uniswap/widgets'
-import { useWeb3React } from '@web3-react/core'
 import { sendAnalyticsEvent } from 'analytics'
 import { EventName, SectionName, SWAP_PRICE_UPDATE_USER_RESPONSE } from 'analytics/constants'
 import { useTrace } from 'analytics/Trace'
@@ -19,6 +16,9 @@ import {
   getPriceUpdateBasisPoints,
   getTokenAddress,
 } from 'analytics/utils'
+import { Trade } from 'donex-sdk/router-sdk'
+import { Currency, TradeType } from 'donex-sdk/sdk-core'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useActiveLocale } from 'hooks/useActiveLocale'
 import { useCallback, useState } from 'react'
 import { useIsDarkMode } from 'state/user/hooks'
@@ -48,7 +48,7 @@ export default function Widget({ token, onTokenChange, onReviewSwapClick }: Widg
   const { connector, provider } = useWeb3React()
   const locale = useActiveLocale()
   const theme = useWidgetTheme()
-  const { inputs, tokenSelector } = useSyncWidgetInputs({ token, onTokenChange })
+  const { inputs, tokenSelector } = useSyncWidgetInputs({ token, onTokenChange: onTokenChange as any })
   const { settings } = useSyncWidgetSettings()
   const { transactions } = useSyncWidgetTransactions()
 
@@ -82,7 +82,7 @@ export default function Widget({ token, onTokenChange, onReviewSwapClick }: Widg
     const eventProperties = {
       chain_id: input.chainId,
       token_symbol: input.symbol,
-      token_address: getTokenAddress(input),
+      token_address: getTokenAddress(input as any),
       ...trace,
     }
     sendAnalyticsEvent(EventName.APPROVE_TOKEN_TXN_SUBMITTED, eventProperties)
@@ -146,7 +146,7 @@ export default function Widget({ token, onTokenChange, onReviewSwapClick }: Widg
         theme={theme}
         width={WIDGET_WIDTH}
         // defaultChainId is excluded - it is always inferred from the passed provider
-        provider={provider}
+        provider={provider as any}
         onSwitchChain={onSwitchChain}
         tokenList={EMPTY_TOKEN_LIST} // prevents loading the default token list, as we use our own token selector UI
         {...inputs}
@@ -154,10 +154,10 @@ export default function Widget({ token, onTokenChange, onReviewSwapClick }: Widg
         {...transactions}
         onExpandSwapDetails={onExpandSwapDetails}
         onReviewSwapClick={onReviewSwapClick}
-        onSubmitSwapClick={onSubmitSwapClick}
+        onSubmitSwapClick={onSubmitSwapClick as any}
         onSwapApprove={onApproveToken}
-        onInitialSwapQuote={onInitialSwapQuote}
-        onSwapPriceUpdateAck={onSwapPriceUpdateAck}
+        onInitialSwapQuote={onInitialSwapQuote as any}
+        onSwapPriceUpdateAck={onSwapPriceUpdateAck as any}
       />
       {tokenSelector}
     </>

@@ -1,14 +1,14 @@
 // eslint-disable-next-line no-restricted-imports
 import { BigNumber } from '@ethersproject/bignumber'
-import type { TransactionResponse } from '@ethersproject/providers'
 import { Trans } from '@lingui/macro'
-import { Trade } from '@uniswap/router-sdk'
-import { Currency, Percent, TradeType } from '@uniswap/sdk-core'
-import { FeeOptions } from '@uniswap/v3-sdk'
-import { useWeb3React } from '@web3-react/core'
+import { Trade } from 'donex-sdk/router-sdk'
+import { Currency, Percent, TradeType } from 'donex-sdk/sdk-core'
+import { FeeOptions } from 'donex-sdk/v3-sdk'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import useENS from 'hooks/useENS'
 import { useSwapCallArguments } from 'hooks/useSwapCallArguments'
 import { ReactNode, useMemo } from 'react'
+import type { InvokeFunctionResponse } from 'starknet'
 
 import useSendSwapTransaction from './useSendSwapTransaction'
 
@@ -20,7 +20,7 @@ export enum SwapCallbackState {
 
 interface UseSwapCallbackReturns {
   state: SwapCallbackState
-  callback?: () => Promise<TransactionResponse>
+  callback?: () => Promise<InvokeFunctionResponse>
   error?: ReactNode
 }
 interface UseSwapCallbackArgs {

@@ -1,5 +1,5 @@
-import { useWeb3React } from '@web3-react/core'
 import { CHAIN_IDS_TO_NAMES } from 'constants/chains'
+import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { ParsedQs } from 'qs'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'

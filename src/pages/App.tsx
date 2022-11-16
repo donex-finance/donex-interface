@@ -5,7 +5,7 @@ import Loader from 'components/Loader'
 import TopLevelModals from 'components/TopLevelModals'
 import { useFeatureFlagsIsLoaded } from 'featureFlags'
 import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { useIsDarkMode } from 'state/user/hooks'
 import styled from 'styled-components/macro'
@@ -18,7 +18,6 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import NavBar from '../components/NavBar'
 import Polling from '../components/Polling'
 import Popups from '../components/Popups'
-import { TokenDetailsPageSkeleton } from '../components/Tokens/TokenDetails/Skeleton'
 import { useIsExpertMode } from '../state/user/hooks'
 import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
 import AddLiquidity from './AddLiquidity'
@@ -28,9 +27,6 @@ import { PositionPage } from './Pool/PositionPage'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
 import Swap from './Swap'
 import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
-import Tokens from './Tokens'
-
-const TokenDetails = lazy(() => import('./TokenDetails'))
 
 const AppWrapper = styled.div`
   display: flex;
@@ -77,8 +73,6 @@ function getCurrentPageFromLocation(locationPathname: string): PageName | undefi
       return PageName.SWAP_PAGE
     case '/pool':
       return PageName.POOL_PAGE
-    case '/tokens':
-      return PageName.TOKENS_PAGE
     default:
       return undefined
   }
@@ -149,17 +143,6 @@ export default function App() {
             <Suspense fallback={<Loader />}>
               {isLoaded ? (
                 <Routes>
-                  <Route path="tokens" element={<Tokens />}>
-                    <Route path=":chainName" />
-                  </Route>
-                  <Route
-                    path="tokens/:chainName/:tokenAddress"
-                    element={
-                      <Suspense fallback={<TokenDetailsPageSkeleton />}>
-                        <TokenDetails />
-                      </Suspense>
-                    }
-                  />
                   <Route path="send" element={<RedirectPathToSwapOnly />} />
                   <Route path="swap/:outputCurrency" element={<RedirectToSwap />} />
                   <Route path="swap" element={<Swap />} />

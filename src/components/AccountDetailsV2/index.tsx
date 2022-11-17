@@ -54,7 +54,7 @@ export const TransactionSummary = ({ transactionDetails }: { transactionDetails:
 
   const transactionState = useMemo(() => {
     const pending = !receipt
-    const success = !pending && tx && (receipt?.status === 'ACCEPTED_ON_L2' || typeof receipt?.status === 'undefined')
+    const success = !pending && tx && (receipt?.status === 'RECEIVED' || typeof receipt?.status === 'undefined')
     const transactionState = pending
       ? TransactionState.Pending
       : success

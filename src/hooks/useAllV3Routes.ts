@@ -65,11 +65,12 @@ export function useAllV3Routes(
 ): { loading: boolean; routes: Route<Currency, Currency>[] } {
   const { chainId } = useWeb3React()
   const { pools, loading: poolsLoading } = useV3SwapPools(currencyIn, currencyOut)
-
+  const withLiquidityPools = pools.filter((v) => v.liquidity.toString() !== '0')
   return useMemo(() => {
-    if (poolsLoading || !chainId || !pools || !currencyIn || !currencyOut) return { loading: true, routes: [] }
+    if (poolsLoading || !chainId || !withLiquidityPools || !currencyIn || !currencyOut)
+      return { loading: true, routes: [] }
 
-    const routes = computeAllRoutes(currencyIn, currencyOut, pools, chainId, [], [], currencyIn, 2)
+    const routes = computeAllRoutes(currencyIn, currencyOut, withLiquidityPools, chainId, [], [], currencyIn, 2)
     return { loading: false, routes }
-  }, [chainId, currencyIn, currencyOut, pools, poolsLoading])
+  }, [chainId, currencyIn, currencyOut, withLiquidityPools, poolsLoading])
 }

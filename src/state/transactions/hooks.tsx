@@ -59,7 +59,7 @@ export function useIsTransactionConfirmed(transactionHash?: string): boolean {
 
   if (!transactionHash || !transactions[transactionHash]) return false
 
-  return Boolean(transactions[transactionHash].receipt)
+  return Boolean(transactions[transactionHash].receipt && transactions[transactionHash].receipt?.status === 'RECEIVED')
 }
 
 /**
@@ -80,7 +80,7 @@ export function useHasPendingApproval(token?: Token, spender?: string): boolean 
       Object.keys(allTransactions).some((hash) => {
         const tx = allTransactions[hash]
         if (!tx) return false
-        if (tx.receipt) {
+        if (tx.receipt && tx.receipt.status !== 'RECEIVED') {
           return false
         } else {
           if (tx.info.type !== TransactionType.APPROVAL) return false

@@ -1,4 +1,5 @@
 import { NFT_POSITION_MANAGER_ABI } from 'abis'
+import { intToFelt } from 'donex-sdk/cc-core/utils/utils'
 import { fromStarknetCall } from 'donex-sdk/redux-multicall/utils/callUtils'
 import { BigintIsh, Currency, CurrencyAmount, Percent, validateAndParseAddress } from 'donex-sdk/sdk-core'
 import JSBI from 'jsbi'
@@ -218,8 +219,8 @@ export abstract class NonfungiblePositionManager {
             position.pool.token0.address,
             position.pool.token1.address,
             position.pool.fee.toString(),
-            position.tickLower.toString(),
-            position.tickUpper.toString(),
+            intToFelt(position.tickLower.toString()),
+            intToFelt(position.tickUpper.toString()),
             bnToUint256(amount0Desired.toString()),
             bnToUint256(amount1Desired.toString()),
             bnToUint256(amount0Min.toString()),

@@ -3,12 +3,13 @@ import { BigintIsh, Currency, Token } from 'donex-sdk/sdk-core'
 import { computePoolAddress, FeeAmount, Pool } from 'donex-sdk/v3-sdk'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
 import JSBI from 'jsbi'
-import { useMultipleContractSingleData } from 'lib/hooks/multicall'
+import { useMultipleContractSingleData, useSingleContractMultipleData } from 'lib/hooks/multicall'
 import { useMemo } from 'react'
 import { Contract as Interface } from 'starknet'
+import { toHex } from 'starknet/utils/number'
 import { uint256ToBN } from 'starknet/utils/uint256'
 
-import { V3_CORE_FACTORY_ADDRESSES } from '../constants/addresses'
+import { useV3NFTPositionManagerContract } from './useContract'
 
 const POOL_STATE_INTERFACE = new Interface(SWAP_POOL_ABI, '')
 
@@ -86,7 +87,7 @@ export function usePools(
   poolKeys: [Currency | undefined, Currency | undefined, FeeAmount | undefined][]
 ): [PoolState, Pool | null][] {
   const { chainId } = useWeb3React()
-
+  const positionManager = useV3NFTPositionManagerContract()
   const poolTokens: ([Token, Token, FeeAmount] | undefined)[] = useMemo(() => {
     if (!chainId) return new Array(poolKeys.length)
 
@@ -102,13 +103,23 @@ export function usePools(
     })
   }, [chainId, poolKeys])
 
-  const poolAddresses: (string | undefined)[] = useMemo(() => {
-    const v3CoreFactoryAddress = chainId && V3_CORE_FACTORY_ADDRESSES[chainId]
-    if (!v3CoreFactoryAddress) return new Array(poolTokens.length)
+  // const poolAddresses: (string | undefined)[] = useMemo(() => {
+  //   const v3CoreFactoryAddress = chainId && V3_CORE_FACTORY_ADDRESSES[chainId]
+  //   if (!v3CoreFactoryAddress) return new Array(poolTokens.length)
 
-    return poolTokens.map((value) => value && PoolCache.getPoolAddress(v3CoreFactoryAddress, ...value))
-  }, [chainId, poolTokens])
+  //   return poolTokens.map((value) => value && PoolCache.getPoolAddress(v3CoreFactoryAddress, ...value))
+  // }, [chainId, poolTokens])
 
+  const results = useSingleContractMultipleData(
+    positionManager,
+    'get_pool_address',
+    poolTokens.filter((v) => v).map((v) => (v !== undefined ? [v[0].address, v[1].address, v[2].toString()] : v))
+  )
+  const poolAddresses = useMemo(
+    () =>
+      results.map((v) => (v && v.result ? toHex(v.result.address) : '0x0')).map((v) => (v === '0x0' ? undefined : v)),
+    [results]
+  )
   const slot0s = useMultipleContractSingleData(poolAddresses, POOL_STATE_INTERFACE, 'get_cur_slot')
   const liquidities = useMultipleContractSingleData(poolAddresses, POOL_STATE_INTERFACE, 'get_liquidity')
 
@@ -126,7 +137,7 @@ export function usePools(
       if (!slot0 || !liquidity) return [PoolState.NOT_EXISTS, null]
       const sqrtPriceX96 = uint256ToBN(slot0.sqrt_price_x96)
       if (!sqrtPriceX96 || sqrtPriceX96.eqn(0)) return [PoolState.NOT_EXISTS, null]
-      if (slot0.tick.toString().length > 10) return [PoolState.INVALID, null]
+      if (slot0.tick.toString().length > 7) return [PoolState.INVALID, null]
       const tick = slot0.tick.toNumber()
       try {
         const pool = PoolCache.getPool(token0, token1, fee, sqrtPriceX96.toString(), liquidity[0], tick)

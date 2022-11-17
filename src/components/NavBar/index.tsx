@@ -10,7 +10,6 @@ import { NavLink, NavLinkProps, useLocation } from 'react-router-dom'
 
 import { ChainSelector } from './ChainSelector'
 import { MenuDropdown } from './MenuDropdown'
-import { SearchBar } from './SearchBar'
 import * as styles from './style.css'
 
 interface MenuItemProps {
@@ -50,9 +49,6 @@ const PageTabs = () => {
       <MenuItem href="/swap" isActive={pathname.startsWith('/swap')}>
         <Trans>Swap</Trans>
       </MenuItem>
-      <MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
-        <Trans>Tokens</Trans>
-      </MenuItem>
       <MenuItem href="/pool" id={'pool-nav-link'} isActive={isPoolActive}>
         <Trans>Pool</Trans>
       </MenuItem>
@@ -77,14 +73,14 @@ const Navbar = () => {
               <PageTabs />
             </Row>
           </Box>
-          <Box className={styles.middleContainer}>
+          {/* <Box className={styles.middleContainer}>
             <SearchBar />
-          </Box>
+          </Box> */}
           <Box className={styles.rightSideContainer}>
             <Row gap="12">
-              <Box display={{ sm: 'flex', xl: 'none' }}>
+              {/* <Box display={{ sm: 'flex', xl: 'none' }}>
                 <SearchBar />
-              </Box>
+              </Box> */}
               <Box display={{ sm: 'none', lg: 'flex' }}>
                 <MenuDropdown />
               </Box>

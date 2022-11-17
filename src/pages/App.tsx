@@ -1,4 +1,4 @@
-import { initializeAnalytics, sendAnalyticsEvent, user } from 'analytics'
+import { sendAnalyticsEvent, user } from 'analytics'
 import { CUSTOM_USER_PROPERTIES, EventName, PageName } from 'analytics/constants'
 import { Trace } from 'analytics/Trace'
 import Loader from 'components/Loader'
@@ -13,7 +13,6 @@ import { Z_INDEX } from 'theme/zIndex'
 import { getBrowser } from 'utils/browser'
 import { getCLS, getFCP, getFID, getLCP, Metric } from 'web-vitals'
 
-import { useAnalyticsReporter } from '../components/analytics'
 import ErrorBoundary from '../components/ErrorBoundary'
 import NavBar from '../components/NavBar'
 import Polling from '../components/Polling'
@@ -87,8 +86,8 @@ export default function App() {
   const isExpertMode = useIsExpertMode()
   const [scrolledState, setScrolledState] = useState(false)
 
-  useAnalyticsReporter()
-  initializeAnalytics()
+  // useAnalyticsReporter()
+  // initializeAnalytics()
 
   const scrollListener = (e: Event) => {
     if (window.scrollY > 0) {

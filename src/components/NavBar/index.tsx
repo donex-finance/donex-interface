@@ -81,9 +81,9 @@ const Navbar = () => {
               {/* <Box display={{ sm: 'flex', xl: 'none' }}>
                 <SearchBar />
               </Box> */}
-              <Box display={{ sm: 'none', lg: 'flex' }}>
+              {/* <Box display={{ sm: 'none', lg: 'flex' }}>
                 <MenuDropdown />
-              </Box>
+              </Box> */}
 
               <Box display={{ sm: 'none', lg: 'flex' }}>
                 <ChainSelector />

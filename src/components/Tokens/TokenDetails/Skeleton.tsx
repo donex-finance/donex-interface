@@ -1,5 +1,3 @@
-import { WidgetSkeleton } from 'components/Widget'
-import { WIDGET_WIDTH } from 'components/Widget'
 import { ArrowLeft } from 'react-feather'
 import { useParams } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components/macro'
@@ -11,6 +9,7 @@ import { ChartContainer, ChartHeader, TokenInfoContainer, TokenNameCell } from '
 import { DeltaContainer, TokenPrice } from './PriceChart'
 import { StatPair, StatsWrapper, StatWrapper } from './StatsSection'
 
+const WIDGET_WIDTH = 200
 export const Hr = styled.hr`
   background-color: ${({ theme }) => theme.backgroundOutline};
   border: none;
@@ -217,9 +216,7 @@ export function TokenDetailsPageSkeleton() {
   return (
     <TokenDetailsLayout>
       <TokenDetailsSkeleton />
-      <RightPanel>
-        <WidgetSkeleton />
-      </RightPanel>
+      <RightPanel></RightPanel>
     </TokenDetailsLayout>
   )
 }

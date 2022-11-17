@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 import { PageName } from 'analytics/constants'
 import { Trace } from 'analytics/Trace'
 import { AboutSection } from 'components/Tokens/TokenDetails/About'
@@ -15,14 +16,13 @@ import TokenDetailsSkeleton, {
 import StatsSection from 'components/Tokens/TokenDetails/StatsSection'
 import TokenSafetyMessage from 'components/TokenSafety/TokenSafetyMessage'
 import TokenSafetyModal from 'components/TokenSafety/TokenSafetyModal'
-import Widget from 'components/Widget'
-import { DEFAULT_ERC20_DECIMALS, NATIVE_CHAIN_ID, nativeOnChain } from 'constants/tokens'
+import { DEFAULT_ERC20_DECIMALS, nativeOnChain, NATIVE_CHAIN_ID } from 'constants/tokens'
 import { checkWarning } from 'constants/tokenSafety'
 import { Currency, Token } from 'donex-sdk/sdk-core'
-import { Chain } from 'graphql/data/__generated__/TokenQuery.graphql'
 import { QueryToken, useTokenQuery } from 'graphql/data/Token'
 import { useTokenPriceQuery } from 'graphql/data/TokenPrice'
 import { CHAIN_NAME_TO_CHAIN_ID, validateUrlChainParam } from 'graphql/data/util'
+import { Chain } from 'graphql/data/__generated__/TokenQuery.graphql'
 import { useIsUserAddedTokenOnChain } from 'hooks/Tokens'
 import { useOnGlobalChainSwitch } from 'hooks/useGlobalChainSwitch'
 import { useCallback, useMemo, useState, useTransition } from 'react'
@@ -124,11 +124,6 @@ export default function TokenDetails() {
         )}
 
         <RightPanel>
-          <Widget
-            token={token ?? nativeCurrency}
-            onTokenChange={navigateToWidgetSelectedToken}
-            onReviewSwapClick={onReviewSwapClick}
-          />
           {tokenWarning && <TokenSafetyMessage tokenAddress={tokenAddress ?? ''} warning={tokenWarning} />}
           {token && <BalanceSummary token={token} />}
         </RightPanel>

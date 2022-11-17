@@ -1,4 +1,3 @@
-import { validateTokenList } from '@uniswap/widgets'
 import type { TokenList } from 'donex-sdk/token-lists'
 import uriToHttp from 'lib/utils/uriToHttp'
 
@@ -37,7 +36,7 @@ export default async function fetchTokenList(listUrl: string, skipValidation?: b
 
     const json = await response.json()
     skipValidation = true
-    const list = skipValidation ? json : await validateTokenList(json)
+    const list = json
     listCache?.set(listUrl, json)
     return json
   }

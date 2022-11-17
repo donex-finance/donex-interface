@@ -36,7 +36,6 @@ import confirmPriceImpactWithoutFee from '../../components/swap/confirmPriceImpa
 import ConfirmSwapModal from '../../components/swap/ConfirmSwapModal'
 import { ArrowWrapper, PageWrapper, SwapCallbackError, SwapWrapper } from '../../components/swap/styleds'
 import SwapHeader from '../../components/swap/SwapHeader'
-import { SwitchLocaleLink } from '../../components/SwitchLocaleLink'
 import { TOKEN_SHORTHANDS } from '../../constants/tokens'
 import { useAllTokens, useCurrency } from '../../hooks/Tokens'
 import { ApprovalState, useApproveCallbackFromTrade } from '../../hooks/useApproveCallback'
@@ -725,7 +724,7 @@ export default function Swap() {
           </SwapWrapper>
           <NetworkAlert />
         </PageWrapper>
-        <SwitchLocaleLink />
+        {/* <SwitchLocaleLink /> */}
         {!swapIsUnsupported ? null : (
           <UnsupportedCurrencyFooter
             show={swapIsUnsupported}

@@ -46,7 +46,6 @@ import { unwrappedToken } from 'utils/unwrappedToken'
 import RangeBadge from '../../components/Badge/RangeBadge'
 import { getPriceOrderingFromPositionForUI } from '../../components/PositionListItem'
 import RateToggle from '../../components/RateToggle'
-import { SwitchLocaleLink } from '../../components/SwitchLocaleLink'
 import { TransactionType } from '../../state/transactions/types'
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
 import { LoadingRows } from './styleds'
@@ -930,7 +929,7 @@ export function PositionPage() {
             </DarkCard>
           </AutoColumn>
         </PageWrapper>
-        <SwitchLocaleLink />
+        {/* <SwitchLocaleLink /> */}
       </>
     </Trace>
   )

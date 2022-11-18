@@ -123,7 +123,7 @@ export const MenuDropdown = () => {
           <NavDropdown top={{ sm: 'unset', lg: '56' }} bottom={{ sm: '56', lg: 'unset' }} right="0">
             <Column gap="16">
               <Column paddingX="8" gap="4">
-                <PrimaryMenuRow href="https://info.uniswap.org/#/">
+                <PrimaryMenuRow href="https://info.donex.finance/#/">
                   <Icon>
                     <BarChartIcon width={24} height={24} />
                   </Icon>
@@ -140,10 +140,10 @@ export const MenuDropdown = () => {
                 alignItems={{ sm: 'center', md: 'flex-start' }}
                 paddingX="8"
               >
-                <SecondaryLinkedText href="https://help.uniswap.org/en/">
+                <SecondaryLinkedText href="https://help.donex.finance/en/">
                   <Trans>Help center</Trans> ↗
                 </SecondaryLinkedText>
-                <SecondaryLinkedText href="https://docs.uniswap.org/">
+                <SecondaryLinkedText href="https://docs.donex.finance/">
                   <Trans>Documentation</Trans> ↗
                 </SecondaryLinkedText>
                 <SecondaryLinkedText
@@ -177,7 +177,7 @@ export const MenuDropdown = () => {
                     color={themeVars.colors.textSecondary}
                   />
                 </Icon>
-                <Icon href="https://github.com/Uniswap">
+                <Icon href="https://github.com/donex-finance">
                   <GithubIconMenu
                     className={styles.hover}
                     width={24}

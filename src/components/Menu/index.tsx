@@ -10,7 +10,6 @@ import {
   BookOpen,
   Check,
   ChevronLeft,
-  Coffee,
   FileText,
   Flag,
   Globe,
@@ -233,24 +232,24 @@ export default function Menu() {
               default:
                 return (
                   <MenuFlyout>
-                    <MenuItem href="https://uniswap.org/">
+                    <MenuItem href="https://donex.finance/">
                       <div>
                         <Trans>About</Trans>
                       </div>
                       <Info opacity={0.6} size={16} />
                     </MenuItem>
-                    <MenuItem href="https://help.uniswap.org/">
+                    <MenuItem href="https://help.donex.finance/">
                       <div>
                         <Trans>Help Center</Trans>
                       </div>
                       <HelpCircle opacity={0.6} size={16} />
                     </MenuItem>
-                    <MenuItem href="https://uniswap.canny.io/feature-requests">
+                    {/* <MenuItem href="https://uniswap.canny.io/feature-requests">
                       <div>
                         <Trans>Request Features</Trans>
                       </div>
                       <Coffee opacity={0.6} size={16} />
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem href="https://discord.gg/FCfyBSbCU5">
                       <div>
                         <Trans>Discord</Trans>
@@ -267,7 +266,7 @@ export default function Menu() {
                       <div>{darkMode ? <Trans>Light Theme</Trans> : <Trans>Dark Theme</Trans>}</div>
                       {darkMode ? <Sun opacity={0.6} size={16} /> : <Moon opacity={0.6} size={16} />}
                     </ToggleMenuItem>
-                    <MenuItem href="https://docs.uniswap.org/">
+                    <MenuItem href="https://docs.donex.finance/">
                       <div>
                         <Trans>Docs</Trans>
                       </div>

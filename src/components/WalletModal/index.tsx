@@ -297,12 +297,12 @@ export default function WalletModal({
           <AutoRow style={{ flexWrap: 'nowrap' }}>
             <ThemedText.DeprecatedBody fontSize={12}>
               <Trans>
-                By connecting a wallet, you agree to Uniswap Labs’{' '}
-                <ExternalLink style={{ textDecoration: 'underline' }} href="https://uniswap.org/terms-of-service/">
+                By connecting a wallet, you agree to Donex Finance’{' '}
+                <ExternalLink style={{ textDecoration: 'underline' }} href="https://donex.finance/terms-of-service/">
                   Terms of Service
                 </ExternalLink>{' '}
-                and acknowledge that you have read and understand the Uniswap{' '}
-                <ExternalLink style={{ textDecoration: 'underline' }} href="https://uniswap.org/disclaimer/">
+                and acknowledge that you have read and understand the Donex Finance{' '}
+                <ExternalLink style={{ textDecoration: 'underline' }} href="https://donex.finance/disclaimer/">
                   Protocol Disclaimer
                 </ExternalLink>
                 .

@@ -1,10 +1,10 @@
 {
   "background_color": "#fff",
   "display": "standalone",
-  "homepage_url": "https://app.uniswap.org",
+  "homepage_url": "https://app.donex.finance",
   "providedBy": {
-    "name": "Uniswap",
-    "url": "https://uniswap.org"
+    "name": "Donex Finance",
+    "url": "https://donex.finance"
   },
   "icons": [
     {

@@ -212,7 +212,7 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
                   <ThemedText.DeprecatedBlack fontWeight={400} fontSize={14} color={theme.deprecated_text2}>
                     <Trans>Auto Router API</Trans>
                   </ThemedText.DeprecatedBlack>
-                  <QuestionHelper text={<Trans>Use the Uniswap Labs API to get faster quotes.</Trans>} />
+                  <QuestionHelper text={<Trans>Use the Donex Finance API to get faster quotes.</Trans>} />
                 </RowFixed>
                 <Toggle
                   id="toggle-optimized-router-button"

@@ -45,9 +45,9 @@ export type ChainInfoMap = { readonly [chainId: number]: L1ChainInfo | L2ChainIn
 const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.MAINNET]: {
     networkType: NetworkType.L1,
-    docs: 'https://docs.uniswap.org/',
+    docs: 'https://docs.donex.finance/',
     explorer: 'https://starkscan.co',
-    infoLink: 'https://info.uniswap.org/#/',
+    infoLink: 'https://info.donex.finance/#/',
     label: 'Starknet Mainnet',
     logoUrl: starknetLogoUrl,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
@@ -55,9 +55,9 @@ const CHAIN_INFO: ChainInfoMap = {
   },
   [SupportedChainId.TESTNET]: {
     networkType: NetworkType.L1,
-    docs: 'https://docs.uniswap.org/',
+    docs: 'https://docs.donex.finance/',
     explorer: 'https://testnet-2.starkscan.co/',
-    infoLink: 'https://info.uniswap.org/#/',
+    infoLink: 'https://info.donex.finance/#/',
     label: 'Starknet Testnet-2',
     logoUrl: starknetLogoUrl,
     nativeCurrency: { name: 'Testnet Ether', symbol: 'ETH', decimals: 18 },

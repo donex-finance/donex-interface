@@ -1,7 +1,7 @@
 import { TokenInfo } from 'donex-sdk/token-lists'
 
 import store from '../state'
-import { UNI_LIST, UNSUPPORTED_LIST_URLS } from './lists'
+import { DONEX_LIST, UNSUPPORTED_LIST_URLS } from './lists'
 import brokenTokenList from './tokenLists/broken.tokenlist.json'
 import { NATIVE_CHAIN_ID } from './tokens'
 
@@ -25,7 +25,7 @@ class TokenSafetyLookupTable {
     // })
 
     // Initialize default tokens second, so that any tokens on both default and extended will display as default (no warning)
-    store.getState().lists.byUrl[UNI_LIST].current?.tokens.forEach((token) => {
+    store.getState().lists.byUrl[DONEX_LIST].current?.tokens.forEach((token) => {
       dict[token.address.toLowerCase()] = TOKEN_LIST_TYPES.UNI_DEFAULT
     })
 

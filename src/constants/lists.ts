@@ -1,9 +1,9 @@
-export const UNI_LIST = 'https://donex.gameli.xyz/api/v1/token-list/starknet.json'
+export const DONEX_LIST = 'https://tokens.donex.finance'
 
 export const UNSUPPORTED_LIST_URLS: string[] = []
 
 // default lists to be 'active' aka searched across
-export const DEFAULT_ACTIVE_LIST_URLS: string[] = [UNI_LIST]
+export const DEFAULT_ACTIVE_LIST_URLS: string[] = [DONEX_LIST]
 export const DEFAULT_INACTIVE_LIST_URLS: string[] = []
 
 // this is the default list of lists that are exposed to users

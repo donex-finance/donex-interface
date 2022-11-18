@@ -28,6 +28,7 @@ import { useV3PositionFees } from 'hooks/useV3PositionFees'
 import { useV3PositionFromTokenId } from 'hooks/useV3Positions'
 import { useSingleCallResult } from 'lib/hooks/multicall'
 import useNativeCurrency from 'lib/hooks/useNativeCurrency'
+import { PositionIcon } from 'nft/components/icons'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { InvokeFunctionResponse } from 'starknet'
@@ -49,7 +50,6 @@ import RateToggle from '../../components/RateToggle'
 import { TransactionType } from '../../state/transactions/types'
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
 import { LoadingRows } from './styleds'
-
 const PageWrapper = styled.div`
   padding: 68px 8px 0px;
 
@@ -659,7 +659,15 @@ export function PositionPage() {
                   }}
                 >
                   <div style={{ marginRight: 12 }}>
-                    <NFT image={metadata.result.image} height={400} />
+                    <PositionIcon
+                      tokenAddress0={pool?.token0.address || ''}
+                      tokenSymbol0={pool?.token0.symbol || ''}
+                      tokenAddress1={pool?.token1.address || ''}
+                      tokenSymbol1={pool?.token1.symbol || ''}
+                      fee={pool ? new Percent(pool.fee, 1_000_000).toSignificant() + '%' : ''}
+                      minTick={tickLower?.toString() || ''}
+                      maxTick={tickUpper?.toString() || ''}
+                    />
                   </div>
                   {typeof chainId === 'number' && owner && !ownsNFT ? (
                     <ExternalLink href={getExplorerLink(chainId, owner, ExplorerDataType.ADDRESS)}>

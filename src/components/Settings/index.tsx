@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
 import { t, Trans } from '@lingui/macro'
-import { sendEvent } from 'components/analytics'
 import { Percent } from 'donex-sdk/sdk-core'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { isSupportedChainId } from 'lib/hooks/routing/clientSideSmartOrderRouter'
@@ -206,7 +205,7 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
             <Text fontWeight={600} fontSize={14}>
               <Trans>Interface Settings</Trans>
             </Text>
-            {isSupportedChainId(chainId) && (
+            {/* {isSupportedChainId(chainId) && (
               <RowBetween>
                 <RowFixed>
                   <ThemedText.DeprecatedBlack fontWeight={400} fontSize={14} color={theme.deprecated_text2}>
@@ -226,7 +225,7 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
                   }}
                 />
               </RowBetween>
-            )}
+            )} */}
             <RowBetween>
               <RowFixed>
                 <ThemedText.DeprecatedBlack fontWeight={400} fontSize={14} color={theme.deprecated_text2}>

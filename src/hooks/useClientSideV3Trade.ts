@@ -65,6 +65,12 @@ export function useClientSideV3Trade<TTradeType extends TradeType>(
       }
     }
 
+    if (routesLoading || quotesResults.some(({ loading }) => loading)) {
+      return {
+        state: TradeState.LOADING,
+        trade: undefined,
+      }
+    }
     const { bestRoute, amountIn, amountOut } = quotesResults.reduce(
       (
         currentBest: {
@@ -128,5 +134,5 @@ export function useClientSideV3Trade<TTradeType extends TradeType>(
         tradeType,
       }),
     }
-  }, [amountSpecified, currencyIn, currencyOut, quotesResults, routes, routesLoading, tradeType])
+  }, [amountSpecified, currencyIn, currencyOut, quotesResults, routes, tradeType])
 }

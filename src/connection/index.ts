@@ -35,6 +35,10 @@ const [argentXWallet, argentXWalletHooks] = initializeConnector<StarknetWallet>(
   (actions) =>
     new StarknetWallet({
       actions,
+      options: {
+        order: ['argentX'],
+        showList: false,
+      },
       onError,
     })
 )
@@ -48,6 +52,10 @@ const [braavosWallet, braavosWalletHooks] = initializeConnector<StarknetWallet>(
   (actions) =>
     new StarknetWallet({
       actions,
+      options: {
+        order: ['braavos'],
+        showList: false,
+      },
       onError,
     })
 )

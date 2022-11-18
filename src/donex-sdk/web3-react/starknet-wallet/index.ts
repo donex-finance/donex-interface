@@ -1,6 +1,6 @@
 import type { Actions, AddEthereumChainParameter, WatchAssetParameters } from 'donex-sdk/web3-react/types'
 import { Connector } from 'donex-sdk/web3-react/types'
-import getStarknet from 'get-starknet'
+import getStarknet, { GetStarknetWalletOptions } from 'get-starknet'
 import { AccountInterface } from 'starknet'
 
 import { fromStarknetChainId } from '../network'
@@ -14,6 +14,7 @@ export class NoStarknetWalletError extends Error {
 
 export interface StarknetWalletConstructorArgs {
   actions: Actions
+  options?: GetStarknetWalletOptions
   onError?: (error: Error) => void
 }
 
@@ -23,15 +24,16 @@ export class StarknetWallet extends Connector {
   public customProvider?: AccountInterface
   public starknetWindowObject?: getStarknet.IStarknetWindowObject
 
+  private readonly options?: GetStarknetWalletOptions
   private eagerConnection?: Promise<void>
 
-  constructor({ actions, onError }: StarknetWalletConstructorArgs) {
+  constructor({ actions, options, onError }: StarknetWalletConstructorArgs) {
     super(actions, onError)
+    this.options = options
   }
 
   private listenEvents() {
     if (this.starknetWindowObject) {
-      console.log('listenEvents')
       this.starknetWindowObject.on('accountsChanged', (accounts: string[]) => {
         if (accounts.length === 0) {
           // handle this edge case by disconnecting
@@ -41,7 +43,6 @@ export class StarknetWallet extends Connector {
         }
       })
       this.starknetWindowObject.on('networkChanged', (chainId) => {
-        console.log('networkChanged')
         // notce! The chainId here is not equal to provider.chainId
         this.actions.update({ chainId: fromStarknetChainId(chainId) })
       })
@@ -52,7 +53,7 @@ export class StarknetWallet extends Connector {
     if (this.eagerConnection) return
     return (this.eagerConnection = import('get-starknet').then(async (m) => {
       try {
-        const starknetWindowObject = await m.connect()
+        const starknetWindowObject = await m.connect(this.options)
         this.starknetWindowObject = starknetWindowObject
         await starknetWindowObject?.enable()
         const provider = starknetWindowObject?.account

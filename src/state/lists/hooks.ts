@@ -4,7 +4,6 @@ import { useAppSelector } from 'state/hooks'
 import sortByListPriority from 'utils/listSort'
 
 import { default as BROKEN_LIST } from '../../constants/tokenLists/broken.tokenlist.json'
-import { default as DEFAULT_LIST } from '../../constants/tokenLists/default.tokenlist.json'
 import { AppState } from '../index'
 import { DEFAULT_ACTIVE_LIST_URLS, UNSUPPORTED_LIST_URLS } from './../../constants/lists'
 export type TokenAddressMap = ChainTokenMap
@@ -68,8 +67,7 @@ function useCombinedTokenMapFromUrls(urls: string[] | undefined): TokenAddressMa
 
 // get all the tokens from active lists, combine with local default tokens
 export function useCombinedActiveList(): TokenAddressMap {
-  const activeTokens = tokensToChainTokenMap(DEFAULT_LIST)
-  // const activeTokens = useCombinedTokenMapFromUrls(DEFAULT_ACTIVE_LIST_URLS)
+  const activeTokens = useCombinedTokenMapFromUrls(DEFAULT_ACTIVE_LIST_URLS)
   return activeTokens
 }
 

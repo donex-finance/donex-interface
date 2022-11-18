@@ -31,7 +31,7 @@ export function useV3PositionFees(
   // latestBlockNumber is included to ensure data stays up-to-date every block
   const [amounts, setAmounts] = useState<[BigNumber, BigNumber] | undefined>()
   useEffect(() => {
-    if (positionManager && tokenIdHexString && owner) {
+    if (positionManager && tokenIdHexString && owner && stringToFelt(owner) !== '0x00000000000000000000') {
       positionManager.callStatic
         .collect(
           bnToUint256(tokenId?.toString() || 0),

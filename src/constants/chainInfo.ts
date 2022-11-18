@@ -56,9 +56,9 @@ const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.TESTNET]: {
     networkType: NetworkType.L1,
     docs: 'https://docs.uniswap.org/',
-    explorer: 'https://testnet.starkscan.co/',
+    explorer: 'https://testnet-2.starkscan.co/',
     infoLink: 'https://info.uniswap.org/#/',
-    label: 'Starknet Testnet',
+    label: 'Starknet Testnet-2',
     logoUrl: starknetLogoUrl,
     nativeCurrency: { name: 'Testnet Ether', symbol: 'ETH', decimals: 18 },
     color: colorsDark.chain_5,

@@ -1,15 +1,20 @@
 import type { Actions, AddEthereumChainParameter, WatchAssetParameters } from 'donex-sdk/web3-react/types'
 import { Connector } from 'donex-sdk/web3-react/types'
-import getStarknet, { GetStarknetWalletOptions } from 'get-starknet'
+import getStarknet from 'get-starknet'
 import { AccountInterface } from 'starknet'
 
 import { fromStarknetChainId } from '../network'
+
 export class NoStarknetWalletError extends Error {
   public constructor() {
     super('StarknetWallet not installed')
     this.name = NoStarknetWalletError.name
     Object.setPrototypeOf(this, NoStarknetWalletError.prototype)
   }
+}
+
+type GetStarknetWalletOptions = {
+  walletId: 'argentX' | 'braavos'
 }
 
 export interface StarknetWalletConstructorArgs {
@@ -25,7 +30,7 @@ export class StarknetWallet extends Connector {
   public starknetWindowObject?: getStarknet.IStarknetWindowObject
 
   private readonly options?: GetStarknetWalletOptions
-  private eagerConnection?: Promise<void>
+  private eagerConnection?: boolean
 
   constructor({ actions, options, onError }: StarknetWalletConstructorArgs) {
     super(actions, onError)
@@ -51,20 +56,23 @@ export class StarknetWallet extends Connector {
 
   private async isomorphicInitialize(): Promise<void> {
     if (this.eagerConnection) return
-    return (this.eagerConnection = import('get-starknet').then(async (m) => {
-      try {
-        const starknetWindowObject = await m.connect(this.options)
-        this.starknetWindowObject = starknetWindowObject
-        await starknetWindowObject?.enable()
-        const provider = starknetWindowObject?.account
-        if (provider) {
-          this.provider = provider
-        }
-        this.listenEvents()
-      } catch (e) {
-        console.log('connect failed', e)
-      }
-    }))
+
+    let starknetWindowObject = undefined
+    if (this.options?.walletId === 'argentX') {
+      starknetWindowObject = window.starknet_argentX
+    } else {
+      starknetWindowObject = window.starknet_braavos
+    }
+    this.starknetWindowObject = starknetWindowObject as any
+
+    await this.starknetWindowObject?.enable()
+    const provider = this.starknetWindowObject?.account
+    if (provider) {
+      this.provider = provider
+    }
+    this.listenEvents()
+
+    this.eagerConnection = true
   }
 
   /** {@inheritdoc Connector.connectEagerly} */

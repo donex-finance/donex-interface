@@ -6,7 +6,6 @@ import { ButtonPrimary, ButtonText } from 'components/Button'
 import { AutoColumn } from 'components/Column'
 import PositionList from 'components/PositionList'
 import { RowBetween, RowFixed } from 'components/Row'
-import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { isSupportedChain } from 'constants/chains'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useV3Positions } from 'hooks/useV3Positions'
@@ -149,7 +148,7 @@ function WrongNetworkCard() {
           </AutoColumn>
         </AutoColumn>
       </PageWrapper>
-      <SwitchLocaleLink />
+      {/* <SwitchLocaleLink /> */}
     </>
   )
 }

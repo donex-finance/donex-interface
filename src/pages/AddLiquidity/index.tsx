@@ -36,7 +36,6 @@ import RangeSelector from '../../components/RangeSelector'
 import PresetsButtons from '../../components/RangeSelector/PresetsButtons'
 import RateToggle from '../../components/RateToggle'
 import Row, { AutoRow, RowBetween, RowFixed } from '../../components/Row'
-import { SwitchLocaleLink } from '../../components/SwitchLocaleLink'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import { NONFUNGIBLE_POSITION_MANAGER_ADDRESSES } from '../../constants/addresses'
 import { ZERO_PERCENT } from '../../constants/misc'
@@ -891,7 +890,7 @@ export default function AddLiquidity() {
           />
         )}
       </ScrollablePage>
-      <SwitchLocaleLink />
+      {/* <SwitchLocaleLink /> */}
     </>
   )
 }

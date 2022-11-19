@@ -2,15 +2,7 @@
 import { Currency, Token } from 'donex-sdk/sdk-core'
 
 import { SupportedChainId } from './chains'
-import {
-  ETH_MAINNET,
-  nativeOnChain,
-  USDC_MAINNET,
-  USDC_TESTNET,
-  WRAPPED_NATIVE_CURRENCY,
-  ZOKE2_MAINNET,
-  ZOKE2_TESTNET,
-} from './tokens'
+import { ETH_MAINNET, nativeOnChain, USDC_MAINNET, USDC_TESTNET, WRAPPED_NATIVE_CURRENCY } from './tokens'
 
 type ChainTokenList = {
   readonly [chainId: number]: Token[]
@@ -43,8 +35,8 @@ export const CUSTOM_BASES: { [chainId: number]: { [tokenAddress: string]: Token[
  * Shows up in the currency select for swap and add liquidity
  */
 export const COMMON_BASES: ChainCurrencyList = {
-  [SupportedChainId.MAINNET]: [nativeOnChain(SupportedChainId.MAINNET), USDC_MAINNET, ZOKE2_MAINNET],
-  [SupportedChainId.TESTNET]: [nativeOnChain(SupportedChainId.TESTNET), USDC_MAINNET, ZOKE2_TESTNET],
+  [SupportedChainId.MAINNET]: [nativeOnChain(SupportedChainId.MAINNET)],
+  [SupportedChainId.TESTNET]: [nativeOnChain(SupportedChainId.TESTNET)],
 }
 
 // used to construct the list of all pairs we consider by default in the frontend

@@ -11,7 +11,7 @@ export const DEFAULT_ERC20_DECIMALS = 18
 
 export const USDC_MAINNET = new Token(
   SupportedChainId.MAINNET,
-  '0x06d1AF6d2DA3aB173D57Bcd6D362d676F4BFF73CdcaA46ae9e35a4f53b4f980e',
+  '0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396ec9',
   18,
   'USDC',
   'USD//C'
@@ -19,26 +19,10 @@ export const USDC_MAINNET = new Token(
 
 export const USDC_TESTNET = new Token(
   SupportedChainId.TESTNET,
-  '0x06d1AF6d2DA3aB173D57Bcd6D362d676F4BFF73CdcaA46ae9e35a4f53b4f980e',
+  '0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396ec9',
   18,
   'USDC',
   'USD//C'
-)
-
-export const ZOKE2_MAINNET = new Token(
-  SupportedChainId.MAINNET,
-  '0x048109f9d55Af0Ad4A4961D9eBBFdc0F55e3335c2b10247C3eb186Ab963051eB',
-  18,
-  'ZOKE2',
-  'ZOKE2'
-)
-
-export const ZOKE2_TESTNET = new Token(
-  SupportedChainId.TESTNET,
-  '0x048109f9d55Af0Ad4A4961D9eBBFdc0F55e3335c2b10247C3eb186Ab963051eB',
-  18,
-  'ZOKE2',
-  'ZOKE2'
 )
 
 export const USDC: { [chainId in SupportedChainId]: Token } = {

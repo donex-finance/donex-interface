@@ -7,39 +7,21 @@
   "keywords": ["donex-finance", "default"],
   "tokens": [
     {
-      "name": "ZOKE1",
+      "name": "Donex Test Token1",
       "address": "0x06d1AF6d2DA3aB173D57Bcd6D362d676F4BFF73CdcaA46ae9e35a4f53b4f980e",
-      "symbol": "ZOKE1",
-      "decimals": 18,
-      "chainId": 1,
-      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
-      "extensions": {}
-    },
-    {
-      "name": "ZOKE2",
-      "address": "0x048109f9d55Af0Ad4A4961D9eBBFdc0F55e3335c2b10247C3eb186Ab963051eB",
-      "symbol": "ZOKE2",
-      "decimals": 18,
-      "chainId": 1,
-      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
-      "extensions": {}
-    },
-    {
-      "name": "ZOKE1_TESTNET",
-      "address": "0x06d1AF6d2DA3aB173D57Bcd6D362d676F4BFF73CdcaA46ae9e35a4f53b4f980e",
-      "symbol": "ZOKE1",
+      "symbol": "DTT1",
       "decimals": 18,
       "chainId": 5,
-      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+      "logoURI": "",
       "extensions": {}
     },
     {
-      "name": "ZOKE2_TESTNET",
+      "name": "Donex Test Token2",
       "address": "0x048109f9d55Af0Ad4A4961D9eBBFdc0F55e3335c2b10247C3eb186Ab963051eB",
-      "symbol": "ZOKE2",
+      "symbol": "DTT2",
       "decimals": 18,
       "chainId": 5,
-      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+      "logoURI": "",
       "extensions": {}
     }
   ]

@@ -1,10 +1,10 @@
 import { Trans } from '@lingui/macro'
+import LOGO_SVG from 'assets/images/logo.png'
 import Web3Status from 'components/Web3Status'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { chainIdToBackendName } from 'graphql/data/util'
 import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
-import { UniIcon } from 'nft/components/icons'
 import { ReactNode } from 'react'
 import { NavLink, NavLinkProps, useLocation } from 'react-router-dom'
 
@@ -63,7 +63,7 @@ const Navbar = () => {
         <Box display="flex" height="full" flexWrap="nowrap" alignItems="stretch">
           <Box className={styles.leftSideContainer}>
             <Box as="a" href="#/swap" className={styles.logoContainer}>
-              <UniIcon width="48" height="48" className={styles.logo} />
+              <img src={LOGO_SVG} width="40" height="40" alt="" />
             </Box>
 
             <Box display={{ sm: 'flex', lg: 'none' }}>

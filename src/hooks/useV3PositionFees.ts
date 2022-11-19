@@ -1,5 +1,4 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { stringToFelt } from 'donex-sdk/cc-core/utils/utils'
 import { Currency, CurrencyAmount } from 'donex-sdk/sdk-core'
 import { Pool } from 'donex-sdk/v3-sdk'
 import { useSingleCallResult } from 'lib/hooks/multicall'
@@ -19,23 +18,24 @@ export function useV3PositionFees(
   tokenId?: BigNumber,
   asWETH = false
 ): [CurrencyAmount<Currency>, CurrencyAmount<Currency>] | [undefined, undefined] {
-  const positionManager = useV3NFTPositionManagerContract(false)
-  const owner: string | undefined = useSingleCallResult(tokenId ? positionManager : null, 'ownerOf', [
-    bnToUint256(tokenId?.toString() || 0),
-  ]).result?.[0]
-
   const tokenIdHexString = tokenId?.toHexString()
+
+  const positionManager = useV3NFTPositionManagerContract(true)
+  const owner: string | undefined = useSingleCallResult(tokenId ? positionManager : null, 'ownerOf', [
+    bnToUint256(toBN(tokenIdHexString || '0')),
+  ]).result?.owner
+
   const latestBlockNumber = useBlockNumber()
 
   // we can't use multicall for this because we need to simulate the call from a specific address
   // latestBlockNumber is included to ensure data stays up-to-date every block
   const [amounts, setAmounts] = useState<[BigNumber, BigNumber] | undefined>()
   useEffect(() => {
-    if (positionManager && tokenIdHexString && owner && stringToFelt(owner) !== '0x00000000000000000000') {
+    if (positionManager && tokenIdHexString && owner) {
       positionManager.callStatic
         .collect(
           bnToUint256(tokenId?.toString() || 0),
-          stringToFelt(owner),
+          owner.toString(),
           toFelt(toBN(MAX_UINT128.toString())),
           toFelt(toBN(MAX_UINT128.toString()))
         )
@@ -47,7 +47,6 @@ export function useV3PositionFees(
         })
     }
   }, [positionManager, tokenIdHexString, owner, latestBlockNumber, tokenId])
-
   if (pool && amounts) {
     return [
       CurrencyAmount.fromRawAmount(asWETH ? pool.token0 : unwrappedToken(pool.token0), amounts[0].toString()),

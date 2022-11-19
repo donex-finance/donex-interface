@@ -31,7 +31,7 @@ import useNativeCurrency from 'lib/hooks/useNativeCurrency'
 import { PositionIcon } from 'nft/components/icons'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { InvokeFunctionResponse } from 'starknet'
+import { AccountInterface, InvokeFunctionResponse } from 'starknet'
 import { toHex } from 'starknet/utils/number'
 import { bnToUint256 } from 'starknet/utils/uint256'
 import { Bound } from 'state/mint/v3/actions'
@@ -398,7 +398,6 @@ export function PositionPage() {
 
   // fees
   const [feeValue0, feeValue1] = useV3PositionFees(pool ?? undefined, positionDetails?.tokenId, receiveWETH)
-
   // these currencies will match the feeValue{0,1} currencies for the purposes of fee collection
   const currency0ForFeeCollectionPurposes = pool ? (receiveWETH ? pool.token0 : unwrappedToken(pool.token0)) : undefined
   const currency1ForFeeCollectionPurposes = pool ? (receiveWETH ? pool.token1 : unwrappedToken(pool.token1)) : undefined
@@ -463,7 +462,7 @@ export function PositionPage() {
       callData: calldata,
     })
 
-    return (provider as any)
+    return ((provider as any).provider as AccountInterface)
       .execute(tx)
       .then((response: InvokeFunctionResponse) => {
         setCollectMigrationHash(response.transaction_hash)
@@ -479,8 +478,12 @@ export function PositionPage() {
           type: TransactionType.COLLECT_FEES,
           currencyId0: currencyId(currency0ForFeeCollectionPurposes),
           currencyId1: currencyId(currency1ForFeeCollectionPurposes),
-          expectedCurrencyOwed0: CurrencyAmount.fromRawAmount(currency0ForFeeCollectionPurposes, 0).toExact(),
-          expectedCurrencyOwed1: CurrencyAmount.fromRawAmount(currency1ForFeeCollectionPurposes, 0).toExact(),
+          expectedCurrencyOwed0: feeValue0
+            ? feeValue0.toExact()
+            : CurrencyAmount.fromRawAmount(currency0ForFeeCollectionPurposes, 0).toExact(),
+          expectedCurrencyOwed1: feeValue1
+            ? feeValue1.toExact()
+            : CurrencyAmount.fromRawAmount(currency1ForFeeCollectionPurposes, 0).toExact(),
         })
       })
       .catch((error: any) => {

@@ -11,6 +11,17 @@ An open source interface for Donex -- a protocol for decentralized exchange of S
 - Email: [contact@donex.finance](mailto:contact@donex.finance)
 - Discord: [Uniswap](https://discord.gg/FCfyBSbCU5)
 
+## Run
+```
+yarn
+yarn start
+```
+
+## Build
+```
+PUBLIC_URL=https://app.donex.finance  yarn build
+````
+
 ## Accessing the Uniswap Interface
 
 To access the Donex Finance Interface, use the

@@ -125,6 +125,7 @@ export function usePools(
 
   return useMemo(() => {
     return poolKeys.map((_key, index) => {
+      if (poolAddresses[index] === undefined) return [PoolState.NOT_EXISTS, null]
       const tokens = poolTokens[index]
       if (!tokens) return [PoolState.INVALID, null]
       const [token0, token1, fee] = tokens

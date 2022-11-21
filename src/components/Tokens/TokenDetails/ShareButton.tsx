@@ -23,7 +23,7 @@ const ShareButtonDisplay = styled.div`
   position: relative;
 `
 
-const Share = styled(ShareIcon)<{ open: boolean }>`
+const Share = styled(ShareIcon) <{ open: boolean }>`
   stroke: ${({ theme }) => theme.textSecondary};
   height: 24px;
   width: 24px;
@@ -81,7 +81,7 @@ export default function ShareButton(tokenInfo: TokenInfo) {
   const shareTweet = () => {
     toggleShare()
     window.open(
-      `https://twitter.com/intent/tweet?text=Check%20out%20${tokenInfo.token.name}%20(${tokenInfo.token.symbol})%20https://app.uniswap.org/%23/tokens/${tokenInfo.token.chain}/${tokenAddress}%20via%20@uniswap`,
+      `https://twitter.com/intent/tweet?text=Check%20out%20${tokenInfo.token.name}%20(${tokenInfo.token.symbol})%20https://app.donex.finance/%23/tokens/${tokenInfo.token.chain}/${tokenAddress}%20via%20@uniswap`,
       'newwindow',
       `left=${positionX}, top=${positionY}, width=${TWITTER_WIDTH}, height=${TWITTER_HEIGHT}`
     )

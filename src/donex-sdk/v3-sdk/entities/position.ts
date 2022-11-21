@@ -18,7 +18,7 @@ interface PositionConstructorArgs {
 }
 
 /**
- * Represents a position on a Uniswap V3 Pool
+ * Represents a position on a Donex Pool
  */
 export class Position {
   public readonly pool: Pool

@@ -43,7 +43,7 @@ export default function ConnectedAccountBlocked(props: ConnectedAccountBlockedPr
           <Trans>
             This address is blocked on the Donex Finance interface because it is associated with one or more
           </Trans>{' '}
-          <ExternalLink href="https://help.uniswap.org/en/articles/6149816">
+          <ExternalLink href="https://help.donex.finance/en/articles/6149816">
             <Trans>blocked activities</Trans>
           </ExternalLink>
           .
@@ -52,14 +52,14 @@ export default function ConnectedAccountBlocked(props: ConnectedAccountBlockedPr
           <Trans>If you believe this is an error, please send an email including your address to </Trans>{' '}
         </ThemedText.DeprecatedMain>
         <Copy
-          toCopy="compliance@uniswap.org"
+          toCopy="compliance@donex.finance"
           fontSize={14}
           iconSize={16}
           gap={6}
           color={theme.deprecated_primary1}
           iconPosition="right"
         >
-          compliance@uniswap.org
+          compliance@donex.finance
         </Copy>
       </ContentWrapper>
     </Modal>

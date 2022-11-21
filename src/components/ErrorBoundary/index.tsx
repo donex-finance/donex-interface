@@ -46,7 +46,7 @@ type ErrorBoundaryState = {
   error: Error | null
 }
 
-const IS_UNISWAP = window.location.hostname === 'app.uniswap.org'
+const IS_UNISWAP = window.location.hostname === 'app.donex.finance'
 
 async function updateServiceWorker(): Promise<ServiceWorkerRegistration> {
   const ready = await navigator.serviceWorker.ready
@@ -168,42 +168,38 @@ function issueBody(error: Error): string {
   
 ${window.location.href}
 
-${
-  relevantState
-    ? `## \`${relevantState}\` state
+${relevantState
+      ? `## \`${relevantState}\` state
     
 \`\`\`json
 ${JSON.stringify(store.getState()[relevantState], null, 2)}
 \`\`\`
 `
-    : ''
-}
-${
-  error.name &&
-  `## Error
+      : ''
+    }
+${error.name &&
+    `## Error
 
 \`\`\`
 ${error.name}${error.message && `: ${error.message}`}
 \`\`\`
 `
-}
-${
-  error.stack &&
-  `## Stacktrace
+    }
+${error.stack &&
+    `## Stacktrace
 
 \`\`\`
 ${error.stack}
 \`\`\`
 `
-}
-${
-  deviceData &&
-  `## Device data
+    }
+${deviceData &&
+    `## Device data
 
 \`\`\`json
 ${JSON.stringify(deviceData, null, 2)}
 \`\`\`
 `
-}
+    }
 `
 }

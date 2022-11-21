@@ -135,7 +135,7 @@ function Pool({ currency0, currency1, feeAmount }: { currency0: Currency; curren
   const tokenInfo0 = useTokenInfoFromActiveList(currency0)
   const tokenInfo1 = useTokenInfoFromActiveList(currency1)
 
-  // TODO - link pool icon to info.uniswap.org via query params
+  // TODO - link pool icon to info.donex.finance via query params
   return (
     <MouseoverTooltip
       text={<Trans>{tokenInfo0?.symbol + '/' + tokenInfo1?.symbol + ' ' + feeAmount / 10000}% pool</Trans>}

@@ -237,30 +237,30 @@ export default function AddLiquidity() {
       const { calldata, calldatas, value } =
         hasExistingPosition && tokenId
           ? NonfungiblePositionManager.addCallParameters(position, {
-              tokenId,
-              slippageTolerance: allowedSlippage,
-              deadline: deadline.toString(),
-            })
+            tokenId,
+            slippageTolerance: allowedSlippage,
+            deadline: deadline.toString(),
+          })
           : NonfungiblePositionManager.addCallParameters(position, {
-              slippageTolerance: allowedSlippage,
-              recipient: account,
-              deadline: deadline.toString(),
-              createPool: noLiquidity,
-            })
+            slippageTolerance: allowedSlippage,
+            recipient: account,
+            deadline: deadline.toString(),
+            createPool: noLiquidity,
+          })
 
       const txn = calldata
         ? toStarknetCall({
-            address: NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId],
-            callData: calldata,
-          })
+          address: NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId],
+          callData: calldata,
+        })
         : calldatas
-        ? calldatas.map((v) =>
+          ? calldatas.map((v) =>
             toStarknetCall({
               address: NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId],
               callData: v,
             })
           )
-        : []
+          : []
 
       setAttemptingTxn(true)
       return ((provider as any).provider as AccountInterface).execute(txn).then((response: InvokeFunctionResponse) => {
@@ -378,11 +378,9 @@ export default function AddLiquidity() {
   const showApprovalA = approvalA !== ApprovalState.APPROVED && !!parsedAmounts[Field.CURRENCY_A]
   const showApprovalB = approvalB !== ApprovalState.APPROVED && !!parsedAmounts[Field.CURRENCY_B]
 
-  const pendingText = `Supplying ${!depositADisabled ? parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) : ''} ${
-    !depositADisabled ? currencies[Field.CURRENCY_A]?.symbol : ''
-  } ${!outOfRange ? 'and' : ''} ${!depositBDisabled ? parsedAmounts[Field.CURRENCY_B]?.toSignificant(6) : ''} ${
-    !depositBDisabled ? currencies[Field.CURRENCY_B]?.symbol : ''
-  }`
+  const pendingText = `Supplying ${!depositADisabled ? parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) : ''} ${!depositADisabled ? currencies[Field.CURRENCY_A]?.symbol : ''
+    } ${!outOfRange ? 'and' : ''} ${!depositBDisabled ? parsedAmounts[Field.CURRENCY_B]?.toSignificant(6) : ''} ${!depositBDisabled ? currencies[Field.CURRENCY_B]?.symbol : ''
+    }`
 
   const Buttons = () =>
     addIsUnsupported ? (
@@ -815,7 +813,7 @@ export default function AddLiquidity() {
                                       <ExternalLink
                                         style={{ color: theme.deprecated_yellow3, textDecoration: 'underline' }}
                                         href={
-                                          'https://help.uniswap.org/en/articles/5434296-can-i-provide-liquidity-over-the-full-range-in-v3'
+                                          'https://help.donex.finance/en/articles/5434296-can-i-provide-liquidity-over-the-full-range-in-v3'
                                         }
                                       >
                                         here

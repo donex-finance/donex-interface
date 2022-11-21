@@ -1,7 +1,7 @@
 import type { TokenList } from 'donex-sdk/token-lists'
 
 import TOKEN_LIST from '../../../constants/tokenLists/default.tokenlist.json'
-export const DEFAULT_TOKEN_LIST = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org'
+export const DEFAULT_TOKEN_LIST = 'https://gateway.ipfs.io/ipns/tokens.donex.finance'
 
 const listCache = new Map<string, TokenList>()
 

@@ -10,5 +10,5 @@ exec(`get-graphql-schema ${THEGRAPH_API_URL} > ${thegraphConfig.schema}`)
 
 console.log(process.env.REACT_APP_AWS_API_ENDPOINT)
 exec(
-  `get-graphql-schema --h Origin=https://app.uniswap.org ${process.env.REACT_APP_AWS_API_ENDPOINT} > ${dataConfig.schema}`
+  `get-graphql-schema --h Origin=https://app.donex.finance ${process.env.REACT_APP_AWS_API_ENDPOINT} > ${dataConfig.schema}`
 )

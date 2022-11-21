@@ -5,7 +5,7 @@ import { FeeAmount, SWAP_POOL_CLASS_HASH, SWAP_POOL_PROXY_CLASS_HASH, TICK_SPACI
 
 /**
  * Computes a pool address
- * @param factoryAddress The Uniswap V3 factory address
+ * @param factoryAddress The Donex factory address
  * @param tokenA The first token of the pair, irrespective of sort order
  * @param tokenB The second token of the pair, irrespective of sort order
  * @param fee The fee tier of the pool

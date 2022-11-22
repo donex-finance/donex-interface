@@ -176,7 +176,7 @@ export abstract class NonfungiblePositionManager {
         pool.token0.address,
         pool.token1.address,
         pool.fee,
-        toHex(pool.sqrtRatioX96),
+        bnToUint256(pool.sqrtRatioX96.toString()),
       ])
     ).callData
   }

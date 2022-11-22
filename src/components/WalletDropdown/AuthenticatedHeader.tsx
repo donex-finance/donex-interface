@@ -115,7 +115,7 @@ const AuthenticatedHeader = () => {
           <IconButton onClick={copy} Icon={Copy}>
             {isCopied ? <Trans>Copied!</Trans> : <Trans>Copy</Trans>}
           </IconButton>
-          <IconButton href={`${explorer}address/${account}`} target="_blank" Icon={ExternalLink}>
+          <IconButton href={`${explorer}contract/${account}`} target="_blank" Icon={ExternalLink}>
             <Trans>Explore</Trans>
           </IconButton>
           <IconButton data-testid="wallet-disconnect" onClick={disconnect} Icon={Power}>

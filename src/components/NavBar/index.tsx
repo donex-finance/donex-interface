@@ -1,12 +1,18 @@
 import { Trans } from '@lingui/macro'
 import LOGO_SVG from 'assets/images/logo.png'
+import { ButtonPrimary } from 'components/Button'
 import Web3Status from 'components/Web3Status'
+import { TEST_TOKEN } from 'constants/tokens'
+import { CurrencyAmount } from 'donex-sdk/sdk-core'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { chainIdToBackendName } from 'graphql/data/util'
+import JSBI from 'jsbi'
+import { useMintTestToken } from 'lib/hooks/useMintTestToken'
 import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
 import { ReactNode } from 'react'
 import { NavLink, NavLinkProps, useLocation } from 'react-router-dom'
+import styled from 'styled-components/macro'
 
 import { ChainSelector } from './ChainSelector'
 import { MenuDropdown } from './MenuDropdown'
@@ -56,7 +62,20 @@ const PageTabs = () => {
   )
 }
 
+const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+  border-radius: px;
+  padding: 6px 8px;
+  width: fit-content;
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    flex: 1 1 auto;
+    width: 100%;
+  `};
+`
+
 const Navbar = () => {
+  const [mintTestToken] = useMintTestToken(
+    CurrencyAmount.fromRawAmount(TEST_TOKEN, JSBI.BigInt('10000000000000000000'))
+  )
   return (
     <>
       <nav className={styles.nav}>
@@ -84,6 +103,10 @@ const Navbar = () => {
               {/* <Box display={{ sm: 'none', lg: 'flex' }}>
                 <MenuDropdown />
               </Box> */}
+
+              <Box display={{ sm: 'none', lg: 'flex' }}>
+                <ResponsiveButtonPrimary onClick={mintTestToken}>Get Test Token</ResponsiveButtonPrimary>
+              </Box>
 
               <Box display={{ sm: 'none', lg: 'flex' }}>
                 <ChainSelector />

@@ -60,3 +60,11 @@ export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in SupportedCha
     [SupportedChainId.TESTNET]: USDC_TESTNET.address,
   },
 }
+
+export const TEST_TOKEN = new Token(
+  SupportedChainId.TESTNET,
+  '0x06d1AF6d2DA3aB173D57Bcd6D362d676F4BFF73CdcaA46ae9e35a4f53b4f980e',
+  18,
+  'DTT1',
+  'Donex Test Token1'
+)

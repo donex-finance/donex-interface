@@ -78,6 +78,11 @@ const BlockedWarning: Warning = {
 }
 
 export function checkWarning(tokenAddress: string) {
+  // skip warning
+  if (tokenAddress) {
+    return null
+  }
+
   if (tokenAddress === NATIVE_CHAIN_ID || tokenAddress === ZERO_ADDRESS) {
     return null
   }

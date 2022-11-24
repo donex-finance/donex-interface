@@ -1,15 +1,31 @@
 {
   "name": "Donex Finance Default",
   "timestamp": "2021-01-05T20:47:02.923Z",
-  "version": { "major": 1, "minor": 0, "patch": 0 },
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
   "tags": {},
   "logoURI": "ipfs://QmNa8mQkrNKp1WEEeGjFezDmDeodkWRevGFN8JCV7b4Xir",
-  "keywords": ["donex-finance", "default"],
+  "keywords": [
+    "donex-finance",
+    "default"
+  ],
   "tokens": [
     {
+      "name": "Dai Stablecoin",
+      "address": "0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396ec9",
+      "symbol": "DAI",
+      "decimals": 18,
+      "chainId": 5,
+      "logoURI": "",
+      "extensions": {}
+    },
+    {
       "name": "Donex Test Token1",
-      "address": "0x06d1AF6d2DA3aB173D57Bcd6D362d676F4BFF73CdcaA46ae9e35a4f53b4f980e",
-      "symbol": "DTT1",
+      "address": "0x4d60442a382305c214e79620bc5c695abe32678963e9ce6fa1eabf376048863",
+      "symbol": "DT1",
       "decimals": 18,
       "chainId": 5,
       "logoURI": "",
@@ -17,8 +33,8 @@
     },
     {
       "name": "Donex Test Token2",
-      "address": "0x048109f9d55Af0Ad4A4961D9eBBFdc0F55e3335c2b10247C3eb186Ab963051eB",
-      "symbol": "DTT2",
+      "address": "0x3fa105afea26657da740c0b74074202798c90f8935b594b3d5e1b58c615e071",
+      "symbol": "DT2",
       "decimals": 18,
       "chainId": 5,
       "logoURI": "",

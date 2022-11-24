@@ -56,9 +56,9 @@ const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.TESTNET]: {
     networkType: NetworkType.L1,
     docs: 'https://docs.donex.finance/',
-    explorer: 'https://testnet-2.starkscan.co/',
+    explorer: 'https://testnet.starkscan.co/',
     infoLink: 'https://info.donex.finance/#/',
-    label: 'Starknet Testnet-2',
+    label: 'Starknet Testnet',
     logoUrl: starknetLogoUrl,
     nativeCurrency: { name: 'Testnet Ether', symbol: 'ETH', decimals: 18 },
     color: colorsDark.chain_5,

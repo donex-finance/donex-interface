@@ -11,21 +11,21 @@ export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
 }
 
 export const MULTICALL_ADDRESS: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x41838753cd8d2f0064f069ccc75793b1f374a7b86a0c122fb95a10dff223c98',
-  [SupportedChainId.TESTNET]: '0x41838753cd8d2f0064f069ccc75793b1f374a7b86a0c122fb95a10dff223c98',
+  [SupportedChainId.MAINNET]: '0x39137a630f42960ff67c3cb683f0b616764fb56774b026eeb623f1fbfd2ef87',
+  [SupportedChainId.TESTNET]: '0x39137a630f42960ff67c3cb683f0b616764fb56774b026eeb623f1fbfd2ef87',
 }
 
 export const SWAP_ROUTER_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap('0x59b12dfeb4350cd811da70308a245bb8fb479cceccc9186d1f0c6d31bca1343', []),
+  ...constructSameAddressMap('0x37e72c3c1083e7e04e6173cd55b14414d236e091b26aba1f363add739052f57', []),
 }
 
 export const QUOTER_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap('0x59b12dfeb4350cd811da70308a245bb8fb479cceccc9186d1f0c6d31bca1343', []),
+  ...constructSameAddressMap('0x37e72c3c1083e7e04e6173cd55b14414d236e091b26aba1f363add739052f57', []),
 }
 
 export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x59b12dfeb4350cd811da70308a245bb8fb479cceccc9186d1f0c6d31bca1343',
-  [SupportedChainId.TESTNET]: '0x59b12dfeb4350cd811da70308a245bb8fb479cceccc9186d1f0c6d31bca1343',
+  [SupportedChainId.MAINNET]: '0x37e72c3c1083e7e04e6173cd55b14414d236e091b26aba1f363add739052f57',
+  [SupportedChainId.TESTNET]: '0x37e72c3c1083e7e04e6173cd55b14414d236e091b26aba1f363add739052f57',
 }
 
 export const SOCKS_CONTROLLER_ADDRESSES: AddressMap = {

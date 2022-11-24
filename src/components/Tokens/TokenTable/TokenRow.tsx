@@ -60,22 +60,22 @@ const StyledTokenRow = styled.div<{
   padding-left: 12px;
   padding-right: 12px;
   transition: ${({
-    theme: {
-      transition: { duration, timing },
-    },
-  }) => css`background-color ${duration.medium} ${timing.ease}`};
+  theme: {
+    transition: { duration, timing },
+  },
+}) => css`background-color ${duration.medium} ${timing.ease}`};
   width: 100%;
   transition-duration: ${({ theme }) => theme.transition.duration.fast};
 
   &:hover {
     ${({ loading, theme }) =>
-      !loading &&
-      css`
+    !loading &&
+    css`
         background-color: ${theme.hoverDefault};
       `}
     ${({ last }) =>
-      last &&
-      css`
+    last &&
+    css`
         border-radius: 0px 0px 8px 8px;
       `}
   }
@@ -138,7 +138,7 @@ const StyledHeaderRow = styled(StyledTokenRow)`
   }
 `
 
-const ListNumberCell = styled(Cell)<{ header: boolean }>`
+const ListNumberCell = styled(Cell) <{ header: boolean }>`
   color: ${({ theme }) => theme.textSecondary};
   min-width: 32px;
   font-size: 14px;
@@ -147,15 +147,15 @@ const ListNumberCell = styled(Cell)<{ header: boolean }>`
     display: none;
   }
 `
-const DataCell = styled(Cell)<{ sortable: boolean }>`
+const DataCell = styled(Cell) <{ sortable: boolean }>`
   justify-content: flex-end;
   min-width: 80px;
   user-select: ${({ sortable }) => (sortable ? 'none' : 'unset')};
   transition: ${({
-    theme: {
-      transition: { duration, timing },
-    },
-  }) => css`background-color ${duration.medium} ${timing.ease}`};
+  theme: {
+    transition: { duration, timing },
+  },
+}) => css`background-color ${duration.medium} ${timing.ease}`};
 `
 const TvlCell = styled(DataCell)`
   padding-right: 8px;
@@ -304,7 +304,7 @@ export const HEADER_DESCRIPTIONS: Record<TokenSortMethod, ReactNode | undefined>
   [TokenSortMethod.PRICE]: undefined,
   [TokenSortMethod.PERCENT_CHANGE]: undefined,
   [TokenSortMethod.TOTAL_VALUE_LOCKED]: (
-    <Trans>Total value locked (TVL) is the amount of the asset that’s currently in a Uniswap v3 liquidity pool.</Trans>
+    <Trans>Total value locked (TVL) is the amount of the asset that’s currently in a Uniswap liquidity pool.</Trans>
   ),
   [TokenSortMethod.VOLUME]: (
     <Trans>Volume is the amount of the asset that has been traded on Uniswap v3 during the selected time frame.</Trans>

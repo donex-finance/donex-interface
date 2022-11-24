@@ -2,7 +2,7 @@ import { SupportedChainId } from '../constants/chains'
 
 const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
   [SupportedChainId.MAINNET]: 'https://starkscan.co/',
-  [SupportedChainId.TESTNET]: 'https://testnet-2.starkscan.co/',
+  [SupportedChainId.TESTNET]: 'https://testnet.starkscan.co/',
 }
 
 export enum ExplorerDataType {

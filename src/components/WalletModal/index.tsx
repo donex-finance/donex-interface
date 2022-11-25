@@ -3,7 +3,7 @@ import { sendAnalyticsEvent, user } from 'analytics'
 import { CUSTOM_USER_PROPERTIES, EventName, WALLET_CONNECTION_RESULT } from 'analytics/constants'
 import { sendEvent } from 'components/analytics'
 import { AutoColumn } from 'components/Column'
-import { AutoRow } from 'components/Row'
+//import { AutoRow } from 'components/Row'
 import { networkConnection } from 'connection'
 import { getConnection, getConnectionName, getIsArgentX, getIsBraavos } from 'connection/utils'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
@@ -20,9 +20,9 @@ import styled from 'styled-components/macro'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import { useModalIsOpen, useToggleWalletModal } from '../../state/application/hooks'
 import { ApplicationModal } from '../../state/application/reducer'
-import { ExternalLink, ThemedText } from '../../theme'
+//import { ExternalLink, ThemedText } from '../../theme'
 import AccountDetails from '../AccountDetails'
-import { LightCard } from '../Card'
+//import { LightCard } from '../Card'
 import Modal from '../Modal'
 import { ArgentXWalletOption, InstallArgentXOption } from './ArgentXWalletOption'
 import { BraavosWalletOption, InstallBraavosOption } from './BraavosWalletOption'
@@ -292,7 +292,8 @@ export default function WalletModal({
     }
 
     function getTermsOfService() {
-      return (
+      return <></>
+      /*return (
         <LightCard>
           <AutoRow style={{ flexWrap: 'nowrap' }}>
             <ThemedText.DeprecatedBody fontSize={12}>
@@ -310,7 +311,7 @@ export default function WalletModal({
             </ThemedText.DeprecatedBody>
           </AutoRow>
         </LightCard>
-      )
+      )*/
     }
 
     return (

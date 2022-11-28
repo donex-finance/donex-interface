@@ -13,7 +13,7 @@ const BASE_PROPS = {
 }
 
 export function InstallArgentXOption() {
-  return <Option {...BASE_PROPS} header={<Trans>Install ArgentX</Trans>} link={'https://argentx.xyz/'} />
+  return <Option {...BASE_PROPS} header={<Trans>Install ArgentX</Trans>} link={'https://www.argent.xyz/argent-x/'} />
 }
 
 export function ArgentXWalletOption({ tryActivation }: { tryActivation: (connector: Connector) => void }) {

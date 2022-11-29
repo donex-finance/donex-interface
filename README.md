@@ -6,10 +6,9 @@ An open source interface for Donex -- a protocol for decentralized exchange of S
 
 - Website: [donex.finance](https://donex.finance/)
 - Interface: [app.donex.finance](https://app.donex.finance)
-- Docs: [donex.finance/docs/](https://docs.donex.finance/)
-- Twitter: [@Donex-Finance](https://twitter.com/Donex-Finance)
+- Twitter: [@donexfinance](https://twitter.com/donexfinance)
 - Email: [contact@donex.finance](mailto:contact@donex.finance)
-- Discord: [Uniswap](https://discord.gg/FCfyBSbCU5)
+- Discord: [DonexFinance](https://discord.gg/AUm7KDRZhh)
 
 ## Run
 ```

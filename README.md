@@ -21,11 +21,9 @@ yarn start
 PUBLIC_URL=https://app.donex.finance  yarn build
 ````
 
-## Accessing the Uniswap Interface
+## Accessing the Interface
 
-To access the Donex Finance Interface, use the
-[latest release](https://github.com/donex-finance/app.donex.finance/releases/latest),
-or visit [app.donex.finance](https://app.donex.finance).
+visit [app.donex.finance](https://app.donex.finance).
 
 ## Unsupported tokens
 

@@ -15,6 +15,6 @@ export const fetchSearchTokens = async (tokenQuery: string): Promise<FungibleTok
   // TODO Undo favoritism
   return (
     data.data &&
-    data.data.sort((a: FungibleToken, b: FungibleToken) => (b.name === 'Uniswap' ? 1 : b.volume24h - a.volume24h))
+    data.data.sort((a: FungibleToken, b: FungibleToken) => (b.name === 'Donex' ? 1 : b.volume24h - a.volume24h))
   )
 }

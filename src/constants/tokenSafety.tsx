@@ -31,8 +31,8 @@ export function getWarningCopy(warning: Warning | null, plural = false) {
         heading = (
           <Plural
             value={plural ? 2 : 1}
-            _1="This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap."
-            other="These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap."
+            _1="This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Donex."
+            other="These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Donex."
           />
         )
         description = <Trans>Always conduct your own research before trading.</Trans>
@@ -41,8 +41,8 @@ export function getWarningCopy(warning: Warning | null, plural = false) {
         description = (
           <Plural
             value={plural ? 2 : 1}
-            _1="You can't trade this token using the Uniswap App."
-            other="You can't trade these tokens using the Uniswap App."
+            _1="You can't trade this token using the Donex App."
+            other="You can't trade these tokens using the Donex App."
           />
         )
         break

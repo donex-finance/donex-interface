@@ -114,7 +114,7 @@ export default class ErrorBoundary extends React.Component<PropsWithChildren<unk
                   <LinkWrapper>
                     <ExternalLink
                       id="create-github-issue-link"
-                      href={`https://github.com/Uniswap/uniswap-interface/issues/new?assignees=&labels=bug&body=${encodedBody}&title=${encodeURIComponent(
+                      href={`https://github.com/donex-finance/donex-interface/issues/new?assignees=&labels=bug&body=${encodedBody}&title=${encodeURIComponent(
                         `Crash report: \`${error.name}${error.message && `: ${error.message}`}\``
                       )}`}
                       target="_blank"

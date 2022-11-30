@@ -1,5 +1,5 @@
 /**
- * List of all the networks supported by the Uniswap Interface
+ * List of all the networks supported by the Donex Interface
  */
 
 export enum SupportedChainId {

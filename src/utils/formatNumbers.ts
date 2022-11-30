@@ -1,4 +1,4 @@
-/* Copied from Uniswap/v-3: https://github.com/Uniswap/v3-info/blob/master/src/utils/numbers.ts */
+/* Copied from Donex/v-3: https://github.com/Uniswap/v3-info/blob/master/src/utils/numbers.ts */
 import { DEFAULT_LOCALE } from 'constants/locales'
 import { Currency, CurrencyAmount, Price } from 'donex-sdk/sdk-core'
 import numbro from 'numbro'

@@ -104,8 +104,8 @@ const Navbar = () => {
                 <MenuDropdown />
               </Box> */}
 
-              <Box display={{ sm: 'none', lg: 'flex' }}>
-                <ResponsiveButtonPrimary onClick={mintTestToken}>Get Test Token</ResponsiveButtonPrimary>
+              <Box display={{ sm: 'flex', lg: 'flex' }}>
+                <ResponsiveButtonPrimary onClick={mintTestToken}>Faucet</ResponsiveButtonPrimary>
               </Box>
 
               <Box display={{ sm: 'none', lg: 'flex' }}>

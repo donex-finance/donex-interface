@@ -33,7 +33,7 @@ async function fetchChunk(
   isDebug?: boolean
 ): Promise<{ success: boolean; returnData: string }[]> {
   try {
-    if (chunk.length > 0) {
+    if (chunk.length === 0) {
       const subFetch = async (params: any[]) => {
         const subRet: {
           success: boolean

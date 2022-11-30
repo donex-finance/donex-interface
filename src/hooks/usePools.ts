@@ -148,7 +148,7 @@ export function usePools(
         return [PoolState.NOT_EXISTS, null]
       }
     })
-  }, [liquidities, poolKeys, slot0s, poolTokens])
+  }, [poolKeys, poolAddresses, poolTokens, slot0s, liquidities])
 }
 
 export function usePool(

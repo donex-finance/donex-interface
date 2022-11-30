@@ -134,5 +134,5 @@ export function useClientSideV3Trade<TTradeType extends TradeType>(
         tradeType,
       }),
     }
-  }, [amountSpecified, currencyIn, currencyOut, quotesResults, routes, tradeType])
+  }, [amountSpecified, currencyIn, currencyOut, quotesResults, routes, routesLoading, tradeType])
 }

@@ -2,7 +2,7 @@
 import { Currency, Token } from 'donex-sdk/sdk-core'
 
 import { SupportedChainId } from './chains'
-import { ETH_MAINNET, nativeOnChain, USDC_MAINNET, USDC_TESTNET, WRAPPED_NATIVE_CURRENCY } from './tokens'
+import { ETH_MAINNET, nativeOnChain, USDC_MAINNET, WRAPPED_NATIVE_CURRENCY } from './tokens'
 
 type ChainTokenList = {
   readonly [chainId: number]: Token[]
@@ -21,8 +21,8 @@ const WRAPPED_NATIVE_CURRENCIES_ONLY: ChainTokenList = Object.fromEntries(
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   ...WRAPPED_NATIVE_CURRENCIES_ONLY,
-  [SupportedChainId.MAINNET]: [...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.MAINNET], USDC_MAINNET],
-  [SupportedChainId.TESTNET]: [...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.TESTNET], USDC_TESTNET],
+  // [SupportedChainId.MAINNET]: [...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.MAINNET], USDC_MAINNET],
+  // [SupportedChainId.TESTNET]: [...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.TESTNET], USDC_TESTNET],
 }
 export const ADDITIONAL_BASES: { [chainId: number]: { [tokenAddress: string]: Token[] } } = {}
 /**

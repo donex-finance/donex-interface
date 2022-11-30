@@ -12,7 +12,7 @@ export abstract class BaseCurrency {
    */
   public abstract readonly isNative: boolean
   /**
-   * Returns whether the currency is a token that is usable in Uniswap without wrapping
+   * Returns whether the currency is a token that is usable in Donex without wrapping
    */
   public abstract readonly isToken: boolean
 
@@ -57,8 +57,8 @@ export abstract class BaseCurrency {
   public abstract equals(other: Currency): boolean
 
   /**
-   * Return the wrapped version of this currency that can be used with the Uniswap contracts. Currencies must
-   * implement this to be used in Uniswap
+   * Return the wrapped version of this currency that can be used with the Donex contracts. Currencies must
+   * implement this to be used in Donex
    */
   public abstract get wrapped(): Token
 }

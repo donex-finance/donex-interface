@@ -74,7 +74,7 @@ export const Input = React.memo(function InnerInput({
             ? value.toString().slice(1, value.toString().length + 1)
             : value
 
-          // replace commas with periods, because uniswap exclusively uses period as the decimal separator
+          // replace commas with periods, because donex exclusively uses period as the decimal separator
           enforcer(formattedValue.replace(/,/g, '.'))
         } else {
           enforcer(event.target.value.replace(/,/g, '.'))

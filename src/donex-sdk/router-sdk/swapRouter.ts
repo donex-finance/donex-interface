@@ -54,7 +54,7 @@ type AnyTradeType =
   | V3Trade<Currency, Currency, TradeType>[]
 
 /**
- * Represents the Uniswap V2 + V3 SwapRouter02, and has static methods for helping execute trades.
+ * Represents the Donex V2 + V3 SwapRouter02, and has static methods for helping execute trades.
  */
 export abstract class SwapRouter {
   public static INTERFACE: Interface = new Interface(NFT_POSITION_MANAGER_ABI, '')

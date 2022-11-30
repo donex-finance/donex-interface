@@ -101,7 +101,7 @@ const SwapSection = styled.div`
   }
 `
 
-const OutputSwapSection = styled(SwapSection)<{ showDetailsDropdown: boolean }>`
+const OutputSwapSection = styled(SwapSection) <{ showDetailsDropdown: boolean }>`
   border-bottom: ${({ theme }) => `1px solid ${theme.backgroundSurface}`};
   border-bottom-left-radius: ${({ showDetailsDropdown }) => showDetailsDropdown && '0'};
   border-bottom-right-radius: ${({ showDetailsDropdown }) => showDetailsDropdown && '0'};
@@ -329,8 +329,8 @@ export default function Swap() {
             recipient === null
               ? 'Swap w/o Send'
               : (recipientAddress ?? recipient) === account
-              ? 'Swap w/o Send + recipient'
-              : 'Swap w/ Send',
+                ? 'Swap w/o Send + recipient'
+                : 'Swap w/ Send',
           label: [TRADE_STRING, trade?.inputAmount?.currency?.symbol, trade?.outputAmount?.currency?.symbol, 'MH'].join(
             '/'
           ),
@@ -626,7 +626,7 @@ export default function Swap() {
                             {approvalState === ApprovalState.APPROVED ? (
                               <Trans>You can now trade {currencies[Field.INPUT]?.symbol}</Trans>
                             ) : (
-                              <Trans>Allow the Uniswap Protocol to use your {currencies[Field.INPUT]?.symbol}</Trans>
+                              <Trans>Allow the Donex Protocol to use your {currencies[Field.INPUT]?.symbol}</Trans>
                             )}
                           </span>
                           {approvalPending || approvalState === ApprovalState.PENDING ? (
@@ -637,7 +637,7 @@ export default function Swap() {
                             <MouseoverTooltip
                               text={
                                 <Trans>
-                                  You must give the Uniswap smart contracts permission to use your{' '}
+                                  You must give the Donex smart contracts permission to use your{' '}
                                   {currencies[Field.INPUT]?.symbol}. You only have to do this once per token.
                                 </Trans>
                               }

@@ -285,7 +285,7 @@ export function PriceChart({ width, height, prices }: PriceChartProps) {
             prices === null ? (
               <Trans>Loading chart data</Trans>
             ) : prices?.length === 0 ? (
-              <Trans>This token doesn&apos;t have chart data because it hasn&apos;t been traded on Uniswap v3</Trans>
+              <Trans>This token doesn&apos;t have chart data because it hasn&apos;t been traded on Donex v3</Trans>
             ) : (
               <Trans>Missing chart data</Trans>
             )

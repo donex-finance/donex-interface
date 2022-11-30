@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to the Uniswap interface! 🦄
+Thank you for your interest in contributing to the Donex interface! 🦄
 
 # Development
 
@@ -98,7 +98,7 @@ The following points should help guide your development:
 Releases are cut automatically from the `main` branch Monday-Thursday in the morning according to the [release workflow](./.github/workflows/release.yaml).
 
 Fix pull requests should be merged whenever ready and tested.
-If a fix is urgently needed in production, releases can be manually triggered on [GitHub](https://github.com/Uniswap/uniswap-interface/actions/workflows/release.yaml)
+If a fix is urgently needed in production, releases can be manually triggered on [GitHub](https://github.com/donex-finance/donex-interface/actions/workflows/release.yaml)
 after the fix is merged into `main`.
 
 Features should not be merged into `main` until they are ready for users.
@@ -110,16 +110,16 @@ the appropriate UX reviewers (PMs or designers).
 ## Finding a first issue
 
 Start with issues with the label
-[`good first issue`](https://github.com/Uniswap/uniswap-interface/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
+[`good first issue`](https://github.com/donex-finance/donex-interface/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
 
 # Translations
 
-Uniswap uses [Crowdin](https://crowdin.com/project/uniswap-interface) for managing translations.
+Donex uses [Crowdin](https://crowdin.com/project/donex-interface) for managing translations.
 [This workflow](./.github/workflows/crowdin.yaml) uploads new strings for translation to the Crowdin project whenever code using the [lingui translation macros](https://lingui.js.org/ref/macro.html) is merged into `main`.
 
 Every hour, translations are synced back down from Crowdin to the repository in [this other workflow](./.github/workflows/crowdin-sync.yaml).
 We sync to the repository on a schedule, rather than download translations at build time, so that builds are always reproducible.
 
-You can contribute by joining Crowdin to proofread existing translations [here](https://crowdin.com/project/uniswap-interface/invite?d=93i5n413q403t4g473p443o4c3t2g3s21343u2c3n403l4b3v2735353i4g4k4l4g453j4g4o4j4e4k4b323l4a3h463s4g453q443m4e3t2b303s2a35353l403o443v293e303k4g4n4r4g483i4g4r4j4e4o473i5n4a3t463t4o4)
+You can contribute by joining Crowdin to proofread existing translations [here](https://crowdin.com/project/donex-interface/invite?d=93i5n413q403t4g473p443o4c3t2g3s21343u2c3n403l4b3v2735353i4g4k4l4g453j4g4o4j4e4k4b323l4a3h463s4g453q443m4e3t2b303s2a35353l403o443v293e303k4g4n4r4g483i4g4r4j4e4o473i5n4a3t463t4o4)
 
 Or, ask to join us as a translator in the Discord!!

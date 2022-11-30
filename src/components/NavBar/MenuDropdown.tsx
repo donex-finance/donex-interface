@@ -169,7 +169,7 @@ export const MenuDropdown = () => {
                     color={themeVars.colors.textSecondary}
                   />
                 </Icon>
-                <Icon href="https://twitter.com/Uniswap">
+                <Icon href="https://twitter.com/donexfinance">
                   <TwitterIconMenu
                     className={styles.hover}
                     width={24}

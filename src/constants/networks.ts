@@ -16,11 +16,5 @@ export const RPC_URLS: { [key in SupportedChainId]: ProviderOptions[] } = {
   ],
 
   [SupportedChainId.TESTNET]: [
-    {
-      sequencer: {
-        network: 'goerli-alpha',
-        baseUrl: 'https://alpha4-2.starknet.io', //TESTNET2
-      },
-    },
   ],
 }

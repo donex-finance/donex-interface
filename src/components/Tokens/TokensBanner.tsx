@@ -13,7 +13,7 @@ import { Z_INDEX } from 'theme/zIndex'
 import tokensPromoDark from '../../assets/images/tokensPromoDark.png'
 import tokensPromoLight from '../../assets/images/tokensPromoLight.png'
 
-const BackgroundColor = styled(Link)<{ show: boolean }>`
+const BackgroundColor = styled(Link) <{ show: boolean }>`
   background-color: ${({ theme }) => (theme.darkMode ? theme.backgroundScrim : '#FDF0F8')};
   border: 1px solid ${({ theme }) => theme.backgroundOutline};
   border-radius: 12px;
@@ -41,10 +41,10 @@ const PopupContainer = styled.div`
   padding: 12px 16px 12px 20px;
 
   transition: ${({
-    theme: {
-      transition: { duration, timing },
-    },
-  }) => `${duration.slow} opacity ${timing.in}`};
+  theme: {
+    transition: { duration, timing },
+  },
+}) => `${duration.slow} opacity ${timing.in}`};
 `
 const Header = styled.div`
   align-items: center;
@@ -76,7 +76,7 @@ export default function TokensBanner() {
         <PopupContainer>
           <Header>
             <HeaderText>
-              <Trans>Explore Top Tokens on Uniswap</Trans>
+              <Trans>Explore Top Tokens on Donex</Trans>
             </HeaderText>
             <X
               size={20}

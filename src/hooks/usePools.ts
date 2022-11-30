@@ -1,4 +1,5 @@
 import { SWAP_POOL_ABI } from 'abis'
+import { feltToInt } from 'donex-sdk/cc-core/utils/utils'
 import { BigintIsh, Currency, Token } from 'donex-sdk/sdk-core'
 import { computePoolAddress, FeeAmount, Pool } from 'donex-sdk/v3-sdk'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
@@ -138,8 +139,7 @@ export function usePools(
       if (!slot0 || !liquidity) return [PoolState.NOT_EXISTS, null]
       const sqrtPriceX96 = uint256ToBN(slot0.sqrt_price_x96)
       if (!sqrtPriceX96 || sqrtPriceX96.eqn(0)) return [PoolState.NOT_EXISTS, null]
-      if (slot0.tick.toString().length > 7) return [PoolState.INVALID, null]
-      const tick = slot0.tick.toNumber()
+      const tick = parseInt(feltToInt(slot0.tick.toString()))
       try {
         const pool = PoolCache.getPool(token0, token1, fee, sqrtPriceX96.toString(), liquidity[0], tick)
         return [PoolState.EXISTS, pool]

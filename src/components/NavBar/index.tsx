@@ -82,7 +82,7 @@ const Navbar = () => {
         <Box display="flex" height="full" flexWrap="nowrap" alignItems="stretch">
           <Box className={styles.leftSideContainer}>
             <Box as="a" href="#/swap" className={styles.logoContainer}>
-              <img src={LOGO_SVG} width="40" height="40" alt="" />
+              <img src={LOGO_SVG} width="40" alt="" />
             </Box>
 
             <Box display={{ sm: 'flex', lg: 'none' }}>

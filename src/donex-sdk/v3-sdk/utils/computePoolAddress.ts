@@ -3,6 +3,8 @@ import { calculateContractAddressFromHash, pedersen } from 'starknet/utils/hash'
 
 import { FeeAmount, SWAP_POOL_CLASS_HASH, SWAP_POOL_PROXY_CLASS_HASH, TICK_SPACINGS } from '../constants'
 
+const cache: any = {}
+
 /**
  * Computes a pool address
  * @param factoryAddress The Donex factory address
@@ -27,6 +29,11 @@ export function computePoolAddress({
 }): string {
   const [token0, token1] = tokenA.sortsBefore(tokenB) ? [tokenA, tokenB] : [tokenB, tokenA] // does safety checks
 
+  const key = factoryAddress + token0.address + token1.address + fee.toString()
+  if (cache[key]) {
+    return cache[key]
+  }
+
   const salt = pedersen([token0.address, token1.address])
   const address = calculateContractAddressFromHash(
     salt,
@@ -34,5 +41,6 @@ export function computePoolAddress({
     [SWAP_POOL_CLASS_HASH, TICK_SPACINGS[fee], fee.valueOf(), token0.address, token1.address, factoryAddress],
     factoryAddress
   )
+  cache[key] = address
   return address
 }

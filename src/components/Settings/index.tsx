@@ -205,7 +205,7 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
             <Text fontWeight={600} fontSize={14}>
               <Trans>Interface Settings</Trans>
             </Text>
-            {/* {isSupportedChainId(chainId) && (
+            {isSupportedChainId(chainId) && (
               <RowBetween>
                 <RowFixed>
                   <ThemedText.DeprecatedBlack fontWeight={400} fontSize={14} color={theme.deprecated_text2}>
@@ -217,15 +217,11 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
                   id="toggle-optimized-router-button"
                   isActive={!clientSideRouter}
                   toggle={() => {
-                    sendEvent({
-                      category: 'Routing',
-                      action: clientSideRouter ? 'enable routing API' : 'disable routing API',
-                    })
                     setClientSideRouter(!clientSideRouter)
                   }}
                 />
               </RowBetween>
-            )} */}
+            )}
             <RowBetween>
               <RowFixed>
                 <ThemedText.DeprecatedBlack fontWeight={400} fontSize={14} color={theme.deprecated_text2}>

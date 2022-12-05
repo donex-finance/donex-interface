@@ -51,9 +51,14 @@ export const routingApi = createApi({
               method: 'POST',
               url: 'getquote',
             })
+          } else {
+            // eslint-disable-next-line no-throw-literal
+            throw {
+              status: 'FETCH_ERROR',
+            }
           }
 
-          return { data: result.data.data as GetQuoteResult }
+          return { data: result.data?.data as GetQuoteResult }
         } catch (e) {
           // TODO: fall back to client-side quoter when auto router fails.
           // deprecate 'legacy' v2/v3 routers first.

@@ -5,7 +5,7 @@ import styled from 'styled-components/macro'
 export const Wrapper = styled.div`
   position: relative;
   padding: 20px;
-  min-width: 460px;
+  min-width: 360px;
 
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToExtraSmall`
     min-width: 340px;

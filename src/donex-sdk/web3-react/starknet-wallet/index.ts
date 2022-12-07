@@ -32,25 +32,43 @@ export class StarknetWallet extends Connector {
   private readonly options?: GetStarknetWalletOptions
   private eagerConnection?: boolean
 
+  private onAccountChangeHandler: any
+  private onNetworkChangedHandler: any
+
   constructor({ actions, options, onError }: StarknetWalletConstructorArgs) {
     super(actions, onError)
     this.options = options
   }
 
-  private listenEvents() {
+  private onAccountChange(accounts: string[]) {
+    this.actions.resetState()
+    if (!this.eagerConnection) return
+    if (accounts.length === 0) {
+      // handle this edge case by disconnecting
+      this.deactivate()
+    } else {
+      this.actions.update({ accounts })
+    }
+  }
+
+  private onNetworkChanged(chainId: string) {
+    // notce! The chainId here is not equal to provider.chainId
+    this.actions.update({ chainId: fromStarknetChainId(chainId) })
+  }
+
+  private addEventListeners() {
     if (this.starknetWindowObject) {
-      this.starknetWindowObject.on('accountsChanged', (accounts: string[]) => {
-        if (accounts.length === 0) {
-          // handle this edge case by disconnecting
-          this.actions.resetState()
-        } else {
-          this.actions.update({ accounts })
-        }
-      })
-      this.starknetWindowObject.on('networkChanged', (chainId) => {
-        // notce! The chainId here is not equal to provider.chainId
-        this.actions.update({ chainId: fromStarknetChainId(chainId) })
-      })
+      this.onAccountChangeHandler = this.onAccountChange.bind(this)
+      this.onNetworkChangedHandler = this.onNetworkChanged.bind(this)
+      this.starknetWindowObject.on('accountsChanged', this.onAccountChangeHandler)
+      this.starknetWindowObject.on('networkChanged', this.onNetworkChangedHandler)
+    }
+  }
+
+  private removeEventListeners() {
+    if (this.starknetWindowObject) {
+      this.starknetWindowObject.off('accountsChanged', this.onAccountChangeHandler)
+      this.starknetWindowObject.off('networkChanged', this.onNetworkChangedHandler)
     }
   }
 
@@ -70,7 +88,7 @@ export class StarknetWallet extends Connector {
     if (provider) {
       this.provider = provider
     }
-    this.listenEvents()
+    this.addEventListeners()
 
     this.eagerConnection = true
   }
@@ -97,7 +115,6 @@ export class StarknetWallet extends Connector {
   public async activate(desiredChainIdOrChainParameters?: number | AddEthereumChainParameter): Promise<void> {
     let cancelActivation: () => void
     if (!this.starknetWindowObject?.isConnected) cancelActivation = this.actions.startActivation()
-
     return this.isomorphicInitialize()
       .then(async () => {
         if (!this.provider) throw new NoStarknetWalletError()
@@ -114,5 +131,11 @@ export class StarknetWallet extends Connector {
     if (!this.provider) throw new Error('No provider')
 
     return true
+  }
+
+  public async deactivate() {
+    this.eagerConnection = false
+    this.removeEventListeners()
+    this.starknetWindowObject = undefined
   }
 }

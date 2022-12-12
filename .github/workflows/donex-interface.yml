@@ -41,3 +41,4 @@ jobs:
           folder: build # The folder the action should deploy.
           token: ${{ secrets.DONEX_APP_DEPLOY_KEY }}
           branch: gh-page # git branch deployed
+          repository-name: donex-finance/app.donex.finance

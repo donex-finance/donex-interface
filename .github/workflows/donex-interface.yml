@@ -39,5 +39,5 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4
       with:
           folder: build # The folder the action should deploy.
-          GITHUB_TOKEN: ${{ secrets.DONEX_APP_DEPLOY_KEY }}
-          BRANCH: gh-page # 
+          token: ${{ secrets.DONEX_APP_DEPLOY_KEY }}
+          branch: gh-page # git branch deployed

@@ -6,7 +6,10 @@ name: Donex App CI
 on:
   push:
     branches: [ "donex" ]
-
+    
+permissions:
+  contents: write
+  
 jobs:
   build:
 

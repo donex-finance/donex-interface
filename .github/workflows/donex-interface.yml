@@ -36,7 +36,7 @@ jobs:
           PUBLIC_URL: 'https://app.donex.finance'
           CI: false
     
-    #TODO: Test
+    #TODO: Test yarn test
         
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4

@@ -25,10 +25,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Install
-      run: npm install
+      run: yarn
       
     - name: Build
-      run: npm run build
+      run: yarn build
       env: 
           PUBLIC_URL: 'https://app.donex.finance'
     
@@ -39,7 +39,7 @@ jobs:
         git config --global user.name $user_name
         git config --global user.email $user_email
         git remote set-url origin https://${github_token}@github.com/${repository}
-        npm run deploy
+        yarn deploy
       env:
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'

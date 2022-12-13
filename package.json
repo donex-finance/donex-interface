@@ -2,7 +2,7 @@
   "name": "@uniswap/interface",
   "version": "1.0.7",
   "description": "Donex Interface",
-  "homepage": ".",
+  "homepage": "https://app.donex.finance",
   "license": "GPL-3.0-or-later",
   "scripts": {
     "prei18n:extract": "node prei18n-extract.js",

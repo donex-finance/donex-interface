@@ -61,40 +61,6 @@ export class UserPositionMgr extends Contract {
     tokens_owed1: BigNumberish
   }>
 
-  get_exact_output(
-    token_in: BigNumberish,
-    token_out: BigNumberish,
-    fee: BigNumberish,
-    amount_out: BigNumberish
-  ): Promise<{
-    amount_in: BigNumberish
-  }>
-
-  get_exact_output_router(
-    path_len: BigNumberish,
-    path: BigNumberish[],
-    amount_out: BigNumberish
-  ): Promise<{
-    amount_in: BigNumberish
-  }>
-
-  get_exact_input(
-    token_in: BigNumberish,
-    token_out: BigNumberish,
-    fee: BigNumberish,
-    amount_in: BigNumberish
-  ): Promise<{
-    amount_out: BigNumberish
-  }>
-
-  get_exact_input_router(
-    path_len: BigNumberish,
-    path: BigNumberish[],
-    amount_in: BigNumberish
-  ): Promise<{
-    amount_out: BigNumberish
-  }>
-
   create_and_initialize_pool(
     token0: BigNumberish,
     token1: BigNumberish,
@@ -166,51 +132,4 @@ export class UserPositionMgr extends Contract {
 
   burn(token_id: BigNumberish): Promise<{}>
 
-  exact_input(
-    token_in: BigNumberish,
-    token_out: BigNumberish,
-    fee: BigNumberish,
-    recipient: BigNumberish,
-    amount_in: BigNumberish,
-    sqrt_price_limit: BigNumberish,
-    amount_out_min: BigNumberish,
-    deadline: BigNumberish
-  ): Promise<{
-    amount_out: BigNumberish
-  }>
-
-  exact_input_router(
-    path_len: BigNumberish,
-    path: BigNumberish[],
-    recipient: BigNumberish,
-    amount_in: BigNumberish,
-    amount_out_min: BigNumberish,
-    deadline: BigNumberish
-  ): Promise<{
-    amount_out: BigNumberish
-  }>
-
-  exact_output(
-    token_in: BigNumberish,
-    token_out: BigNumberish,
-    fee: BigNumberish,
-    recipient: BigNumberish,
-    amount_out: BigNumberish,
-    sqrt_price_limit: BigNumberish,
-    amount_in_max: BigNumberish,
-    deadline: BigNumberish
-  ): Promise<{
-    amount_in: BigNumberish
-  }>
-
-  exact_output_router(
-    path_len: BigNumberish,
-    path: BigNumberish[],
-    recipient: BigNumberish,
-    amount_out: BigNumberish,
-    amount_in_max: BigNumberish,
-    deadline: BigNumberish
-  ): Promise<{
-    amount_in: BigNumberish
-  }>
 }

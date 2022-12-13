@@ -16,11 +16,11 @@ export const MULTICALL_ADDRESS: AddressMap = {
 }
 
 export const SWAP_ROUTER_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap('0x37e72c3c1083e7e04e6173cd55b14414d236e091b26aba1f363add739052f57', []),
+  ...constructSameAddressMap('0x03b962a261e51bb859f98e31bee8675ef6f3280dc4e3a2f1f85a98c07832d82f', []),
 }
 
 export const QUOTER_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap('0x37e72c3c1083e7e04e6173cd55b14414d236e091b26aba1f363add739052f57', []),
+  ...constructSameAddressMap('0x0734b73b8879207ade6a75ea6171ad52dafc395e699e6fd678658417f6803b5a', []),
 }
 
 export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: AddressMap = {

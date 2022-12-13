@@ -1,6 +1,6 @@
 // eslint-disable-next-line simple-import-sort/imports
-import { ERC20_ABI, MULTICALL_ABI, NFT_POSITION_MANAGER_ABI } from 'abis'
-import { UserPositionMgr } from 'abis/types'
+import { ERC20_ABI, MULTICALL_ABI, NFT_POSITION_MANAGER_ABI, SWAP_QUOTER_ABI } from 'abis'
+import { UserPositionMgr, SwapQuoter } from 'abis/types'
 import {
   MULTICALL_ADDRESS,
   NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
@@ -51,8 +51,8 @@ export function useV3NFTPositionManagerContract(withSignerIfPossible?: boolean):
   )
 }
 
-export function useQuoter(useQuoterV2: boolean) {
-  return useContract(QUOTER_ADDRESSES, ERC20_ABI)
+export function useQuoter(): SwapQuoter | null {
+  return useContract<SwapQuoter>(QUOTER_ADDRESSES, SWAP_QUOTER_ABI)
 }
 
 export function useTickLens(): Contract | null {

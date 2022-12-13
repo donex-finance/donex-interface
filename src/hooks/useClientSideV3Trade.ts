@@ -8,7 +8,7 @@ import { uint256ToBN } from 'starknet/utils/uint256'
 import { InterfaceTrade, TradeState } from 'state/routing/types'
 
 import { useAllV3Routes } from './useAllV3Routes'
-import { useV3NFTPositionManagerContract } from './useContract'
+import { useQuoter } from './useContract'
 
 const QUOTE_GAS_OVERRIDES: { [chainId: number]: number } = {}
 
@@ -34,7 +34,7 @@ export function useClientSideV3Trade<TTradeType extends TradeType>(
   const { chainId } = useWeb3React()
   // Chains deployed using the deploy-v3 script only deploy QuoterV2.
   const useQuoterV2 = false
-  const positionManger = useV3NFTPositionManagerContract()
+  const quoter = useQuoter()
   const callData = useMemo(
     () =>
       amountSpecified
@@ -45,7 +45,7 @@ export function useClientSideV3Trade<TTradeType extends TradeType>(
     [amountSpecified, routes, tradeType, useQuoterV2]
   )
 
-  const quotesResults = useSingleContractWithCallData(positionManger, callData, {
+  const quotesResults = useSingleContractWithCallData(quoter, callData, {
     gasRequired: chainId ? QUOTE_GAS_OVERRIDES[chainId] ?? DEFAULT_GAS_QUOTE : undefined,
   })
   return useMemo(() => {

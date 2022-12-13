@@ -1,4 +1,4 @@
-import { NFT_POSITION_MANAGER_ABI } from 'abis'
+import { SWAP_ROUTER_ABI } from 'abis'
 import { fromStarknetCall } from 'donex-sdk/redux-multicall/utils/callUtils'
 import { Currency, CurrencyAmount, Percent, TradeType, validateAndParseAddress } from 'donex-sdk/sdk-core'
 import {
@@ -57,7 +57,7 @@ type AnyTradeType =
  * Represents the Donex V2 + V3 SwapRouter02, and has static methods for helping execute trades.
  */
 export abstract class SwapRouter {
-  public static INTERFACE: Interface = new Interface(NFT_POSITION_MANAGER_ABI, '')
+  public static INTERFACE: Interface = new Interface(SWAP_ROUTER_ABI, '')
 
   /**
    * Cannot be constructed.

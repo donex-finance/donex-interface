@@ -1,4 +1,4 @@
-import { NFT_POSITION_MANAGER_ABI } from 'abis'
+import { SWAP_QUOTER_ABI } from 'abis'
 import { fromStarknetCall } from 'donex-sdk/redux-multicall/utils/callUtils'
 import { BigintIsh, Currency, CurrencyAmount, TradeType } from 'donex-sdk/sdk-core'
 import { Contract as Interface } from 'starknet'
@@ -36,7 +36,7 @@ interface BaseQuoteParams {
  * calldata needed to call the quoter contract.
  */
 export abstract class SwapQuoter {
-  public static V1INTERFACE: Interface = new Interface(NFT_POSITION_MANAGER_ABI, '')
+  public static V1INTERFACE: Interface = new Interface(SWAP_QUOTER_ABI, '')
 
   /**
    * Produces the on-chain method name of the appropriate function within QuoterV2,

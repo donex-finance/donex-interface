@@ -1,0 +1,217 @@
+[
+    {
+        "members": [
+            {
+                "name": "low",
+                "offset": 0,
+                "type": "felt"
+            },
+            {
+                "name": "high",
+                "offset": 1,
+                "type": "felt"
+            }
+        ],
+        "name": "Uint256",
+        "size": 2,
+        "type": "struct"
+    },
+    {
+        "inputs": [
+            {
+                "name": "user_position_mgr_address",
+                "type": "felt"
+            }
+        ],
+        "name": "constructor",
+        "outputs": [],
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "name": "token_in",
+                "type": "felt"
+            },
+            {
+                "name": "token_out",
+                "type": "felt"
+            },
+            {
+                "name": "fee",
+                "type": "felt"
+            },
+            {
+                "name": "recipient",
+                "type": "felt"
+            },
+            {
+                "name": "amount_in",
+                "type": "Uint256"
+            },
+            {
+                "name": "sqrt_price_limit",
+                "type": "Uint256"
+            },
+            {
+                "name": "amount_out_min",
+                "type": "Uint256"
+            },
+            {
+                "name": "deadline",
+                "type": "felt"
+            }
+        ],
+        "name": "exact_input",
+        "outputs": [
+            {
+                "name": "amount_out",
+                "type": "Uint256"
+            }
+        ],
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "path_len",
+                "type": "felt"
+            },
+            {
+                "name": "path",
+                "type": "felt*"
+            },
+            {
+                "name": "recipient",
+                "type": "felt"
+            },
+            {
+                "name": "amount_in",
+                "type": "Uint256"
+            },
+            {
+                "name": "amount_out_min",
+                "type": "Uint256"
+            },
+            {
+                "name": "deadline",
+                "type": "felt"
+            }
+        ],
+        "name": "exact_input_router",
+        "outputs": [
+            {
+                "name": "amount_out",
+                "type": "Uint256"
+            }
+        ],
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "token_in",
+                "type": "felt"
+            },
+            {
+                "name": "token_out",
+                "type": "felt"
+            },
+            {
+                "name": "fee",
+                "type": "felt"
+            },
+            {
+                "name": "recipient",
+                "type": "felt"
+            },
+            {
+                "name": "amount_out",
+                "type": "Uint256"
+            },
+            {
+                "name": "sqrt_price_limit",
+                "type": "Uint256"
+            },
+            {
+                "name": "amount_in_max",
+                "type": "Uint256"
+            },
+            {
+                "name": "deadline",
+                "type": "felt"
+            }
+        ],
+        "name": "exact_output",
+        "outputs": [
+            {
+                "name": "amount_in",
+                "type": "Uint256"
+            }
+        ],
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "path_len",
+                "type": "felt"
+            },
+            {
+                "name": "path",
+                "type": "felt*"
+            },
+            {
+                "name": "recipient",
+                "type": "felt"
+            },
+            {
+                "name": "amount_out",
+                "type": "Uint256"
+            },
+            {
+                "name": "amount_in_max",
+                "type": "Uint256"
+            },
+            {
+                "name": "deadline",
+                "type": "felt"
+            }
+        ],
+        "name": "exact_output_router",
+        "outputs": [
+            {
+                "name": "amount_in",
+                "type": "Uint256"
+            }
+        ],
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "amount0",
+                "type": "Uint256"
+            },
+            {
+                "name": "amount1",
+                "type": "Uint256"
+            },
+            {
+                "name": "sender",
+                "type": "felt"
+            },
+            {
+                "name": "data_len",
+                "type": "felt"
+            },
+            {
+                "name": "data",
+                "type": "felt*"
+            }
+        ],
+        "name": "swap_callback",
+        "outputs": [],
+        "type": "function"
+    }
+]

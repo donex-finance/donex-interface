@@ -34,7 +34,7 @@ export function useV3PositionFees(
     if (positionManager && tokenIdHexString && owner) {
       positionManager.callStatic
         .collect(
-          bnToUint256(tokenId?.toString() || 0),
+          bnToUint256(tokenIdHexString || 0),
           owner.toString(),
           toFelt(toBN(MAX_UINT128.toString())),
           toFelt(toBN(MAX_UINT128.toString()))
@@ -46,7 +46,7 @@ export function useV3PositionFees(
           ])
         })
     }
-  }, [positionManager, tokenIdHexString, owner, latestBlockNumber, tokenId])
+  }, [positionManager, tokenIdHexString, owner, latestBlockNumber])
   if (pool && amounts) {
     return [
       CurrencyAmount.fromRawAmount(asWETH ? pool.token0 : unwrappedToken(pool.token0), amounts[0].toString()),

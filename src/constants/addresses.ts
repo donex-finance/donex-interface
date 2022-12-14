@@ -16,7 +16,7 @@ export const MULTICALL_ADDRESS: AddressMap = {
 }
 
 export const SWAP_ROUTER_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap('0x03b962a261e51bb859f98e31bee8675ef6f3280dc4e3a2f1f85a98c07832d82f', []),
+  ...constructSameAddressMap('0x064ced14747e6316f2c32374c4d84f422e7c071dd108e14d5a43d5930edf77bf', []),
 }
 
 export const QUOTER_ADDRESSES: AddressMap = {

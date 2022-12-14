@@ -627,6 +627,7 @@
                 "type": "Uint256"
             }
         ],
+        "stateMutability": "view",
         "type": "function"
     },
     {

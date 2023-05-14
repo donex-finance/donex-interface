@@ -106,7 +106,7 @@ const AuthenticatedHeader = () => {
         <StatusWrapper>
           <FlexContainer>
             <StatusIcon connectionType={connectionType} size={24} />
-            <Text fontSize={16} fontWeight={600} marginTop="2.5px">
+            <Text fontSize={16} fontWeight={400} marginTop="2.5px">
               {account && shortenAddress(account, 2, 4)}
             </Text>
           </FlexContainer>

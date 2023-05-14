@@ -83,30 +83,14 @@ export const ButtonGray = styled(BaseButton)`
 `
 
 export const ButtonSecondary = styled(BaseButton)`
-  border: 1px solid ${({ theme }) => theme.deprecated_primary4};
   color: ${({ theme }) => theme.deprecated_primary1};
   background-color: transparent;
   font-size: 0.875rem;
   border-radius: 12px;
   padding: ${({ padding }) => (padding ? padding : '10px')};
 
-  &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => theme.deprecated_primary4};
-    border: 1px solid ${({ theme }) => theme.deprecated_primary3};
-  }
-  &:hover {
-    border: 1px solid ${({ theme }) => theme.deprecated_primary3};
-  }
-  &:active {
-    box-shadow: 0 0 0 1pt ${({ theme }) => theme.deprecated_primary4};
-    border: 1px solid ${({ theme }) => theme.deprecated_primary3};
-  }
-  &:disabled {
-    opacity: 50%;
-    cursor: auto;
-  }
-  a:hover {
-    text-decoration: none;
+  &:hover, &:active, &:active {
+    box-shadow: ${({ theme }) => theme.shallowShadow};
   }
 `
 

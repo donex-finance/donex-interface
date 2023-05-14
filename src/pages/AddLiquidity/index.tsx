@@ -23,7 +23,7 @@ import {
 import { TransactionType } from 'state/transactions/types'
 import { useTheme } from 'styled-components/macro'
 
-import { ButtonError, ButtonLight, ButtonPrimary, ButtonText, ButtonYellow } from '../../components/Button'
+import { ButtonError, ButtonPrimary, ButtonText, ButtonYellow } from '../../components/Button'
 import { BlueCard, OutlineCard, YellowCard } from '../../components/Card'
 import { AutoColumn } from '../../components/Column'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
@@ -396,9 +396,9 @@ export default function AddLiquidity() {
         properties={{ received_swap_quote: false }}
         element={ElementName.CONNECT_WALLET_BUTTON}
       >
-        <ButtonLight onClick={toggleWalletModal} $borderRadius="12px" padding={'12px'}>
+        <ButtonPrimary onClick={toggleWalletModal} $borderRadius="12px" padding={'12px'}>
           <Trans>Connect Wallet</Trans>
-        </ButtonLight>
+        </ButtonPrimary>
       </TraceEvent>
     ) : (
       <AutoColumn gap={'md'}>

@@ -56,44 +56,15 @@ export const ButtonPrimary = styled(BaseButton)`
   font-weight: 500;
   padding: 16px;
   color: ${({ theme }) => theme.accentTextLightPrimary};
-  &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.deprecated_primary1)};
-    background-color: ${({ theme }) => darken(0.05, theme.deprecated_primary1)};
-  }
   &:hover {
-    background-color: ${({ theme }) => darken(0.05, theme.deprecated_primary1)};
-  }
-  &:active {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.1, theme.deprecated_primary1)};
-    background-color: ${({ theme }) => darken(0.1, theme.deprecated_primary1)};
+    background-color: #2454FF;
   }
   &:disabled {
-    background-color: ${({ theme, altDisabledStyle, disabled }) =>
-    altDisabledStyle ? (disabled ? theme.deprecated_primary1 : theme.deprecated_bg2) : theme.deprecated_bg2};
-    color: ${({ altDisabledStyle, disabled, theme }) =>
-    altDisabledStyle ? (disabled ? theme.deprecated_white : theme.deprecated_text2) : theme.deprecated_text2};
+    opacity:75%;
     cursor: auto;
     box-shadow: none;
     border: 1px solid transparent;
     outline: none;
-  }
-`
-
-export const ButtonLight = styled(BaseButton)`
-  background-color: #4870FF;
-  color: ${({ theme }) => theme.accentAction};
-  font-size: 0.875rem;
-  font-weight: 400;
-  color:#fff;
-
-  &:hover {
-    background-color: #2454FF;
-  }
-  :disabled {
-    opacity: 0.4;
-    :hover {
-      cursor: auto;
-    }
   }
 `
 

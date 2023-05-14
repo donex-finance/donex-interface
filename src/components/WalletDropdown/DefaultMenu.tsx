@@ -13,11 +13,8 @@ import AuthenticatedHeader from './AuthenticatedHeader'
 import { MenuState } from './index'
 
 const ConnectButton = styled(ButtonPrimary)`
-  border-radius: 12px;
   height: 44px;
   width: 288px;
-  font-weight: 600;
-  font-size: 16px;
   margin-left: auto;
   margin-right: auto;
 
@@ -52,10 +49,10 @@ const ToggleMenuItem = styled.button`
     color: ${({ theme }) => theme.textPrimary};
     background-color: ${({ theme }) => theme.backgroundModule};
     transition: ${({
-      theme: {
-        transition: { duration, timing },
-      },
-    }) => `${duration.fast} all ${timing.in}`};
+  theme: {
+    transition: { duration, timing },
+  },
+}) => `${duration.fast} all ${timing.in}`};
   }
 `
 

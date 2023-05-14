@@ -26,7 +26,7 @@ import styled, { useTheme } from 'styled-components/macro'
 import { currencyAmountToPreciseFloat, formatTransactionAmount } from 'utils/formatNumbers'
 
 import AddressInputPanel from '../../components/AddressInputPanel'
-import { ButtonConfirmed, ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
+import { ButtonConfirmed, ButtonError, ButtonPrimary } from '../../components/Button'
 import { GreyCard } from '../../components/Card'
 import { AutoColumn } from '../../components/Column'
 import SwapCurrencyInputPanel from '../../components/CurrencyInputPanel/SwapCurrencyInputPanel'
@@ -599,9 +599,9 @@ export default function Swap() {
                     properties={{ received_swap_quote: getIsValidSwapQuote(trade, tradeState, swapInputError) }}
                     element={ElementName.CONNECT_WALLET_BUTTON}
                   >
-                    <ButtonLight onClick={toggleWalletModal} fontWeight={600}>
+                    <ButtonPrimary onClick={toggleWalletModal} fontWeight={600}>
                       <Trans>Connect Wallet</Trans>
-                    </ButtonLight>
+                    </ButtonPrimary>
                   </TraceEvent>
                 ) : routeNotFound && userHasSpecifiedInputOutput && !routeIsLoading && !routeIsSyncing ? (
                   <GreyCard style={{ textAlign: 'center' }}>

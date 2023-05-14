@@ -16,7 +16,7 @@ import Circle from '../../assets/images/blue-loader.svg'
 import { CloseIcon, CustomLightSpinner, ExternalLink, ThemedText } from '../../theme'
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
 import { TransactionSummary } from '../AccountDetails/TransactionSummary'
-import { ButtonLight, ButtonPrimary } from '../Button'
+import { ButtonPrimary } from '../Button'
 import { AutoColumn, ColumnCenter } from '../Column'
 import Modal from '../Modal'
 import { RowBetween, RowFixed } from '../Row'
@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   width: 100%;
   padding: 1rem;
 `
-const Section = styled(AutoColumn)<{ inline?: boolean }>`
+const Section = styled(AutoColumn) <{ inline?: boolean }>`
   padding: ${({ inline }) => (inline ? '0' : '0')};
 `
 
@@ -38,7 +38,7 @@ const BottomSection = styled(Section)`
   padding-bottom: 10px;
 `
 
-const ConfirmedIcon = styled(ColumnCenter)<{ inline?: boolean }>`
+const ConfirmedIcon = styled(ColumnCenter) <{ inline?: boolean }>`
   padding: ${({ inline }) => (inline ? '20px 0' : '32px 0;')};
 `
 
@@ -138,7 +138,7 @@ function TransactionSubmittedContent({
             <Trans>Transaction submitted</Trans>
           </ThemedText.MediumHeader>
           {currencyToAdd && connector.watchAsset && (
-            <ButtonLight mt="12px" padding="6px 12px" width="fit-content" onClick={addToken}>
+            <ButtonPrimary mt="12px" padding="6px 12px" width="fit-content" onClick={addToken}>
               {!success ? (
                 <RowFixed>
                   <Trans>Add {currencyToAdd.symbol}</Trans>
@@ -149,7 +149,7 @@ function TransactionSubmittedContent({
                   <CheckCircle size={'16px'} stroke={theme.deprecated_green1} style={{ marginLeft: '6px' }} />
                 </RowFixed>
               )}
-            </ButtonLight>
+            </ButtonPrimary>
           )}
           <ButtonPrimary onClick={onDismiss} style={{ margin: '20px 0 0 0' }}>
             <Text fontWeight={600} fontSize={20} color={theme.accentTextLightPrimary}>

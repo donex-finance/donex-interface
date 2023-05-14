@@ -56,7 +56,7 @@ const CurrencySelect = styled(ButtonGray) <{
   disabled?: boolean
 }>`
   align-items: center;
-  background-color: ${({ selected, theme }) => (selected ? theme.backgroundInteractive : theme.accentAction)};
+  background-color: ${({ theme }) => theme.backgroundInteractive};
   opacity: ${({ disabled }) => (!disabled ? 1 : 0.4)};
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
   color: ${({ selected, theme }) => (selected ? theme.deprecated_text1 : theme.deprecated_white)};
@@ -75,7 +75,7 @@ const CurrencySelect = styled(ButtonGray) <{
 
   &:hover,
   &:active {
-    background-color: ${({ theme, selected }) => (selected ? theme.backgroundInteractive : theme.accentAction)};
+    background-color: ${({ theme, selected }) => theme.backgroundInteractive};
   }
 
   &:before {
@@ -93,10 +93,6 @@ const CurrencySelect = styled(ButtonGray) <{
 
   &:hover:before {
     background-color: ${({ theme }) => theme.stateOverlayHover};
-  }
-
-  &:active:before {
-    background-color: ${({ theme }) => theme.stateOverlayPressed};
   }
 
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};

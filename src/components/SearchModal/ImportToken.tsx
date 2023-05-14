@@ -83,7 +83,7 @@ export function ImportToken(props: ImportProps) {
         >
           <ButtonPrimary
             altDisabledStyle={true}
-            $borderRadius="20px"
+            $borderRadius="0.5rem"
             padding="10px 1rem"
             onClick={() => {
               tokens.map((token) => addToken(token))

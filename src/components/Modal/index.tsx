@@ -38,7 +38,6 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, scro
   &[data-reach-dialog-content] {
     margin: auto;
     background-color: ${({ theme }) => theme.deprecated_bg0};
-    border: 1px solid ${({ theme }) => theme.deprecated_bg1};
     box-shadow: ${({ theme }) => theme.deepShadow};
     padding: 0px;
     width: 50vw;
@@ -59,7 +58,7 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, scro
         min-height: ${minHeight}vh;
       `}
     display: ${({ scrollOverlay }) => (scrollOverlay ? 'inline-table' : 'flex')};
-    border-radius: 20px;
+    border-radius: 0.5rem;
     ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
       width: 65vw;
       margin: auto;

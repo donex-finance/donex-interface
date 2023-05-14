@@ -36,14 +36,14 @@ const ToggleMenuItem = styled.button`
   cursor: pointer;
   display: flex;
   flex: 1;
-  border-radius: 12px;
+  border-radius: 0.25rem;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   font-size: 14px;
   font-weight: 400;
   width: 100%;
-  padding: 12px 8px;
+  padding: 12px 12px;
   color: ${({ theme }) => theme.textSecondary};
   :hover {
     color: ${({ theme }) => theme.textPrimary};

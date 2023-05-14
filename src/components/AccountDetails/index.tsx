@@ -52,7 +52,7 @@ const UpperSection = styled.div`
 const InfoCard = styled.div`
   padding: 1rem;
   border: 1px solid ${({ theme }) => theme.deprecated_bg3};
-  border-radius: 20px;
+  border-radius: 1rem;
   position: relative;
   display: grid;
   grid-row-gap: 12px;

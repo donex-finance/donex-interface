@@ -67,7 +67,6 @@ const Web3StatusGeneric = styled(ButtonSecondary)`
 `
 const Web3StatusError = styled(Web3StatusGeneric)`
   background-color: ${({ theme }) => theme.deprecated_red1};
-  border: 1px solid ${({ theme }) => theme.deprecated_red1};
   color: ${({ theme }) => theme.deprecated_white};
   font-weight: 500;
   :hover,
@@ -94,15 +93,11 @@ const Web3StatusConnectWrapper = styled.div<{ faded?: boolean }>`
 
 const Web3StatusConnected = styled(Web3StatusGeneric) <{ pending?: boolean }>`
   background-color: ${({ pending, theme }) => (pending ? theme.deprecated_primary1 : theme.deprecated_bg1)};
-  border: 1px solid ${({ pending, theme }) => (pending ? theme.deprecated_primary1 : theme.deprecated_bg1)};
   color: ${({ pending, theme }) => (pending ? theme.deprecated_white : theme.deprecated_text1)};
   font-weight: 500;
   :hover,
   :focus {
-    border: 1px solid ${({ theme }) => darken(0.05, theme.deprecated_bg3)};
-
     :focus {
-      border: 1px solid
         ${({ pending, theme }) =>
     pending ? darken(0.1, theme.deprecated_primary1) : darken(0.1, theme.deprecated_bg2)};
     }

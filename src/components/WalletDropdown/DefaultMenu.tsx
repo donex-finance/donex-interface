@@ -40,7 +40,7 @@ const ToggleMenuItem = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 0.87rem;
   font-weight: 400;
   width: 100%;
   padding: 12px 12px;

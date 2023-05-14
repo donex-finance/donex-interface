@@ -63,7 +63,6 @@ const PageTabs = () => {
 }
 
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
-  border-radius: px;
   height:40px;
   width: fit-content;
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`

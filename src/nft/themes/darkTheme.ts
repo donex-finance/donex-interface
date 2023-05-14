@@ -16,7 +16,7 @@ export const darkTheme: Theme = {
     backgroundInteractive: vars.color.grey700,
     backgroundModule: vars.color.grey800,
     backgroundOutline: `rgba(153,161,189,0.24)`,
-    backgroundSurface: vars.color.grey900,
+    backgroundSurface: vars.color.grey700,
     backgroundBackdrop: '#000',
 
     modalBackdrop: 'linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7))',

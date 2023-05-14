@@ -7,7 +7,7 @@ import { RowBetween } from '../Row'
 
 type ButtonProps = Omit<ButtonPropsOriginal, 'css'>
 
-export const BaseButton = styled(RebassButton)<
+export const BaseButton = styled(RebassButton) <
   {
     padding?: string
     width?: string
@@ -19,7 +19,7 @@ export const BaseButton = styled(RebassButton)<
   width: ${({ width }) => width ?? '100%'};
   font-weight: 500;
   text-align: center;
-  border-radius: ${({ $borderRadius }) => $borderRadius ?? '20px'};
+  border-radius: 0.25rem;
   outline: none;
   border: 1px solid transparent;
   color: ${({ theme }) => theme.deprecated_text1};
@@ -52,8 +52,8 @@ export const BaseButton = styled(RebassButton)<
 
 export const ButtonPrimary = styled(BaseButton)`
   background-color: ${({ theme }) => theme.accentAction};
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 500;
   padding: 16px;
   color: ${({ theme }) => theme.accentTextLightPrimary};
   &:focus {
@@ -69,9 +69,9 @@ export const ButtonPrimary = styled(BaseButton)`
   }
   &:disabled {
     background-color: ${({ theme, altDisabledStyle, disabled }) =>
-      altDisabledStyle ? (disabled ? theme.deprecated_primary1 : theme.deprecated_bg2) : theme.deprecated_bg2};
+    altDisabledStyle ? (disabled ? theme.deprecated_primary1 : theme.deprecated_bg2) : theme.deprecated_bg2};
     color: ${({ altDisabledStyle, disabled, theme }) =>
-      altDisabledStyle ? (disabled ? theme.deprecated_white : theme.deprecated_text2) : theme.deprecated_text2};
+    altDisabledStyle ? (disabled ? theme.deprecated_white : theme.deprecated_text2) : theme.deprecated_text2};
     cursor: auto;
     box-shadow: none;
     border: 1px solid transparent;
@@ -80,30 +80,19 @@ export const ButtonPrimary = styled(BaseButton)`
 `
 
 export const ButtonLight = styled(BaseButton)`
-  background-color: ${({ theme }) => theme.accentActionSoft};
+  background-color: #4870FF;
   color: ${({ theme }) => theme.accentAction};
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color:#fff;
 
-  &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && theme.accentActionSoft};
-    background-color: ${({ theme, disabled }) => !disabled && theme.accentActionSoft};
-  }
   &:hover {
-    background-color: ${({ theme, disabled }) => !disabled && theme.accentActionSoft};
-  }
-  &:active {
-    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && theme.accentActionSoft};
-    background-color: ${({ theme, disabled }) => !disabled && theme.accentActionSoft};
+    background-color: #2454FF;
   }
   :disabled {
     opacity: 0.4;
     :hover {
       cursor: auto;
-      background-color: transparent;
-      box-shadow: none;
-      border: 1px solid transparent;
-      outline: none;
     }
   }
 `
@@ -111,7 +100,7 @@ export const ButtonLight = styled(BaseButton)`
 export const ButtonGray = styled(BaseButton)`
   background-color: ${({ theme }) => theme.deprecated_bg1};
   color: ${({ theme }) => theme.deprecated_text2};
-  font-size: 16px;
+  font-size: 0.875rem;
   font-weight: 500;
 
   &:hover {
@@ -126,7 +115,7 @@ export const ButtonSecondary = styled(BaseButton)`
   border: 1px solid ${({ theme }) => theme.deprecated_primary4};
   color: ${({ theme }) => theme.deprecated_primary1};
   background-color: transparent;
-  font-size: 16px;
+  font-size: 0.875rem;
   border-radius: 12px;
   padding: ${({ padding }) => (padding ? padding : '10px')};
 

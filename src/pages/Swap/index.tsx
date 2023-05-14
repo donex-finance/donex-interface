@@ -69,10 +69,10 @@ const ArrowContainer = styled.div`
 const SwapSection = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.backgroundModule};
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
   color: ${({ theme }) => theme.textSecondary};
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   font-weight: 500;
 

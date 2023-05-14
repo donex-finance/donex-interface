@@ -56,29 +56,17 @@ const BG_COLORS_BY_DARK_MODE_AND_CHAIN_ID: {
 
 const ContentWrapper = styled.div<{ chainId: NetworkAlertChains; darkMode: boolean; logoUrl: string }>`
   background: ${({ chainId, darkMode }) => BG_COLORS_BY_DARK_MODE_AND_CHAIN_ID[darkMode ? 'dark' : 'light'][chainId]};
-  border-radius: 20px;
+  padding:0.75rem;
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: row;
   overflow: hidden;
   position: relative;
   width: 100%;
-
-  :before {
-    background-image: url(${({ logoUrl }) => logoUrl});
-    background-repeat: no-repeat;
-    background-size: 300px;
-    content: '';
-    height: 300px;
-    opacity: 0.1;
-    position: absolute;
-    transform: rotate(25deg) translate(-90px, -40px);
-    width: 300px;
-    z-index: -1;
-  }
 `
 const Header = styled.h2`
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 0.875rem;
   margin: 0;
 `
 

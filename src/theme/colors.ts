@@ -238,7 +238,7 @@ export const colorsLight: Palette = {
   backgroundInteractive: colors.gray100,
   backgroundFloating: opacify(8, colors.gray700),
   backgroundOutline: opacify(24, colors.gray500),
-  backgroundScrim: opacify(60, colors.gray900),
+  backgroundScrim: opacify(60, colors.gray700),
   backgroundScrolledSurface: opacify(72, colors.white),
 
   textPrimary: colors.gray900,
@@ -301,7 +301,7 @@ export const colorsDark: Palette = {
   backgroundInteractive: colors.gray700,
   backgroundFloating: opacify(12, colors.black),
   backgroundOutline: opacify(14, colors.gray300),
-  backgroundScrim: opacify(72, colors.gray900),
+  backgroundScrim: opacify(60, colors.gray800),
   backgroundScrolledSurface: opacify(72, colors.gray900),
 
   textPrimary: colors.white,
@@ -346,9 +346,8 @@ export const colorsDark: Palette = {
   chain_137_background: colors.purple900,
   chain_10_background: colors.red900,
   chain_42161_background: colors.blue900,
-
-  deepShadow: '12px 16px 24px rgba(0, 0, 0, 0.24), 12px 8px 12px rgba(0, 0, 0, 0.24), 4px 4px 8px rgba(0, 0, 0, 0.32);',
-  shallowShadow: '4px 4px 10px rgba(0, 0, 0, 0.24), 2px 2px 4px rgba(0, 0, 0, 0.12), 1px 2px 2px rgba(0, 0, 0, 0.12);',
+  deepShadow: '0px 24px 48px rgba(0, 0, 0, 0.3);',
+  shallowShadow: '0px 8px 16px rgba(0, 0, 0, 0.15);',
   stateOverlayHover: opacify(8, colors.gray300),
   stateOverlayPressed: opacify(24, colors.gray200),
 }

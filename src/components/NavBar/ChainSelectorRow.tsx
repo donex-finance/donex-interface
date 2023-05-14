@@ -8,6 +8,7 @@ import styled, { useTheme } from 'styled-components/macro'
 const LOGO_SIZE = 20
 
 const Container = styled.button`
+  background-color: ${({ theme }) => theme.backgroundModule};
   display: grid;
   background: none;
   grid-template-columns: min-content 1fr min-content;
@@ -16,9 +17,9 @@ const Container = styled.button`
   line-height: 24px;
   border: none;
   justify-content: space-between;
-  padding: 10px 8px;
+  padding: 12px;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 0.25rem;
   color: ${({ theme }) => theme.textPrimary};
   width: 240px;
   transition: ${({ theme }) => theme.transition.duration.medium} ${({ theme }) => theme.transition.timing.ease}
@@ -29,14 +30,14 @@ const Container = styled.button`
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.backgroundOutline};
+    background-color: ${({ theme }) => theme.backgroundModule};
   }
 `
 
 const Label = styled.div`
   grid-column: 2;
   grid-row: 1;
-  font-size: 16px;
+  font-size: 0.875rem;
 `
 
 const Status = styled.div`

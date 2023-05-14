@@ -166,7 +166,7 @@ export const vars = createGlobalTheme(':root', {
     white: '#FFF',
 
     // new donex colors:
-    blue400: '#4C82FB',
+    blue400: '#1949F5',
     blue200: '#ADBCFF30',
     pink400: '#FB118E',
     red700: '#530f10',
@@ -214,11 +214,11 @@ export const vars = createGlobalTheme(':root', {
   },
   fontSize: {
     '0': '0',
-    '10': '10px',
-    '12': '12px',
-    '14': '14px',
-    '16': '16px',
-    '20': '20px',
+    '10': '0.625rem',
+    '12': '0.75rem',
+    '14': '0.875rem',
+    '16': '0.875rem',
+    '20': '1.25rem',
     '24': '24px',
     '28': '28px',
     '34': '34px',
@@ -243,14 +243,14 @@ export const vars = createGlobalTheme(':root', {
   fontWeight: {
     normal: '400',
     medium: '500',
-    semibold: '600',
-    bold: '700',
-    black: '900',
+    semibold: '400',
+    bold: '500',
+    black: '00',
   },
   time: {
-    '125': '125ms',
-    '250': '250ms',
-    '500': '500ms',
+    '125': '50ms',
+    '250': '150ms',
+    '500': '300ms',
   },
   fonts: {
     body: 'Inter, sans-serif',

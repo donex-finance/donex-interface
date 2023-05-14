@@ -31,7 +31,7 @@ import { RowBetween } from '../Row'
 import WalletModal from '../WalletModal'
 
 // https://stackoverflow.com/a/31617326
-const FULL_BORDER_RADIUS = 9999
+const BORDER_RADIUS = 0.25;
 
 const ChevronWrapper = styled.button`
   background-color: transparent;
@@ -55,7 +55,7 @@ const Web3StatusGeneric = styled(ButtonSecondary)`
   width: 100%;
   align-items: center;
   padding: 0.5rem;
-  border-radius: ${FULL_BORDER_RADIUS}px;
+  border-radius: ${BORDER_RADIUS}rem;
   cursor: pointer;
   user-select: none;
   height: 36px;
@@ -80,7 +80,7 @@ const Web3StatusConnectWrapper = styled.div<{ faded?: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
   background-color: ${({ theme }) => theme.accentActionSoft};
-  border-radius: ${FULL_BORDER_RADIUS}px;
+  border-radius: ${BORDER_RADIUS}rem;
   border: none;
   padding: 0;
   height: 40px;
@@ -92,7 +92,7 @@ const Web3StatusConnectWrapper = styled.div<{ faded?: boolean }>`
   }
 `
 
-const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
+const Web3StatusConnected = styled(Web3StatusGeneric) <{ pending?: boolean }>`
   background-color: ${({ pending, theme }) => (pending ? theme.deprecated_primary1 : theme.deprecated_bg1)};
   border: 1px solid ${({ pending, theme }) => (pending ? theme.deprecated_primary1 : theme.deprecated_bg1)};
   color: ${({ pending, theme }) => (pending ? theme.deprecated_white : theme.deprecated_text1)};
@@ -104,7 +104,7 @@ const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
     :focus {
       border: 1px solid
         ${({ pending, theme }) =>
-          pending ? darken(0.1, theme.deprecated_primary1) : darken(0.1, theme.deprecated_bg2)};
+    pending ? darken(0.1, theme.deprecated_primary1) : darken(0.1, theme.deprecated_bg2)};
     }
   }
 `
@@ -132,18 +132,11 @@ function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime
 }
 
-const VerticalDivider = styled.div`
-  height: 20px;
-  margin: 0px;
-  width: 1px;
-  background-color: ${({ theme }) => theme.accentAction};
-`
-
 const StyledConnectButton = styled.button`
   background-color: transparent;
   border: none;
-  border-top-left-radius: ${FULL_BORDER_RADIUS}px;
-  border-bottom-left-radius: ${FULL_BORDER_RADIUS}px;
+  border-top-left-radius: ${BORDER_RADIUS}rem;
+  border-bottom-left-radius: ${BORDER_RADIUS}rem;
   color: ${({ theme }) => theme.accentAction};
   cursor: pointer;
   font-weight: 600;
@@ -151,10 +144,10 @@ const StyledConnectButton = styled.button`
   padding: 10px 8px 10px 12px;
 
   transition: ${({
-    theme: {
-      transition: { duration, timing },
-    },
-  }) => `${duration.fast} color ${timing.in}`};
+  theme: {
+    transition: { duration, timing },
+  },
+}) => `${duration.fast} color ${timing.in}`};
 
   :hover,
   :active,
@@ -248,7 +241,6 @@ function Web3StatusInner() {
           <StyledConnectButton data-testid="navbar-connect-wallet" onClick={toggleWalletModal}>
             <Trans>Connect</Trans>
           </StyledConnectButton>
-          <VerticalDivider />
           <ChevronWrapper onClick={toggleWalletDropdown}>
             {walletIsOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
           </ChevronWrapper>

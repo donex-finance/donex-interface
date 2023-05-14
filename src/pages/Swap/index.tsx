@@ -672,7 +672,7 @@ export default function Swap() {
                         }
                         error={isValid && priceImpactSeverity > 2}
                       >
-                        <Text fontSize={16} fontWeight={600}>
+                        <Text fontSize={16} fontWeight={500}>
                           {priceImpactTooHigh ? (
                             <Trans>High Price Impact</Trans>
                           ) : trade && priceImpactSeverity > 2 ? (
@@ -703,7 +703,7 @@ export default function Swap() {
                     disabled={!isValid || routeIsSyncing || routeIsLoading || priceImpactTooHigh || !!swapCallbackError}
                     error={isValid && priceImpactSeverity > 2 && !swapCallbackError}
                   >
-                    <Text fontSize={20} fontWeight={600}>
+                    <Text fontSize={16} fontWeight={500}>
                       {swapInputError ? (
                         swapInputError
                       ) : routeIsSyncing || routeIsLoading ? (

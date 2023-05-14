@@ -9,7 +9,7 @@ import LanguageMenu from './LanguageMenu'
 import { TransactionHistoryMenu } from './TransactionMenu'
 
 const WalletWrapper = styled.div`
-  border-radius: 12px;
+  border-radius: 0.5rem;
   width: 320px;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,6 @@ const WalletWrapper = styled.div`
   top: 60px;
   right: 70px;
   background-color: ${({ theme }) => theme.backgroundSurface};
-  border: ${({ theme }) => `1px solid ${theme.backgroundOutline}`};
   box-shadow: ${({ theme }) => theme.deepShadow};
   padding: 16px 0;
 

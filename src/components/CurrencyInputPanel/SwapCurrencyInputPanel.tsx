@@ -168,7 +168,7 @@ const StyledBalanceMax = styled.button<{ disabled?: boolean }>`
 const StyledNumericalInput = styled(NumericalInput) <{ $loading: boolean }>`
   ${loadingOpacityMixin};
   text-align: left;
-  font-size: 36px;
+  font-size: 1.25rem;
   line-height: 44px;
   font-variant: small-caps;
 `

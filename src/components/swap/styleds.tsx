@@ -27,13 +27,12 @@ export const SwapWrapper = styled.main<{ margin?: string; maxWidth?: string }>`
   position: relative;
   background: ${({ theme }) => theme.backgroundSurface};
   border-radius: 0.5rem;
-  border: 1px solid ${({ theme }) => theme.backgroundOutline};
   padding: 16px;
   z-index: ${Z_INDEX.deprecated_content};
 `
 
 export const ArrowWrapper = styled.div<{ clickable: boolean }>`
-  border-radius: 12px;
+  border-radius: 100px;
   height: 40px;
   width: 40px;
   position: relative;
@@ -51,7 +50,6 @@ export const ArrowWrapper = styled.div<{ clickable: boolean }>`
       ? css`
           :hover {
             cursor: pointer;
-            opacity: 0.8;
           }
         `
       : null}

@@ -34,19 +34,19 @@ exports[`ResizableTextArea renders correctly 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #99A1BD;
+  color: #9595B4;
 }
 
 .c0::-moz-placeholder {
-  color: #99A1BD;
+  color: #9595B4;
 }
 
 .c0:-ms-input-placeholder {
-  color: #99A1BD;
+  color: #9595B4;
 }
 
 .c0::placeholder {
-  color: #99A1BD;
+  color: #9595B4;
 }
 
 <textarea
@@ -96,19 +96,19 @@ exports[`TextInput renders correctly 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #99A1BD;
+  color: #9595B4;
 }
 
 .c0::-moz-placeholder {
-  color: #99A1BD;
+  color: #9595B4;
 }
 
 .c0:-ms-input-placeholder {
-  color: #99A1BD;
+  color: #9595B4;
 }
 
 .c0::placeholder {
-  color: #99A1BD;
+  color: #9595B4;
 }
 
 <div

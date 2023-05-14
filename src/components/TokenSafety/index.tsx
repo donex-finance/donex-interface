@@ -115,7 +115,7 @@ const ExplorerContainer = styled.div`
   width: 100%;
   height: 32px;
   margin-top: 10px;
-  font-size: 20px;
+  font-size: 16px;
   background-color: ${({ theme }) => theme.accentActionSoft};
   color: ${({ theme }) => theme.accentAction};
   border-radius: 8px;

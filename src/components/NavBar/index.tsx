@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import LOGO_SVG from 'assets/images/logo.png'
+import LOGO_SVG from 'assets/images/logo.svg'
 import { ButtonPrimary } from 'components/Button'
 import Web3Status from 'components/Web3Status'
 import { TEST_TOKEN } from 'constants/tokens'
@@ -64,7 +64,7 @@ const PageTabs = () => {
 
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   border-radius: px;
-  padding: 6px 8px;
+  height:40px;
   width: fit-content;
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
     flex: 1 1 auto;
@@ -82,7 +82,7 @@ const Navbar = () => {
         <Box display="flex" height="full" flexWrap="nowrap" alignItems="stretch">
           <Box className={styles.leftSideContainer}>
             <Box as="a" href="#/swap" className={styles.logoContainer}>
-              <img src={LOGO_SVG} width="40" alt="" />
+              <img src={LOGO_SVG} alt="" />
             </Box>
 
             <Box display={{ sm: 'flex', lg: 'none' }}>

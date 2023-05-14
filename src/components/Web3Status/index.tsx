@@ -24,7 +24,7 @@ import { ApplicationModal } from '../../state/application/reducer'
 import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
 import { TransactionDetails } from '../../state/transactions/types'
 import { shortenAddress } from '../../utils'
-import { ButtonSecondary } from '../Button'
+import { ButtonPrimary, ButtonSecondary } from '../Button'
 import StatusIcon from '../Identicon/StatusIcon'
 import Loader from '../Loader'
 import { RowBetween } from '../Row'
@@ -77,18 +77,7 @@ const Web3StatusError = styled(Web3StatusGeneric)`
 
 const Web3StatusConnectWrapper = styled.div<{ faded?: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  background-color: ${({ theme }) => theme.accentActionSoft};
-  border-radius: ${BORDER_RADIUS}rem;
-  border: none;
-  padding: 0;
-  height: 40px;
-
-  :hover,
-  :active,
-  :focus {
-    border: none;
-  }
+  gap:16px;
 `
 
 const Web3StatusConnected = styled(Web3StatusGeneric) <{ pending?: boolean }>`
@@ -127,31 +116,8 @@ function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime
 }
 
-const StyledConnectButton = styled.button`
-  background-color: transparent;
-  border: none;
-  border-top-left-radius: ${BORDER_RADIUS}rem;
-  border-bottom-left-radius: ${BORDER_RADIUS}rem;
-  color: ${({ theme }) => theme.accentAction};
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 16px;
-  padding: 10px 8px 10px 12px;
-
-  transition: ${({
-  theme: {
-    transition: { duration, timing },
-  },
-}) => `${duration.fast} color ${timing.in}`};
-
-  :hover,
-  :active,
-  :focus {
-    border: none;
-  }
-  :hover {
-    color: ${({ theme }) => theme.accentActionSoft};
-  }
+const StyledConnectButton = styled(ButtonPrimary)`
+height:40px;
 `
 
 const CHEVRON_PROPS = {
@@ -234,7 +200,7 @@ function Web3StatusInner() {
       >
         <Web3StatusConnectWrapper faded={!account}>
           <StyledConnectButton data-testid="navbar-connect-wallet" onClick={toggleWalletModal}>
-            <Trans>Connect</Trans>
+            <Trans>Connect Wallet</Trans>
           </StyledConnectButton>
           <ChevronWrapper onClick={toggleWalletDropdown}>
             {walletIsOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}

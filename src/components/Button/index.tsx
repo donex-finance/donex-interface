@@ -15,13 +15,12 @@ export const BaseButton = styled(RebassButton) <
     altDisabledStyle?: boolean
   } & ButtonProps
 >`
-  padding: ${({ padding }) => padding ?? '16px'};
+  padding: ${({ padding }) => padding ?? '0.75rem'};
   width: ${({ width }) => width ?? '100%'};
   font-weight: 500;
   text-align: center;
   border-radius: 0.25rem;
   outline: none;
-  border: 1px solid transparent;
   color: ${({ theme }) => theme.deprecated_text1};
   text-decoration: none;
   display: flex;
@@ -30,6 +29,13 @@ export const BaseButton = styled(RebassButton) <
   align-items: center;
   cursor: pointer;
   position: relative;
+
+  color: ${({ theme }) => theme.textPrimary};
+  background: ${({ theme }) => theme.backgroundInteractive};
+  cursor: pointer;
+  user-select: none;
+  gap:0.5rem;
+
   z-index: 1;
   &:disabled {
     opacity: 50%;
@@ -54,13 +60,14 @@ export const ButtonPrimary = styled(BaseButton)`
   background-color: ${({ theme }) => theme.accentAction};
   font-size: 0.875rem;
   font-weight: 500;
-  padding: 16px;
+  padding: 12px;
+  gap: 12px;
   color: ${({ theme }) => theme.accentTextLightPrimary};
   &:hover {
     background-color: #2454FF;
   }
   &:disabled {
-    opacity:75%;
+    opacity:60%;
     cursor: auto;
     box-shadow: none;
     border: 1px solid transparent;
@@ -83,15 +90,10 @@ export const ButtonGray = styled(BaseButton)`
 `
 
 export const ButtonSecondary = styled(BaseButton)`
-  color: ${({ theme }) => theme.deprecated_primary1};
-  background-color: transparent;
   font-size: 0.875rem;
   border-radius: 12px;
   padding: ${({ padding }) => (padding ? padding : '10px')};
-
-  &:hover, &:active, &:active {
-    box-shadow: ${({ theme }) => theme.shallowShadow};
-  }
+  background: ${({ theme }) => theme.backgroundInteractive};
 `
 
 export const ButtonOutlined = styled(BaseButton)`

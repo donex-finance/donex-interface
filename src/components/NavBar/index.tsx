@@ -12,6 +12,12 @@ import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
 import { ReactNode } from 'react'
 import { NavLink, NavLinkProps, useLocation } from 'react-router-dom'
+import {
+  Moon,
+  Sun,
+} from 'react-feather'
+import { useDarkModeManager } from 'state/user/hooks'
+
 import styled from 'styled-components/macro'
 
 import { ChainSelector } from './ChainSelector'
@@ -69,9 +75,25 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
     flex: 1 1 auto;
     width: 100%;
   `};
+
+`
+
+const SwitchThemeButton = styled(ButtonPrimary)`
+  color: ${({ theme }) => theme.textPrimary};
+  padding:0;
+  background:none;
+  height:40px;
+  width: 40px;
+  border-radius:20px;
+  &:hover {
+    background-color: ${({ theme }) => theme.backgroundInteractive};
+  }
 `
 
 const Navbar = () => {
+
+  const [darkMode, toggleDarkMode] = useDarkModeManager();
+
   const [mintTestToken] = useMintTestToken(
     CurrencyAmount.fromRawAmount(TEST_TOKEN, JSBI.BigInt('10000000000000000000'))
   )
@@ -112,6 +134,10 @@ const Navbar = () => {
               </Box>
 
               <Web3Status />
+
+              <SwitchThemeButton onClick={() => toggleDarkMode()}>
+                {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+              </SwitchThemeButton>
             </Row>
           </Box>
         </Box>

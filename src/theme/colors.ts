@@ -245,14 +245,14 @@ export const colorsLight: Palette = {
   textSecondary: colors.gray500,
   textTertiary: colors.gray300,
 
-  accentAction: colors.pink400,
+  accentAction: colors.blue400,
   accentActive: colors.blue400,
   accentSuccess: colors.green300,
   accentWarning: colors.gold200,
   accentFailure: colors.red400,
   accentCritical: colors.red400,
 
-  accentActionSoft: opacify(24, colors.pink400),
+  accentActionSoft: opacify(24, colors.blue400),
   accentActiveSoft: opacify(24, colors.blue400),
   accentSuccessSoft: opacify(24, colors.green400),
   accentWarningSoft: opacify(24, colors.gold200),

@@ -59,7 +59,7 @@ const CurrencySelect = styled(ButtonGray) <{
   background-color: ${({ theme }) => theme.backgroundInteractive};
   opacity: ${({ disabled }) => (!disabled ? 1 : 0.4)};
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
-  color: ${({ selected, theme }) => (selected ? theme.deprecated_text1 : theme.deprecated_white)};
+  color: ${({ theme }) => theme.textPrimary};
   cursor: pointer;
   height: unset;
   border-radius: 0.25rem;
@@ -93,6 +93,10 @@ const CurrencySelect = styled(ButtonGray) <{
 
   &:hover:before {
     background-color: ${({ theme }) => theme.stateOverlayHover};
+  }
+
+  svg path {
+    stroke: ${({ theme }) => theme.textPrimary};
   }
 
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};

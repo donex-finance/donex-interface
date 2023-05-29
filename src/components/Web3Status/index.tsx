@@ -33,23 +33,6 @@ import WalletModal from '../WalletModal'
 // https://stackoverflow.com/a/31617326
 const BORDER_RADIUS = 0.25;
 
-const ChevronWrapper = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  padding: 10px 16px 10px 4px;
-
-  :hover {
-    color: ${({ theme }) => theme.accentActionSoft};
-  }
-  :hover,
-  :active,
-  :focus {
-    border: none;
-  }
-`
-
 const Web3StatusGeneric = styled(ButtonSecondary)`
   ${({ theme }) => theme.flexRowNoWrap}
   border: none;
@@ -60,9 +43,6 @@ const Web3StatusGeneric = styled(ButtonSecondary)`
   border-radius: ${BORDER_RADIUS}rem;
   cursor: pointer;
   user-select: none;
-  height: 36px;
-  margin-right: 2px;
-  margin-left: 2px;
 `
 const Web3StatusError = styled(Web3StatusGeneric)`
   background-color: ${({ theme }) => theme.deprecated_red1};
@@ -81,19 +61,9 @@ const Web3StatusConnectWrapper = styled.div<{ faded?: boolean }>`
 
 const Web3StatusConnected = styled(Web3StatusGeneric) <{ pending?: boolean }>`
   height: 40px;
-  padding:8px 16px;
+  padding:0.75rem;
+  margin:0;
   color: ${({ pending, theme }) => (pending ? theme.deprecated_white : theme.deprecated_text1)};
-`
-
-const Text = styled.p`
-  flex: 1 1 auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin: 0 0.5rem 0 0.25rem;
-  font-size: 0.875rem;
-  width: fit-content;
-  font-weight: 500;
 `
 
 const NetworkIcon = styled(AlertTriangle)`
@@ -149,9 +119,7 @@ function Web3StatusInner() {
     return (
       <Web3StatusError onClick={toggleWallet}>
         <NetworkIcon />
-        <Text>
-          <Trans>Error</Trans>
-        </Text>
+        <Trans>Error</Trans>
       </Web3StatusError>
     )
   } else if (account) {
@@ -164,14 +132,12 @@ function Web3StatusInner() {
         {!hasPendingTransactions && <StatusIcon size={16} connectionType={connectionType} />}
         {hasPendingTransactions ? (
           <RowBetween>
-            <Text>
-              <Trans>{pending?.length} Pending</Trans>
-            </Text>{' '}
+            <Trans>{pending?.length} Pending</Trans>{' '}
             <Loader stroke="white" />
           </RowBetween>
         ) : (
           <>
-            <Text>{shortenAddress(account)}</Text>
+            {shortenAddress(account)}
             {walletIsOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
           </>
         )}
@@ -194,9 +160,6 @@ function Web3StatusInner() {
           <StyledConnectButton data-testid="navbar-connect-wallet" onClick={toggleWalletModal}>
             <Trans>Connect Wallet</Trans>
           </StyledConnectButton>
-          <ChevronWrapper onClick={toggleWalletDropdown}>
-            {walletIsOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
-          </ChevronWrapper>
         </Web3StatusConnectWrapper>
       </TraceEvent>
     )

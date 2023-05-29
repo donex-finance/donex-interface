@@ -27,6 +27,7 @@ const Wrapper = styled.div`
   outline: ${({ theme }) => `1px solid ${theme.backgroundOutline}`};
   width: 100%;
   padding: 1rem;
+  border-radius:8px;
 `
 const Section = styled(AutoColumn) <{ inline?: boolean }>`
   padding: ${({ inline }) => (inline ? '0' : '0')};
@@ -72,13 +73,13 @@ function ConfirmationPendingContent({
           <CustomLightSpinner src={Circle} alt="loader" size={inline ? '40px' : '90px'} />
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify={'center'}>
-          <Text fontWeight={500} fontSize={20} color={theme.textPrimary} textAlign="center">
+          <Text fontWeight={400} fontSize={16} color={theme.textPrimary} textAlign="center">
             <Trans>Waiting for confirmation</Trans>
           </Text>
-          <Text fontWeight={600} fontSize={16} color={theme.textPrimary} textAlign="center">
+          <Text color={theme.textPrimary} textAlign="center">
             {pendingText}
           </Text>
-          <Text fontWeight={400} fontSize={12} color={theme.textSecondary} textAlign="center" marginBottom="12px">
+          <Text color={theme.textSecondary} textAlign="center" marginBottom="12px">
             <Trans>Confirm this transaction in your wallet</Trans>
           </Text>
         </AutoColumn>
@@ -152,13 +153,13 @@ function TransactionSubmittedContent({
             </ButtonPrimary>
           )}
           <ButtonPrimary onClick={onDismiss} style={{ margin: '20px 0 0 0' }}>
-            <Text fontWeight={600} fontSize={20} color={theme.accentTextLightPrimary}>
+            <Text fontWeight={400} fontSize={14} color={theme.accentTextLightPrimary}>
               {inline ? <Trans>Return</Trans> : <Trans>Close</Trans>}
             </Text>
           </ButtonPrimary>
           {chainId && hash && (
             <ExternalLink href={getExplorerLink(chainId, hash, ExplorerDataType.TRANSACTION)}>
-              <Text fontWeight={600} fontSize={14} color={theme.accentAction}>
+              <Text fontWeight={400} fontSize={14} color={theme.accentAction}>
                 <Trans>View on Starkscan</Trans>
               </Text>
             </ExternalLink>
@@ -275,7 +276,7 @@ function L2Content({
           )}
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify={'center'}>
-          <Text fontWeight={500} fontSize={20} textAlign="center">
+          <Text fontWeight={400} fontSize={14} textAlign="center">
             {!hash ? (
               <Trans>Confirm transaction in wallet</Trans>
             ) : !confirmed ? (

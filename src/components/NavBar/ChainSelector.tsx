@@ -1,3 +1,4 @@
+import { ButtonSecondary } from 'components/Button'
 import { getChainInfo } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
@@ -6,14 +7,14 @@ import useSelectChain from 'hooks/useSelectChain'
 import useSyncChainQuery from 'hooks/useSyncChainQuery'
 import { Box } from 'nft/components/Box'
 import { Portal } from 'nft/components/common/Portal'
-import { Column, Row } from 'nft/components/Flex'
+import { Column } from 'nft/components/Flex'
 import { TokenWarningRedIcon } from 'nft/components/icons'
 import { subhead } from 'nft/css/common.css'
 import { themeVars } from 'nft/css/sprinkles.css'
 import { useIsMobile } from 'nft/hooks'
 import { useCallback, useRef, useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
-import { useTheme } from 'styled-components/macro'
+import styled, { useTheme } from 'styled-components/macro'
 
 import * as styles from './ChainSelector.css'
 import ChainSelectorRow from './ChainSelectorRow'
@@ -24,6 +25,20 @@ const NETWORK_SELECTOR_CHAINS = [SupportedChainId.TESTNET]
 interface ChainSelectorProps {
   leftAlign?: boolean
 }
+
+const SelectButton = styled(ButtonSecondary)`
+${({ theme }) => theme.flexRowNoWrap}
+  color: ${({ theme }) => theme.textPrimary};
+  border: none;
+  background: ${({ theme }) => theme.backgroundInteractive};
+  width: 100%;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  user-select: none;
+  gap:0.5rem;
+`
 
 export const ChainSelector = ({ leftAlign }: ChainSelectorProps) => {
   const { chainId } = useWeb3React()
@@ -80,13 +95,13 @@ export const ChainSelector = ({ leftAlign }: ChainSelectorProps) => {
     color: theme.textSecondary,
   }
 
+
+
+
   return (
     <Box position="relative" ref={ref}>
-      <Row
-        as="button"
-        gap="8"
+      <SelectButton
         className={styles.ChainSelector}
-        background={isOpen ? 'accentActiveSoft' : 'none'}
         onClick={() => setIsOpen(!isOpen)}
       >
         {!isSupported ? (
@@ -105,7 +120,7 @@ export const ChainSelector = ({ leftAlign }: ChainSelectorProps) => {
           </>
         )}
         {isOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
-      </Row>
+      </SelectButton>
       {isOpen && (isMobile ? <Portal>{dropdown}</Portal> : <>{dropdown}</>)}
     </Box>
   )

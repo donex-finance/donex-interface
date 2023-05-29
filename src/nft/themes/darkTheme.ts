@@ -8,9 +8,6 @@ export const darkTheme: Theme = {
     accentActionSoft: 'rgba(76, 130, 251, 0.24)',
 
     explicitWhite: '#FFFFFF',
-    green: vars.color.green200,
-    gold: vars.color.gold200,
-    violet: vars.color.violet200,
 
     backgroundFloating: '0000000C',
     backgroundInteractive: vars.color.grey700,
@@ -22,6 +19,9 @@ export const darkTheme: Theme = {
     modalBackdrop: 'linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7))',
 
     stateOverlayHover: `rgba(153,161,189,0.08)`,
+    green: vars.color.green200,
+    gold: vars.color.gold200,
+    violet: vars.color.violet200,
 
     textPrimary: '#FFFFFF',
     textSecondary: vars.color.grey300,

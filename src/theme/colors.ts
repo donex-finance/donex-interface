@@ -347,7 +347,7 @@ export const colorsDark: Palette = {
   chain_10_background: colors.red900,
   chain_42161_background: colors.blue900,
   deepShadow: '0px 24px 48px rgba(0, 0, 0, 0.3);',
-  shallowShadow: '0px 8px 16px rgba(0, 0, 0, 0.15);',
+  shallowShadow: '0px 8px 16px rgba(0, 0, 0, 0.1);',
   stateOverlayHover: opacify(8, colors.gray300),
   stateOverlayPressed: opacify(24, colors.gray200),
 }

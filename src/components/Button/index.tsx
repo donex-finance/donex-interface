@@ -1,4 +1,4 @@
-import { darken } from 'polished'
+import { lighten, darken } from 'polished'
 import { Check, ChevronDown } from 'react-feather'
 import { Button as RebassButton, ButtonProps as ButtonPropsOriginal } from 'rebass/styled-components'
 import styled, { useTheme } from 'styled-components/macro'
@@ -44,7 +44,7 @@ export const BaseButton = styled(RebassButton) <
   }
 
   will-change: transform;
-  transition: transform 450ms ease;
+  // transition: transform 450ms ease;
   transform: perspective(1px) translateZ(0);
 
   > * {
@@ -78,22 +78,22 @@ export const ButtonGray = styled(BaseButton)`
   color: ${({ theme }) => theme.deprecated_text2};
   font-size: 0.875rem;
   font-weight: 500;
-
-  &:hover {
-    background-color: ${({ theme, disabled }) => !disabled && darken(0.05, theme.deprecated_bg2)};
-  }
-  &:active {
-    background-color: ${({ theme, disabled }) => !disabled && darken(0.1, theme.deprecated_bg2)};
-  }
 `
 
 export const ButtonSecondary = styled(BaseButton)`
-  padding: ${({ padding }) => (padding ? padding : '10px')};
+  width:auto;
+  font-size: 0.875rem;
+  font-weight: 500;
   background: ${({ theme }) => theme.backgroundInteractive};
+
+  :hover {
+    background-color: ${({ theme }) => lighten(0.03, theme.backgroundInteractive)};
+    box-shadow: ${({ theme }) => theme.shallowShadow};
+  }
+
 `
 
-export const ButtonOutlined = styled(BaseButton)`
-  border: 1px solid ${({ theme }) => theme.deprecated_bg2};
+export const ButtonOutlined = styled(ButtonSecondary)`
   background-color: transparent;
   color: ${({ theme }) => theme.deprecated_text1};
   &:focus {

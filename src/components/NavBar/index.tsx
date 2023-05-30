@@ -1,7 +1,8 @@
 import { Trans } from '@lingui/macro'
 import LOGO_SVG from 'assets/images/logo.svg'
-import { ButtonPrimary } from 'components/Button'
+import { ButtonSecondary } from 'components/Button'
 import Web3Status from 'components/Web3Status'
+import PendingStatus from 'components/PendingStatus'
 import { TEST_TOKEN } from 'constants/tokens'
 import { CurrencyAmount } from 'donex-sdk/sdk-core'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
@@ -15,6 +16,7 @@ import { NavLink, NavLinkProps, useLocation } from 'react-router-dom'
 import {
   Moon,
   Sun,
+  Droplet
 } from 'react-feather'
 import { useDarkModeManager } from 'state/user/hooks'
 
@@ -37,6 +39,11 @@ const NavItem = styled(NavLink)`
   border-radius:0.5rem;
   padding:0.75rem 1.5rem;
   height:40px;
+  transition:color 0.2s;
+  :hover {
+    background:none;
+    color: ${({ theme }) => theme.textPrimary};
+  }
   &.active {
     background: ${({ theme }) => theme.backgroundInteractive};
   }
@@ -82,17 +89,12 @@ const PageTabs = () => {
   )
 }
 
-const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+const ResponsiveButtonPrimary = styled(ButtonSecondary)`
   height:40px;
   width: fit-content;
-  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
-    flex: 1 1 auto;
-    width: 100%;
-  `};
-
 `
 
-const SwitchThemeButton = styled(ButtonPrimary)`
+const SwitchThemeButton = styled(ButtonSecondary)`
   color: ${({ theme }) => theme.textPrimary};
   padding:0;
   background:none;
@@ -117,7 +119,7 @@ const Navbar = () => {
         <Box display="flex" height="full" flexWrap="nowrap" alignItems="stretch">
           <Box className={styles.leftSideContainer}>
             <Box as="a" href="#/swap" className={styles.logoContainer}>
-              <img src={LOGO_SVG} height="26" alt="" />
+              <img src={LOGO_SVG} height="24" alt="" />
             </Box>
 
             <Box display={{ sm: 'flex', lg: 'none' }}>
@@ -139,19 +141,21 @@ const Navbar = () => {
                 <MenuDropdown />
               </Box> */}
 
-              <Box display={{ sm: 'flex', lg: 'flex' }}>
-                <ResponsiveButtonPrimary onClick={mintTestToken}>Faucet</ResponsiveButtonPrimary>
+              <SwitchThemeButton onClick={() => toggleDarkMode()}>
+                {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+              </SwitchThemeButton>
+
+              <Box display={{ sm: 'none', lg: 'flex' }}>
+                <ResponsiveButtonPrimary onClick={mintTestToken}><Droplet size={16} /> Faucet</ResponsiveButtonPrimary>
               </Box>
 
               <Box display={{ sm: 'none', lg: 'flex' }}>
                 <ChainSelector />
               </Box>
 
-              <Web3Status />
+              <PendingStatus />
 
-              <SwitchThemeButton onClick={() => toggleDarkMode()}>
-                {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-              </SwitchThemeButton>
+              <Web3Status />
             </Row>
           </Box>
         </Box>

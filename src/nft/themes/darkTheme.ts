@@ -33,7 +33,7 @@ export const darkTheme: Theme = {
     elevation: '0px 4px 16px rgba(70, 115, 250, 0.4)',
     tooltip: '0px 4px 16px rgba(255, 255, 255, 0.2)',
     deep: '0px 24px 48px rgba(0, 0, 0, 0.3)',
-    shallow: '0px 8px 16px rgba(0, 0, 0, 0.15)',
+    shallow: '0px 8px 16px rgba(0, 0, 0, 0.1)',
   },
   opacity: {
     hover: '0.6',

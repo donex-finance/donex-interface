@@ -88,7 +88,7 @@ export const colors: GlobalPalette = {
   white: '#FFFFFF',
   black: '#000000',
   gray50: '#F5F6FC',
-  gray100: '#E8ECFB',
+  gray100: '#DCE0EE',
   gray200: '#C9D0E7',
   gray300: '#9595B4',
   gray400: '#7C85A2',

@@ -17,9 +17,8 @@ const Container = styled.button`
   line-height: 24px;
   border: none;
   justify-content: space-between;
-  padding: 12px;
+  padding: 0.75rem;
   cursor: pointer;
-  border-radius: 0.25rem;
   color: ${({ theme }) => theme.textPrimary};
   width: 240px;
   transition: ${({ theme }) => theme.transition.duration.medium} ${({ theme }) => theme.transition.timing.ease}
@@ -38,6 +37,7 @@ const Label = styled.div`
   grid-column: 2;
   grid-row: 1;
   font-size: 0.875rem;
+  font-weight:500;
 `
 
 const Status = styled.div`
@@ -82,7 +82,7 @@ export default function ChainSelectorRow({
       <Label>{label}</Label>
       {isPending && <ApproveText>Approve in wallet</ApproveText>}
       <Status>
-        {active && <CheckMarkIcon width={LOGO_SIZE} height={LOGO_SIZE} color={theme.accentActive} />}
+        {active && <CheckMarkIcon width={LOGO_SIZE} height={LOGO_SIZE} color={theme.textSecondary} />}
         {isPending && <Loader width={LOGO_SIZE} height={LOGO_SIZE} />}
       </Status>
     </Container>

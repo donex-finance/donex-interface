@@ -49,9 +49,9 @@ const Socks = () => {
 
 const useIcon = (connectionType: ConnectionType) => {
   if (connectionType === ConnectionType.ARGENTX_WALLET) {
-    return <img src={ARGENTX_WALLET_ICON_URL} alt="WalletConnect" />
+    return <img src={ARGENTX_WALLET_ICON_URL} alt="Argent X Wallet" />
   } else if (connectionType === ConnectionType.BRAAVOS_WALLET) {
-    return <img src={BRAAVOS_WALLET_ICON_URL} alt="Coinbase Wallet" />
+    return <img src={BRAAVOS_WALLET_ICON_URL} alt="Braavos Wallet" />
   } else {
     return <Identicon />
   }

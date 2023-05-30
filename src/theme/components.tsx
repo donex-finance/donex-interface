@@ -22,7 +22,7 @@ import { Color } from './styled'
 
 // TODO: Break this file into a components folder
 
-export const CloseIcon = styled(X)<{ onClick: () => void }>`
+export const CloseIcon = styled(X) <{ onClick: () => void }>`
   color: ${({ theme }) => theme.textSecondary};
   cursor: pointer;
 `
@@ -327,7 +327,7 @@ export function CopyContractAddress({ address }: { address: string }) {
   )
 }
 
-const CopyHelperContainer = styled(LinkStyledButton)<{ clicked: boolean }>`
+const CopyHelperContainer = styled(LinkStyledButton) <{ clicked: boolean }>`
   ${({ clicked }) => !clicked && ClickableStyle};
   color: ${({ color, theme }) => color || theme.accentAction};
   padding: 0;
@@ -437,7 +437,7 @@ export function BackArrow({ to }: { to: string }) {
   )
 }
 
-export const CustomLightSpinner = styled(Spinner)<{ size: string }>`
+export const CustomLightSpinner = styled(Spinner) <{ size: string }>`
   height: ${({ size }) => size};
   width: ${({ size }) => size};
 `

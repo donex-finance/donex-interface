@@ -31,16 +31,27 @@ interface MenuItemProps {
   children: ReactNode
 }
 
+const NavItem = styled(NavLink)`
+  display:flex;
+  align-items:center;
+  border-radius:0.5rem;
+  padding:0.75rem 1.5rem;
+  height:40px;
+  &.active {
+    background: ${({ theme }) => theme.backgroundInteractive};
+  }
+`
+
 const MenuItem = ({ href, id, isActive, children }: MenuItemProps) => {
   return (
-    <NavLink
+    <NavItem
       to={href}
       className={isActive ? styles.activeMenuItem : styles.menuItem}
       id={id}
       style={{ textDecoration: 'none' }}
     >
       {children}
-    </NavLink>
+    </NavItem>
   )
 }
 
@@ -62,7 +73,10 @@ const PageTabs = () => {
         <Trans>Swap</Trans>
       </MenuItem>
       <MenuItem href="/pool" id={'pool-nav-link'} isActive={isPoolActive}>
-        <Trans>Pool</Trans>
+        <Trans>Pools</Trans>
+      </MenuItem>
+      <MenuItem href="/portfolio" id={'portfolio-link'} isActive={pathname.startsWith('/portfolio')}>
+        <Trans>Portfolio</Trans>
       </MenuItem>
     </>
   )
@@ -103,7 +117,7 @@ const Navbar = () => {
         <Box display="flex" height="full" flexWrap="nowrap" alignItems="stretch">
           <Box className={styles.leftSideContainer}>
             <Box as="a" href="#/swap" className={styles.logoContainer}>
-              <img src={LOGO_SVG} alt="" />
+              <img src={LOGO_SVG} height="26" alt="" />
             </Box>
 
             <Box display={{ sm: 'flex', lg: 'none' }}>

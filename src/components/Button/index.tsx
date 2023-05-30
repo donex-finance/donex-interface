@@ -15,11 +15,11 @@ export const BaseButton = styled(RebassButton) <
     altDisabledStyle?: boolean
   } & ButtonProps
 >`
-  padding: ${({ padding }) => padding ?? '0.75rem'};
+  padding: 0.75rem 1.5rem;
   width: ${({ width }) => width ?? '100%'};
   font-weight: 500;
   text-align: center;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   outline: none;
   color: ${({ theme }) => theme.deprecated_text1};
   text-decoration: none;
@@ -34,7 +34,7 @@ export const BaseButton = styled(RebassButton) <
   background: ${({ theme }) => theme.backgroundInteractive};
   cursor: pointer;
   user-select: none;
-  gap:0.5rem;
+  gap:0.75rem;
 
   z-index: 1;
   &:disabled {
@@ -60,8 +60,6 @@ export const ButtonPrimary = styled(BaseButton)`
   background-color: ${({ theme }) => theme.accentAction};
   font-size: 0.875rem;
   font-weight: 500;
-  padding: 12px;
-  gap: 12px;
   color: ${({ theme }) => theme.accentTextLightPrimary};
   &:hover {
     background-color: #2454FF;
@@ -90,8 +88,6 @@ export const ButtonGray = styled(BaseButton)`
 `
 
 export const ButtonSecondary = styled(BaseButton)`
-  font-size: 0.875rem;
-  border-radius: 12px;
   padding: ${({ padding }) => (padding ? padding : '10px')};
   background: ${({ theme }) => theme.backgroundInteractive};
 `

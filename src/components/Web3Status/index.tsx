@@ -26,12 +26,10 @@ import { TransactionDetails } from '../../state/transactions/types'
 import { shortenAddress } from '../../utils'
 import { ButtonPrimary, ButtonSecondary } from '../Button'
 import StatusIcon from '../Identicon/StatusIcon'
-import Loader from '../Loader'
-import { RowBetween } from '../Row'
 import WalletModal from '../WalletModal'
 
 // https://stackoverflow.com/a/31617326
-const BORDER_RADIUS = 0.25;
+const BORDER_RADIUS = 0.5;
 
 const Web3StatusGeneric = styled(ButtonSecondary)`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -43,11 +41,14 @@ const Web3StatusGeneric = styled(ButtonSecondary)`
   border-radius: ${BORDER_RADIUS}rem;
   cursor: pointer;
   user-select: none;
+  font-weight: 500;
+  font-size:0.875rem;
+  gap: 0.75rem;
 `
 const Web3StatusError = styled(Web3StatusGeneric)`
   background-color: ${({ theme }) => theme.deprecated_red1};
-  color: ${({ theme }) => theme.deprecated_white};
-  font-weight: 500;
+  color: ${({ theme }) => theme.textPrimary};
+
   :hover,
   :focus {
     background-color: ${({ theme }) => darken(0.1, theme.deprecated_red1)};
@@ -56,14 +57,15 @@ const Web3StatusError = styled(Web3StatusGeneric)`
 
 const Web3StatusConnectWrapper = styled.div<{ faded?: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
-  gap:16px;
+  gap:0.75rem;
 `
 
 const Web3StatusConnected = styled(Web3StatusGeneric) <{ pending?: boolean }>`
   height: 40px;
   padding:0.75rem;
   margin:0;
-  color: ${({ pending, theme }) => (pending ? theme.deprecated_white : theme.deprecated_text1)};
+  gap: 0.75rem;
+  color: ${({ theme }) => theme.textPrimary};
 `
 
 const NetworkIcon = styled(AlertTriangle)`
@@ -111,7 +113,8 @@ function Web3StatusInner() {
 
   const pending = sortedRecentTransactions.filter((tx) => !tx.receipt).map((tx) => tx.hash)
 
-  const hasPendingTransactions = !!pending.length
+  const hasPendingTransactions = true
+  // const hasPendingTransactions = !!pending.length
   const toggleWallet = toggleWalletDropdown
   if (!chainId) {
     return null
@@ -128,19 +131,13 @@ function Web3StatusInner() {
       color: theme.textSecondary,
     }
     return (
-      <Web3StatusConnected data-testid="web3-status-connected" onClick={toggleWallet} pending={hasPendingTransactions}>
-        {!hasPendingTransactions && <StatusIcon size={16} connectionType={connectionType} />}
-        {hasPendingTransactions ? (
-          <RowBetween>
-            <Trans>{pending?.length} Pending</Trans>{' '}
-            <Loader stroke="white" />
-          </RowBetween>
-        ) : (
-          <>
-            {shortenAddress(account)}
-            {walletIsOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
-          </>
-        )}
+      < Web3StatusConnected data-testid="web3-status-connected" onClick={toggleWallet} pending={hasPendingTransactions}>
+        <>
+          <StatusIcon size={16} connectionType={connectionType} />
+          {shortenAddress(account)}
+          {walletIsOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
+        </>
+
       </Web3StatusConnected>
     )
   } else {

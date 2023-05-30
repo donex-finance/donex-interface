@@ -26,35 +26,31 @@ const FancyButton = styled.button`
   color: ${({ theme }) => theme.deprecated_text1};
   align-items: center;
   height: 2rem;
-  border-radius: 36px;
+  border-radius: 0.25rem;
   font-size: 1rem;
   width: auto;
   min-width: 3.5rem;
   border: 1px solid ${({ theme }) => theme.deprecated_bg3};
   outline: none;
   background: ${({ theme }) => theme.deprecated_bg1};
-  :hover {
-    border: 1px solid ${({ theme }) => theme.deprecated_bg4};
-  }
-  :focus {
-    border: 1px solid ${({ theme }) => theme.deprecated_primary1};
-  }
+
 `
 
-const Option = styled(FancyButton)<{ active: boolean }>`
+const Option = styled(FancyButton) <{ active: boolean }>`
   margin-right: 8px;
-  border-radius: 12px;
+  border-radius: 0.25rem;
   :hover {
     cursor: pointer;
   }
+  border:none;
   background-color: ${({ active, theme }) => active && theme.deprecated_primary1};
   color: ${({ active, theme }) => (active ? theme.deprecated_white : theme.deprecated_text1)};
 `
 
 const Input = styled.input`
   background: ${({ theme }) => theme.deprecated_bg1};
-  font-size: 16px;
-  border-radius: 12px;
+  font-size: 1rem;
+  border-radius: 0.5rem;
   width: auto;
   outline: none;
   &::-webkit-outer-spin-button,
@@ -69,11 +65,11 @@ const Input = styled.input`
   }
 `
 
-const OptionCustom = styled(FancyButton)<{ active?: boolean; warning?: boolean }>`
+const OptionCustom = styled(FancyButton) <{ active?: boolean; warning?: boolean }>`
   height: 2rem;
   position: relative;
   padding: 0 0.75rem;
-  border-radius: 12px;
+  border-radius: 0.25rem;
   flex: 1;
   border: ${({ theme, active, warning }) =>
     active
@@ -81,7 +77,7 @@ const OptionCustom = styled(FancyButton)<{ active?: boolean; warning?: boolean }
       : warning && `1px solid ${theme.deprecated_red1}`};
   :hover {
     border: ${({ theme, active, warning }) =>
-      active && `1px solid ${warning ? darken(0.1, theme.deprecated_red1) : darken(0.1, theme.deprecated_primary1)}`};
+    active && `1px solid ${warning ? darken(0.1, theme.deprecated_red1) : darken(0.1, theme.deprecated_primary1)}`};
   }
 
   input {
@@ -90,13 +86,6 @@ const OptionCustom = styled(FancyButton)<{ active?: boolean; warning?: boolean }
     border: 0px;
     border-radius: 2rem;
   }
-`
-
-const SlippageEmojiContainer = styled.span`
-  color: #f3841e;
-  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
-    display: none;
-  `}
 `
 
 interface TransactionSettingsProps {
@@ -171,7 +160,7 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
     <AutoColumn gap="md">
       <AutoColumn gap="sm">
         <RowFixed>
-          <ThemedText.DeprecatedBlack fontWeight={400} fontSize={14} color={theme.deprecated_text2}>
+          <ThemedText.DeprecatedBlack fontWeight={400} fontSize={16} color={theme.textSecondary}>
             <Trans>Slippage tolerance</Trans>
           </ThemedText.DeprecatedBlack>
           <QuestionHelper
@@ -191,21 +180,14 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
           </Option>
           <OptionCustom active={userSlippageTolerance !== 'auto'} warning={!!slippageError} tabIndex={-1}>
             <RowBetween>
-              {tooLow || tooHigh ? (
-                <SlippageEmojiContainer>
-                  <span role="img" aria-label="warning">
-                    ⚠️
-                  </span>
-                </SlippageEmojiContainer>
-              ) : null}
               <Input
                 placeholder={placeholderSlippage.toFixed(2)}
                 value={
                   slippageInput.length > 0
                     ? slippageInput
                     : userSlippageTolerance === 'auto'
-                    ? ''
-                    : userSlippageTolerance.toFixed(2)
+                      ? ''
+                      : userSlippageTolerance.toFixed(2)
                 }
                 onChange={(e) => parseSlippageInput(e.target.value)}
                 onBlur={() => {
@@ -240,7 +222,7 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
       {showCustomDeadlineRow && (
         <AutoColumn gap="sm">
           <RowFixed>
-            <ThemedText.DeprecatedBlack fontSize={14} fontWeight={400} color={theme.deprecated_text2}>
+            <ThemedText.DeprecatedBlack fontSize={16} fontWeight={400} color={theme.deprecated_text2}>
               <Trans>Transaction deadline</Trans>
             </ThemedText.DeprecatedBlack>
             <QuestionHelper
@@ -255,8 +237,8 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
                   deadlineInput.length > 0
                     ? deadlineInput
                     : deadline === DEFAULT_DEADLINE_FROM_NOW
-                    ? ''
-                    : (deadline / 60).toString()
+                      ? ''
+                      : (deadline / 60).toString()
                 }
                 onChange={(e) => parseCustomDeadline(e.target.value)}
                 onBlur={() => {

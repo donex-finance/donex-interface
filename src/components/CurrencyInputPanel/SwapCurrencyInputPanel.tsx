@@ -70,7 +70,6 @@ const CurrencySelect = styled(ButtonGray) <{
   padding: 8px 8px;
   gap: 8px;
   justify-content: space-between;
-  margin-left: ${({ hideInput }) => (hideInput ? '0' : '12px')};
 
   &:hover,
   &:active {
@@ -150,17 +149,23 @@ const StyledTokenName = styled.span<{ active?: boolean }>`
 `
 
 const StyledBalanceMax = styled.button<{ disabled?: boolean }>`
-  background-color: transparent;
+  background:none;
   border: none;
   color: ${({ theme }) => theme.accentAction};
   cursor: pointer;
+  border-radius:0.25rem;
   font-size: 14px;
+  font-weight:600;
+  border: 1px solid ${({ theme }) => theme.accentActionSoft};
+  margin-left:0.25rem;
   opacity: ${({ disabled }) => (!disabled ? 1 : 0.4)};
-  padding: 4px 6px;
+  padding: 2px 4px;
   pointer-events: ${({ disabled }) => (!disabled ? 'initial' : 'none')};
 
   :hover {
-    opacity: ${({ disabled }) => (!disabled ? 0.8 : 0.4)};
+    opacity: ${({ disabled }) => (!disabled ? 1 : 0.4)};
+    color: #2454FF;
+    border: 1px solid #2454FF;
   }
 
   :focus {
@@ -170,7 +175,8 @@ const StyledBalanceMax = styled.button<{ disabled?: boolean }>`
 
 const StyledNumericalInput = styled(NumericalInput) <{ $loading: boolean }>`
   ${loadingOpacityMixin};
-  text-align: left;
+  width:100%;
+  text-align: right;
   font-size: 1.25rem;
   line-height: 44px;
   font-variant: small-caps;
@@ -243,17 +249,7 @@ export default function SwapCurrencyInputPanel({
         </FixedContainer>
       )}
       <Container hideInput={hideInput}>
-        <InputRow style={hideInput ? { padding: '0', borderRadius: '8px' } : {}}>
-          {!hideInput && (
-            <StyledNumericalInput
-              className="token-amount-input"
-              value={value}
-              onUserInput={onUserInput}
-              disabled={!chainAllowed}
-              $loading={loading}
-            />
-          )}
-
+        <Aligner>
           <CurrencySelect
             disabled={!chainAllowed}
             visible={currency !== undefined}
@@ -266,23 +262,35 @@ export default function SwapCurrencyInputPanel({
               }
             }}
           >
-            <Aligner>
-              <RowFixed>
-                {currency ? <CurrencyLogo style={{ marginRight: '2px' }} currency={currency} size={'24px'} /> : null}
-                {
-                  <StyledTokenName className="token-symbol-container" active={Boolean(currency && currency.symbol)}>
-                    {(currency && currency.symbol && currency.symbol.length > 20
-                      ? currency.symbol.slice(0, 4) +
-                      '...' +
-                      currency.symbol.slice(currency.symbol.length - 5, currency.symbol.length)
-                      : currency?.symbol) || <Trans>Select</Trans>}
-                  </StyledTokenName>
-                }
-              </RowFixed>
-              {onCurrencySelect && <StyledDropDown selected={!!currency} />}
-            </Aligner>
+
+            <RowFixed>
+              {currency ? <CurrencyLogo style={{ marginRight: '2px' }} currency={currency} size={'24px'} /> : null}
+              {
+                <StyledTokenName className="token-symbol-container" active={Boolean(currency && currency.symbol)}>
+                  {(currency && currency.symbol && currency.symbol.length > 20
+                    ? currency.symbol.slice(0, 4) +
+                    '...' +
+                    currency.symbol.slice(currency.symbol.length - 5, currency.symbol.length)
+                    : currency?.symbol) || <Trans>Select</Trans>}
+                </StyledTokenName>
+              }
+            </RowFixed>
+            {onCurrencySelect && <StyledDropDown selected={!!currency} />}
+
           </CurrencySelect>
-        </InputRow>
+
+          <InputRow style={hideInput ? { padding: '0', borderRadius: '8px' } : {}}>
+            {!hideInput && (
+              <StyledNumericalInput
+                className="token-amount-input"
+                value={value}
+                onUserInput={onUserInput}
+                disabled={!chainAllowed}
+                $loading={loading}
+              />
+            )}
+          </InputRow>
+        </Aligner>
         {!hideInput && !hideBalance && currency && (
           <FiatRow>
             <RowBetween>

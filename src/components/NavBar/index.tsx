@@ -82,9 +82,6 @@ const PageTabs = () => {
       <MenuItem href="/pool" id={'pool-nav-link'} isActive={isPoolActive}>
         <Trans>Pools</Trans>
       </MenuItem>
-      <MenuItem href="/portfolio" id={'portfolio-link'} isActive={pathname.startsWith('/portfolio')}>
-        <Trans>Portfolio</Trans>
-      </MenuItem>
     </>
   )
 }

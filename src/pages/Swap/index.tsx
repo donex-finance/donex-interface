@@ -9,7 +9,6 @@ import { NetworkAlert } from 'components/NetworkAlert/NetworkAlert'
 import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
-import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
 import { Trade } from 'donex-sdk/router-sdk'
 import { Currency, CurrencyAmount, Percent, Token, TradeType } from 'donex-sdk/sdk-core'
@@ -17,7 +16,7 @@ import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { useSwapCallback } from 'hooks/useSwapCallback'
 import JSBI from 'jsbi'
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
-import { ArrowDown, CheckCircle, HelpCircle } from 'react-feather'
+import { ArrowDown, CheckCircle } from 'react-feather'
 import { useNavigate } from 'react-router-dom'
 import { Text } from 'rebass'
 import { useToggleWalletModal } from 'state/application/hooks'
@@ -613,32 +612,19 @@ export default function Swap() {
                         altDisabledStyle={approvalState === ApprovalState.PENDING} // show solid button while waiting
                         confirmed={approvalState === ApprovalState.APPROVED}
                       >
-                        <AutoRow justify="space-between" style={{ flexWrap: 'nowrap' }} height="20px">
-                          <span style={{ display: 'flex', alignItems: 'center' }}>
-                            {/* we need to shorten this string on mobile */}
-                            {approvalState === ApprovalState.APPROVED ? (
-                              <Trans>You can now trade {currencies[Field.INPUT]?.symbol}</Trans>
-                            ) : (
-                              <Trans>Allow the Donex Protocol to use your {currencies[Field.INPUT]?.symbol}</Trans>
-                            )}
-                          </span>
-                          {approvalPending || approvalState === ApprovalState.PENDING ? (
-                            <Loader stroke={theme.white} />
-                          ) : approvalSubmitted && approvalState === ApprovalState.APPROVED ? (
-                            <CheckCircle size="20" color={theme.deprecated_green1} />
-                          ) : (
-                            <MouseoverTooltip
-                              text={
-                                <Trans>
-                                  You must give the Donex smart contracts permission to use your{' '}
-                                  {currencies[Field.INPUT]?.symbol}. You only have to do this once per token.
-                                </Trans>
-                              }
-                            >
-                              <HelpCircle size="20" color={theme.deprecated_white} style={{ marginLeft: '8px' }} />
-                            </MouseoverTooltip>
-                          )}
-                        </AutoRow>
+                        {/* we need to shorten this string on mobile */}
+                        {approvalState === ApprovalState.APPROVED ? (
+                          <Trans>You can now trade {currencies[Field.INPUT]?.symbol}</Trans>
+                        ) : (
+                          <Trans>Approve {currencies[Field.INPUT]?.symbol} for swapping</Trans>
+                        )}
+                        {approvalPending || approvalState === ApprovalState.PENDING ? (
+                          <Loader stroke={theme.white} />
+                        ) : approvalSubmitted && approvalState === ApprovalState.APPROVED ? (
+                          <CheckCircle size="20" color={theme.deprecated_green1} />
+                        ) : (
+                          null
+                        )}
                       </ButtonConfirmed>
                       <ButtonError
                         onClick={() => {
@@ -725,6 +711,6 @@ export default function Swap() {
           />
         )}
       </>
-    </Trace>
+    </Trace >
   )
 }

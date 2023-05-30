@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { AlertTriangle } from 'react-feather'
 import { Text } from 'rebass'
 import styled, { css } from 'styled-components/macro'
+import { lighten } from 'polished'
 import { Z_INDEX } from 'theme/zIndex'
 
 import { AutoColumn } from '../Column'
@@ -33,18 +34,29 @@ export const SwapWrapper = styled.main<{ margin?: string; maxWidth?: string }>`
 
 export const ArrowWrapper = styled.div<{ clickable: boolean }>`
   border-radius: 100px;
-  height: 40px;
-  width: 40px;
+  height: 44px;
+  width: 44px;
   position: relative;
-  margin-top: -18px;
-  margin-bottom: -18px;
+  margin-top: -20px;
+  margin-bottom: -20px;
   margin-left: auto;
   margin-right: auto;
   background-color: ${({ theme }) => theme.backgroundInteractive};
-  border: 4px solid;
+  border: 0px solid;
   border-color: ${({ theme }) => theme.backgroundSurface};
 
   z-index: 2;
+
+  :hover {
+    border-color: ${({ theme }) => lighten(0.03, theme.backgroundInteractive)};
+    background-color: ${({ theme }) => lighten(0.03, theme.backgroundInteractive)};
+    box-shadow: ${({ theme }) => theme.shallowShadow};
+
+    svg {
+      stroke: ${({ theme }) => theme.textPrimary};
+    }
+  }
+
   ${({ clickable }) =>
     clickable
       ? css`
@@ -53,6 +65,10 @@ export const ArrowWrapper = styled.div<{ clickable: boolean }>`
           }
         `
       : null}
+
+  svg {
+    stroke: ${({ theme }) => theme.textSecondary};
+  }
 `
 
 export const SectionBreak = styled.div`

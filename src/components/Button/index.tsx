@@ -44,7 +44,7 @@ export const BaseButton = styled(RebassButton) <
   }
 
   will-change: transform;
-  // transition: transform 450ms ease;
+  transition: transform 450ms ease;
   transform: perspective(1px) translateZ(0);
 
   > * {

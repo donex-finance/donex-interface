@@ -69,7 +69,7 @@ const ArrowContainer = styled.div`
 const SwapSection = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.backgroundModule};
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   padding: 0.75rem;
   color: ${({ theme }) => theme.textSecondary};
   font-size: 0.875rem;
@@ -89,16 +89,9 @@ const SwapSection = styled.div`
     height: 100%;
     pointer-events: none;
     content: '';
-    border: 1px solid ${({ theme }) => theme.backgroundModule};
   }
 
-  &:hover:before {
-    border-color: ${({ theme }) => theme.stateOverlayHover};
-  }
 
-  &:focus-within:before {
-    border-color: ${({ theme }) => theme.stateOverlayPressed};
-  }
 `
 
 const OutputSwapSection = styled(SwapSection) <{ showDetailsDropdown: boolean }>`
@@ -523,7 +516,7 @@ export default function Swap() {
                     color={theme.textPrimary}
                   >
                     <ArrowDown
-                      size="16"
+                      size="20"
                       color={
                         currencies[Field.INPUT] && currencies[Field.OUTPUT]
                           ? theme.deprecated_text1

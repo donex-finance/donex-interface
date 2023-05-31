@@ -37,7 +37,7 @@ const BodyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 72px 0px 0px 0px;
+  padding: 48px 0px 0px 0px;
   align-items: center;
   flex: 1;
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`

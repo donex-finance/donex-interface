@@ -1,11 +1,12 @@
 import Loader from 'components/Loader'
+import { lighten } from 'polished'
 import { getChainInfo } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
 import { CheckMarkIcon } from 'nft/components/icons'
 import styled, { useTheme } from 'styled-components/macro'
 
-const LOGO_SIZE = 20
+const LOGO_SIZE = 18
 
 const Container = styled.button`
   background-color: ${({ theme }) => theme.backgroundModule};
@@ -29,7 +30,7 @@ const Container = styled.button`
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.backgroundModule};
+    background-color: ${({ theme }) => lighten(0.03, theme.backgroundInteractive)};
   }
 `
 

@@ -34,11 +34,11 @@ export const SwapWrapper = styled.main<{ margin?: string; maxWidth?: string }>`
 
 export const ArrowWrapper = styled.div<{ clickable: boolean }>`
   border-radius: 100px;
-  height: 44px;
-  width: 44px;
+  height: 40px;
+  width: 40px;
   position: relative;
-  margin-top: -20px;
-  margin-bottom: -20px;
+  margin-top: -17px;
+  margin-bottom: -17px;
   margin-left: auto;
   margin-right: auto;
   background-color: ${({ theme }) => theme.backgroundInteractive};

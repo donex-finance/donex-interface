@@ -89,8 +89,6 @@ const SwapSection = styled.div`
     pointer-events: none;
     content: '';
   }
-
-
 `
 
 const OutputSwapSection = styled(SwapSection) <{ showDetailsDropdown: boolean }>`

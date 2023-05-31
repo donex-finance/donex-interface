@@ -22,7 +22,7 @@ export const PaddedColumn = styled(AutoColumn)`
   padding: 20px;
 `
 
-export const MenuItem = styled(RowBetween)<{ dim?: boolean }>`
+export const MenuItem = styled(RowBetween) <{ dim?: boolean }>`
   padding: 4px 20px;
   height: 56px;
   display: grid;
@@ -52,22 +52,22 @@ export const SearchInput = styled.input`
   background-color: ${({ theme }) => theme.backgroundModule};
   border: none;
   outline: none;
-  border-radius: 12px;
-  color: ${({ theme }) => theme.deprecated_text1};
+  border-radius: 0.25rem;
+  color: ${({ theme }) => theme.textPrimary};
   border-style: solid;
-  border: 1px solid ${({ theme }) => theme.backgroundOutline};
+  border: 0px solid ${({ theme }) => theme.backgroundOutline};
   -webkit-appearance: none;
 
-  font-size: 16px;
+  font-size: 1rem;
 
   ::placeholder {
-    color: ${({ theme }) => theme.textTertiary};
-    font-size: 16px;
+    color: ${({ theme }) => theme.textSecondary};
+    font-size: 1rem;
   }
   transition: border 100ms;
   :focus {
-    border: 1px solid ${({ theme }) => theme.accentActiveSoft};
-    background-color: ${({ theme }) => theme.backgroundSurface};
+    border: 1px solid ${({ theme }) => theme.accentActive};
+    background-color: ${({ theme }) => theme.backgroundModule};
     outline: none;
   }
 `

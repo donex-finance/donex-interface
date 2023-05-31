@@ -25,7 +25,7 @@ import Column from '../Column'
 import Row, { RowBetween } from '../Row'
 import CommonBases from './CommonBases'
 import CurrencyList, { CurrencyRow, formatAnalyticsEventProperties } from './CurrencyList'
-import { PaddedColumn, SearchInput, Separator } from './styleds'
+import { PaddedColumn, SearchInput } from './styleds'
 
 const ContentWrapper = styled(Column)`
   background-color: ${({ theme }) => theme.backgroundSurface};
@@ -169,6 +169,8 @@ export function CurrencySearch({
     return () => clearTimeout(tokenLoaderTimer)
   }, [])
 
+  showCommonBases = false
+
   return (
     <ContentWrapper>
       <Trace name={EventName.TOKEN_SELECTOR_OPENED} modal={ModalName.TOKEN_SELECTOR} shouldLogImpression>
@@ -201,7 +203,6 @@ export function CurrencySearch({
             />
           )}
         </PaddedColumn>
-        <Separator />
         {searchToken && !searchTokenIsAdded ? (
           <Column style={{ padding: '20px 0', height: '100%' }}>
             <CurrencyRow

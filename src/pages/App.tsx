@@ -45,6 +45,16 @@ const BodyWrapper = styled.div`
   `};
 `
 
+const InfoAlert = styled.div`
+  color: ${({ theme }) => theme.deprecated_white};
+  width:100%;
+  text-align:center;
+  height:40px;
+  line-height:40px;
+  font-size:0.875rem;
+  background: ${({ theme }) => theme.accentAction}
+`
+
 const HeaderWrapper = styled.div<{ scrolledState?: boolean; nftFlagEnabled?: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
   background-color: ${({ theme, nftFlagEnabled, scrolledState }) =>
@@ -58,7 +68,7 @@ const HeaderWrapper = styled.div<{ scrolledState?: boolean; nftFlagEnabled?: boo
     nftFlagEnabled &&
     `background-color ${theme.transition.duration.fast} ease-in-out,
     border-width ${theme.transition.duration.fast} ease-in-out`};
-  top: 0;
+  top: 40px;
   z-index: ${Z_INDEX.sticky};
 `
 
@@ -130,6 +140,7 @@ export default function App() {
     <ErrorBoundary>
       <DarkModeQueryParamReader />
       <ApeModeQueryParamReader />
+      <InfoAlert>Donex AMM is now available for testing on Starknet Goerli</InfoAlert>
       <AppWrapper>
         <Trace page={currentPage}>
           <HeaderWrapper scrolledState={scrolledState} nftFlagEnabled={false}>

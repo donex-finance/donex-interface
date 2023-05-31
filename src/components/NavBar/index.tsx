@@ -80,7 +80,7 @@ const PageTabs = () => {
         <Trans>Swap</Trans>
       </MenuItem>
       <MenuItem href="/pool" id={'pool-nav-link'} isActive={isPoolActive}>
-        <Trans>Pools</Trans>
+        <Trans>Positions</Trans>
       </MenuItem>
     </>
   )

@@ -140,7 +140,7 @@ export default function App() {
     <ErrorBoundary>
       <DarkModeQueryParamReader />
       <ApeModeQueryParamReader />
-      <InfoAlert>Donex AMM is now available for testing on Starknet Goerli</InfoAlert>
+      <InfoAlert>Transactions may be delayed due to slow execution on the Starknet Goerli Testnet.</InfoAlert>
       <AppWrapper>
         <Trace page={currentPage}>
           <HeaderWrapper scrolledState={scrolledState} nftFlagEnabled={false}>

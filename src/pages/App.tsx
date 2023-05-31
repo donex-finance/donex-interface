@@ -46,13 +46,13 @@ const BodyWrapper = styled.div`
 `
 
 const InfoAlert = styled.div`
-  color: ${({ theme }) => theme.deprecated_white};
+  color: ${({ theme }) => theme.textSecondary};
   width:100%;
   text-align:center;
   height:40px;
   line-height:40px;
   font-size:0.875rem;
-  background: ${({ theme }) => theme.accentAction}
+  background: ${({ theme }) => theme.backgroundInteractive}
 `
 
 const HeaderWrapper = styled.div<{ scrolledState?: boolean; nftFlagEnabled?: boolean }>`

@@ -278,7 +278,7 @@ export const CheckMarkIcon = (props: SVGProps) => (
     <path
       d="M16.6693 5.33789L7.5026 14.3175L3.33594 10.2358"
       stroke="currentColor"
-      strokeWidth="1.5"
+      strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />

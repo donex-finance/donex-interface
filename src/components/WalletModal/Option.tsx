@@ -8,14 +8,11 @@ import { ExternalLink } from '../../theme'
 
 const InfoCard = styled.button<{ isActive?: boolean }>`
   background-color: ${({ theme }) => theme.backgroundInteractive};
-  padding: 1rem;
+  padding: 0.75rem;
   outline: none;
   border: 1px solid;
-  border-radius: 12px;
+  border-radius: 0.5rem;
   width: 100% !important;
-  &:focus {
-    background-color: ${({ theme }) => theme.hoverState};
-  }
   border-color: ${({ theme, isActive }) => (isActive ? theme.accentActive : 'transparent')};
 `
 
@@ -46,15 +43,14 @@ const OptionCardLeft = styled.div`
   height: 100%;
 `
 
-const OptionCardClickable = styled(OptionCard as any)<{
+const OptionCardClickable = styled(OptionCard as any) <{
   active?: boolean
   clickable?: boolean
 }>`
   margin-top: 0;
-  border: ${({ active, theme }) => active && `1px solid ${theme.accentActive}`};
   &:hover {
     cursor: ${({ clickable }) => clickable && 'pointer'};
-    background-color: ${({ theme }) => theme.hoverState};
+    background-color: ${({ theme }) => theme.backgroundModule};
   }
   opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
 `
@@ -65,8 +61,8 @@ const HeaderText = styled.div`
   justify-content: center;
   color: ${(props) =>
     props.color === 'blue' ? ({ theme }) => theme.deprecated_primary1 : ({ theme }) => theme.deprecated_text1};
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
 `
 
 const SubHeader = styled.div`

@@ -76,26 +76,6 @@ const SwapSection = styled.div`
   line-height: 20px;
   font-weight: 500;
 
-  &:before {
-    box-sizing: border-box;
-    background-size: 100%;
-    border-radius: inherit;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    content: '';
-    border: 1px solid ${({ theme }) => theme.backgroundModule};
-  }
-
-  &:hover:before {
-    border-color: ${({ theme }) => theme.stateOverlayHover};
-  }
-
   &:focus-within:before {
     border-color: ${({ theme }) => theme.stateOverlayPressed};
   }
@@ -626,7 +606,7 @@ export default function Swap() {
                             {approvalState === ApprovalState.APPROVED ? (
                               <Trans>You can now trade {currencies[Field.INPUT]?.symbol}</Trans>
                             ) : (
-                              <Trans>Allow the Donex Protocol to use your {currencies[Field.INPUT]?.symbol}</Trans>
+                              <Trans>Approve {currencies[Field.INPUT]?.symbol} for swapping</Trans>
                             )}
                           </span>
                           {approvalPending || approvalState === ApprovalState.PENDING ? (

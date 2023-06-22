@@ -57,7 +57,7 @@ const Wrapper = styled.div`
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
-  font-weight: 600;
+  font-weight: 500;
   size: 16px;
   color: ${(props) => (props.color === 'blue' ? ({ theme }) => theme.deprecated_primary1 : 'inherit')};
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`

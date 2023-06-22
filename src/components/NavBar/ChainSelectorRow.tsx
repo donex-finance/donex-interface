@@ -18,7 +18,8 @@ const Container = styled.button`
   line-height: 24px;
   border: none;
   justify-content: space-between;
-  padding: 0.75rem;
+  padding: 0 0.75rem;
+  height:40px;
   cursor: pointer;
   color: ${({ theme }) => theme.textPrimary};
   width: 240px;
@@ -83,7 +84,7 @@ export default function ChainSelectorRow({
       <Label>{label}</Label>
       {isPending && <ApproveText>Approve in wallet</ApproveText>}
       <Status>
-        {active && <CheckMarkIcon width={LOGO_SIZE} height={LOGO_SIZE} color={theme.textSecondary} />}
+        {active && <CheckMarkIcon width={LOGO_SIZE} height={LOGO_SIZE} strokeWidth={0.5} color={theme.textSecondary} />}
         {isPending && <Loader width={LOGO_SIZE} height={LOGO_SIZE} />}
       </Status>
     </Container>

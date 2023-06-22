@@ -131,7 +131,7 @@ function WrongNetworkCard() {
           <AutoColumn gap="lg" style={{ width: '100%' }}>
             <TitleRow padding={'0'}>
               <ThemedText.LargeHeader>
-                <Trans>Pools</Trans>
+                <Trans>Your Positions</Trans>
               </ThemedText.LargeHeader>
             </TitleRow>
 
@@ -178,14 +178,14 @@ export default function Pool() {
   const showConnectAWallet = Boolean(!account)
 
   return (
-    <Trace page={PageName.POOL_PAGE} shouldLogImpression>
+    <Trace page={PageName.POSITIONS_PAGE} shouldLogImpression>
       <>
         <PageWrapper>
           <AutoColumn gap="lg" justify="center">
             <AutoColumn gap="lg" style={{ width: '100%' }}>
               <TitleRow padding={'0'}>
                 <ThemedText.LargeHeader>
-                  <Trans>Pools</Trans>
+                  <Trans>Positions</Trans>
                 </ThemedText.LargeHeader>
                 <ButtonRow>
                   <ResponsiveButtonPrimary data-cy="join-pool-button" id="join-pool-button" as={Link} to="/add/ETH">

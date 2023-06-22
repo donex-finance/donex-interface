@@ -87,8 +87,9 @@ export enum SWAP_PRICE_UPDATE_USER_RESPONSE {
 export enum PageName {
   TOKEN_DETAILS_PAGE = 'token-details',
   TOKENS_PAGE = 'tokens-page',
-  POOL_PAGE = 'pool-page',
+  POSITIONS_PAGE = 'positions-page',
   SWAP_PAGE = 'swap-page',
+  POOLSLIST_PAGE = 'poolslist-page',
   // alphabetize additional page names.
 }
 

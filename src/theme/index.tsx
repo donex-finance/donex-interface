@@ -58,7 +58,7 @@ const opacities = {
 const deprecated_mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(
   MEDIA_WIDTHS
 ).reduce((accumulator, size) => {
-  ;(accumulator as any)[size] = (a: any, b: any, c: any) => css`
+  ; (accumulator as any)[size] = (a: any, b: any, c: any) => css`
     @media (max-width: ${(MEDIA_WIDTHS as any)[size]}px) {
       ${css(a, b, c)}
     }
@@ -235,7 +235,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
   return <StyledComponentsThemeProvider theme={themeObject}>{children}</StyledComponentsThemeProvider>
 }
 
-const TextWrapper = styled(Text)<{ color: keyof AllColors }>`
+const TextWrapper = styled(Text) <{ color: keyof AllColors }>`
   color: ${({ color, theme }) => (theme as any)[color]};
 `
 
@@ -253,7 +253,7 @@ export const ThemedText = {
     return <TextWrapper fontWeight={600} fontSize={20} lineHeight="28px" color={'textPrimary'} {...props} />
   },
   LargeHeader(props: TextProps) {
-    return <TextWrapper fontWeight={400} fontSize={36} color={'textPrimary'} {...props} />
+    return <TextWrapper fontWeight={800} fontSize={32} color={'textPrimary'} {...props} />
   },
   Link(props: TextProps) {
     return <TextWrapper fontWeight={600} fontSize={14} color={'accentAction'} {...props} />
@@ -324,7 +324,7 @@ html {
 }
 
 a {
- color: ${({ theme }) => theme.deprecated_blue1}; 
+ color: ${({ theme }) => theme.deprecated_blue1};
 }
 
 :root {

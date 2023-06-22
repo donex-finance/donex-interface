@@ -37,7 +37,7 @@ const NavItem = styled(NavLink)`
   display:flex;
   align-items:center;
   border-radius:0.5rem;
-  padding:0.75rem 1.5rem;
+  padding:0.75rem;
   height:40px;
   transition:color 0.2s;
   :hover {
@@ -67,8 +67,10 @@ const PageTabs = () => {
   const { chainId: connectedChainId } = useWeb3React()
   const chainName = chainIdToBackendName(connectedChainId)
 
-  const isPoolActive =
-    pathname.startsWith('/pool') ||
+  const isPoolActive = pathname.startsWith('/pools')
+
+  const isPositionsActive =
+    pathname.startsWith('/position') ||
     pathname.startsWith('/add') ||
     pathname.startsWith('/remove') ||
     pathname.startsWith('/increase') ||
@@ -79,7 +81,10 @@ const PageTabs = () => {
       <MenuItem href="/swap" isActive={pathname.startsWith('/swap')}>
         <Trans>Swap</Trans>
       </MenuItem>
-      <MenuItem href="/pool" id={'pool-nav-link'} isActive={isPoolActive}>
+      <MenuItem href="/pools" id={'pools-nav-link'} isActive={isPoolActive}>
+        <Trans>Pools</Trans>
+      </MenuItem>
+      <MenuItem href="/positions" id={'position-nav-link'} isActive={isPositionsActive}>
         <Trans>Positions</Trans>
       </MenuItem>
     </>

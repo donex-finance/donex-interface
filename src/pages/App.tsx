@@ -23,6 +23,7 @@ import AddLiquidity from './AddLiquidity'
 import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
 import Pool from './Pool'
 import { PositionPage } from './Pool/PositionPage'
+import PoolsList from './PoolsList'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
 import Swap from './Swap'
 import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
@@ -80,8 +81,10 @@ function getCurrentPageFromLocation(locationPathname: string): PageName | undefi
   switch (locationPathname) {
     case '/swap':
       return PageName.SWAP_PAGE
-    case '/pool':
-      return PageName.POOL_PAGE
+    case '/positions':
+      return PageName.POSITIONS_PAGE
+    case '/pools':
+      return PageName.POOLSLIST_PAGE
     default:
       return undefined
   }
@@ -157,8 +160,10 @@ export default function App() {
                   <Route path="swap/:outputCurrency" element={<RedirectToSwap />} />
                   <Route path="swap" element={<Swap />} />
 
-                  <Route path="pool" element={<Pool />} />
-                  <Route path="pool/:tokenId" element={<PositionPage />} />
+                  <Route path="positions" element={<Pool />} />
+                  <Route path="positions/:tokenId" element={<PositionPage />} />
+
+                  <Route path="pools" element={<PoolsList />} />
 
                   <Route path="add" element={<RedirectDuplicateTokenIds />}>
                     {/* this is workaround since react-router-dom v6 doesn't support optional parameters any more */}

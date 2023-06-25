@@ -108,6 +108,15 @@ const SwitchThemeButton = styled(ButtonSecondary)`
   }
 `
 
+const BgBlur = styled.div`
+backdrop-filter: blur(10px)
+width:100% !important;
+`
+
+const Nav = styled.nav`
+backdrop-filter:blur(12px);
+`
+
 const Navbar = () => {
 
   const [darkMode, toggleDarkMode] = useDarkModeManager();
@@ -117,7 +126,7 @@ const Navbar = () => {
   )
   return (
     <>
-      <nav className={styles.nav}>
+      <Nav className={styles.nav}>
         <Box display="flex" height="full" flexWrap="nowrap" alignItems="stretch">
           <Box className={styles.leftSideContainer}>
             <Box as="a" href="#/swap" className={styles.logoContainer}>
@@ -161,7 +170,7 @@ const Navbar = () => {
             </Row>
           </Box>
         </Box>
-      </nav>
+      </Nav>
       <Box className={styles.mobileBottomBar}>
         <PageTabs />
         <Box marginY="4">

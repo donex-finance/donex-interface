@@ -74,8 +74,8 @@ export const ChainSelector = ({ leftAlign }: ChainSelectorProps) => {
   const isSupported = !!info
 
   const dropdown = (
-    <NavDropdown top="52" left={leftAlign ? '0' : 'auto'} right={leftAlign ? 'auto' : '0'} ref={modalRef}>
-      <Column>
+    <NavDropdown top="56" left={leftAlign ? '0' : 'auto'} right={leftAlign ? 'auto' : '0'} ref={modalRef}>
+      <Column paddingX="8">
         {NETWORK_SELECTOR_CHAINS.map((chainId: SupportedChainId) => (
           <ChainSelectorRow
             onSelectChain={onSelectChain}

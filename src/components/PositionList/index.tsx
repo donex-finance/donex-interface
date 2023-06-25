@@ -10,7 +10,7 @@ const DesktopHeader = styled.div`
   display: none;
   font-size: 14px;
   font-weight: 500;
-  padding: 8px;
+  padding: 0.75rem;
 
   @media screen and (min-width: ${MEDIA_WIDTHS.deprecated_upToSmall}px) {
     align-items: center;
@@ -27,7 +27,7 @@ const MobileHeader = styled.div`
   font-weight: medium;
   font-size: 16px;
   font-weight: 500;
-  padding: 8px;
+  padding: 0.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

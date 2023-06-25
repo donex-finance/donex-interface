@@ -61,7 +61,6 @@ const ArrowContainer = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   width: 100%;
   height: 100%;
 `
@@ -79,6 +78,16 @@ const SwapSection = styled.div`
   &:focus-within:before {
     border-color: ${({ theme }) => theme.stateOverlayPressed};
   }
+`
+
+const TitleRow = styled.div`
+  color: ${({ theme }) => theme.deprecated_text2};
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+  `};
+  margin-bottom: 1.5rem;
 `
 
 const OutputSwapSection = styled(SwapSection) <{ showDetailsDropdown: boolean }>`
@@ -445,6 +454,11 @@ export default function Swap() {
           showCancel={true}
         /> */}
         <PageWrapper>
+          <TitleRow>
+            <ThemedText.LargeHeader>
+              <Trans>Swap</Trans>
+            </ThemedText.LargeHeader>
+          </TitleRow>
           <SwapWrapper id="swap-page">
             <SwapHeader allowedSlippage={allowedSlippage} />
             <ConfirmSwapModal

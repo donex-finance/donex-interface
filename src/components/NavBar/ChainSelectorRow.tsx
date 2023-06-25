@@ -1,5 +1,5 @@
 import Loader from 'components/Loader'
-import { lighten } from 'polished'
+// import { lighten } from 'polished'
 import { getChainInfo } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { useWeb3React } from 'donex-sdk/web3-react/core'
@@ -9,20 +9,19 @@ import styled, { useTheme } from 'styled-components/macro'
 const LOGO_SIZE = 18
 
 const Container = styled.button`
-  background-color: ${({ theme }) => theme.backgroundModule};
-  display: grid;
-  background: none;
-  grid-template-columns: min-content 1fr min-content;
-  align-items: center;
-  text-align: left;
-  line-height: 24px;
-  border: none;
-  justify-content: space-between;
-  padding: 0 0.75rem;
-  height:40px;
-  cursor: pointer;
-  color: ${({ theme }) => theme.textPrimary};
-  width: 240px;
+display: grid;
+background: none;
+grid-template-columns: min-content 1fr min-content;
+align-items: center;
+text-align: left;
+line-height: 24px;
+border: none;
+justify-content: space-between;
+padding: 0.75rem 1rem;
+cursor: pointer;
+border-radius: 0.5rem;
+color: ${({ theme }) => theme.textPrimary};
+width: 240px;
   transition: ${({ theme }) => theme.transition.duration.medium} ${({ theme }) => theme.transition.timing.ease}
     background-color;
 
@@ -31,7 +30,7 @@ const Container = styled.button`
   }
 
   &:hover {
-    background-color: ${({ theme }) => lighten(0.03, theme.backgroundInteractive)};
+    background-color: ${({ theme }) => theme.backgroundModule};
   }
 `
 

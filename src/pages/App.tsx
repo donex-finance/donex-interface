@@ -47,12 +47,14 @@ const BodyWrapper = styled.div`
 `
 
 const InfoAlert = styled.div`
+  position:fixed;
   color: ${({ theme }) => theme.textSecondary};
   width:100%;
   text-align:center;
   height:40px;
   line-height:40px;
   font-size:0.875rem;
+  z-index:999999;
   background: ${({ theme }) => theme.backgroundInteractive}
 `
 

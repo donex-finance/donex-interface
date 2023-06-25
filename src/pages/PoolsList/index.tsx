@@ -9,93 +9,9 @@ import { RowBetween } from 'components/Row'
 
 import styled from 'styled-components/macro'
 
-const TitleRow = styled(RowBetween)`
-  color: ${({ theme }) => theme.deprecated_text2};
-  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
-    flex-wrap: wrap;
-    gap: 12px;
-    width: 100%;
-  `};
-  margin-bottom: 3rem;
-`
-
-const PoolRow = styled(RowBetween)`
-  flex-wrap: wrap;
-  gap: 12px;
-  width: 100%;
-`
-
-const TitleColumn = styled(AutoColumn)`
-  color: ${({ theme }) => theme.textSecondary};
-  font-weight:600;
-`
-
-const StatsWrapper = styled.div`
-display:flex;
-align-items:left;
-justify-content:left;
-gap:1.5rem;
-margin-bottom: 3rem;
-`
-
-const StatsColumn = styled.div`
-display:flex;
-align-items: flex-start;
-padding:1.5rem;
-flex-direction: column;
-width:100%;
-background: ${({ theme }) => theme.backgroundSurface};
-border-radius:0.5rem;
-font-size:0.875rem;
-color: ${({ theme }) => theme.textSecondary};
-font-weight:600;
-gap:0.75rem;
-`
-
-
-export default function PoolsList() {
-  return (
-    <Trace page={PageName.POSITIONS_PAGE} shouldLogImpression>
-      <>
-        <PageWrapper>
-          <TitleRow padding={'0'}>
-            <ThemedText.LargeHeader>
-              <Trans>Liquidity Pools</Trans>
-            </ThemedText.LargeHeader>
-          </TitleRow>
-
-          <StatsWrapper>
-            <StatsColumn><Trans>Total Value Locked</Trans>
-              <ThemedText.MediumHeader>
-                <Trans>$ 15,293,927</Trans>
-              </ThemedText.MediumHeader>
-            </StatsColumn>
-            <StatsColumn><Trans>Volume</Trans>
-              <ThemedText.MediumHeader>
-                <Trans>$ 15,293,927</Trans>
-              </ThemedText.MediumHeader>
-            </StatsColumn>
-          </StatsWrapper>
-
-          <RowBetween paddingY={16}>
-            <TitleColumn><Trans>Liquidity Pool</Trans></TitleColumn>
-            <TitleColumn><Trans>TVL</Trans></TitleColumn>
-            <TitleColumn><Trans>24h Volume</Trans></TitleColumn>
-          </RowBetween>
-          <RowBetween paddingY={16}>
-            <TitleColumn><Trans>ETH / USDC</Trans></TitleColumn>
-            <TitleColumn><Trans>$ 3,403,291</Trans></TitleColumn>
-            <TitleColumn><Trans>$ 256,012</Trans></TitleColumn>
-          </RowBetween>
-        </PageWrapper>
-      </>
-    </Trace>
-  )
-}
-
 const PageWrapper = styled(AutoColumn)`
   padding: 68px 8px 0px;
-  max-width: 870px;
+  max-width: 960px;
   width: 100%;
 
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
@@ -114,3 +30,129 @@ const PageWrapper = styled(AutoColumn)`
     padding-top: 20px;
   }
 `
+
+const TitleRow = styled(RowBetween)`
+  color: ${({ theme }) => theme.deprecated_text2};
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+  `};
+  margin-bottom: 1.5rem;
+`
+
+const PoolRow = styled(RowBetween)`
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+`
+
+
+const StatsWrapper = styled.div`
+display:flex;
+align-items:left;
+justify-content:left;
+gap:1.5rem;
+margin-bottom: 1.5rem;
+`
+
+const StatsColumn = styled.div`
+display:flex;
+align-items: flex-start;
+padding:1.5rem;
+flex-direction: column;
+width:100%;
+background: ${({ theme }) => theme.backgroundSurface};
+border-radius:0.5rem;
+font-size:0.875rem;
+color: ${({ theme }) => theme.textSecondary};
+font-weight:600;
+gap:0.75rem;
+`
+
+const TitleColumn = styled.div`
+  display:flex;
+  align-items: flex-start;
+  padding:1.5rem;
+  flex-direction: column;
+  width:100%;
+  border-radius:0.5rem;
+  font-size:0.875rem;
+  color: ${({ theme }) => theme.textSecondary};
+  font-weight:600;
+  gap:0.75rem;
+`
+
+const RightColumn = styled.div`
+  display:flex;
+  align-items: flex-end;
+  padding:1.5rem;
+  flex-direction: column;
+  width:100%;
+  border-radius:0.5rem;
+  font-size:0.875rem;
+  color: ${({ theme }) => theme.textPrimary};
+  font-weight:600;
+  gap:0.75rem;
+`
+
+const LeftColumn = styled.div`
+  display:flex;
+  align-items: flex-start;
+  padding:1.5rem;
+  flex-direction: column;
+  width:100%;
+  border-radius:0.5rem;
+  font-size:0.875rem;
+  color: ${({ theme }) => theme.textPrimary};
+  font-weight:600;
+  gap:0.75rem;
+`
+
+const Table = styled.div`
+  background: ${({ theme }) => theme.backgroundSurface};
+  border-radius:0.5rem;
+`
+
+export default function PoolsList() {
+  return (
+    <Trace page={PageName.POSITIONS_PAGE} shouldLogImpression>
+      <>
+        <PageWrapper>
+          <TitleRow padding={'0'}>
+            <ThemedText.LargeHeader>
+              <Trans>Liquidity Pools</Trans>
+            </ThemedText.LargeHeader>
+          </TitleRow>
+
+          <StatsWrapper>
+            <StatsColumn><Trans>TVL (Total Value Locked)</Trans>
+              <ThemedText.MediumHeader>
+                <Trans>$ 15,293,927</Trans>
+              </ThemedText.MediumHeader>
+            </StatsColumn>
+            <StatsColumn><Trans>Volume (1d)</Trans>
+              <ThemedText.MediumHeader>
+                <Trans>$ 1,529,392</Trans>
+              </ThemedText.MediumHeader>
+            </StatsColumn>
+          </StatsWrapper>
+
+          <Table>
+            <RowBetween paddingY={16}>
+              <LeftColumn><Trans>Liquidity Pool</Trans></LeftColumn>
+              <RightColumn><Trans>TVL</Trans></RightColumn>
+              <RightColumn><Trans>24h Volume</Trans></RightColumn>
+            </RowBetween>
+            <RowBetween paddingY={16}>
+              <LeftColumn><Trans>ETH / USDC</Trans></LeftColumn>
+              <RightColumn><Trans>$ 3,403,291</Trans></RightColumn>
+              <RightColumn><Trans>$ 256,012</Trans></RightColumn>
+            </RowBetween>
+          </Table>
+        </PageWrapper>
+      </>
+    </Trace>
+  )
+}
+

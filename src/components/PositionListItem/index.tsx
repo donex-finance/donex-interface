@@ -23,7 +23,7 @@ import { USDC_MAINNET, WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
 
 const LinkRow = styled(Link)`
   align-items: center;
-  border-radius: 20px;
+  border-radius: 0.5rem;
   display: flex;
   cursor: pointer;
   user-select: none;
@@ -33,7 +33,7 @@ const LinkRow = styled(Link)`
   justify-content: space-between;
   color: ${({ theme }) => theme.deprecated_text1};
   margin: 8px 0;
-  padding: 16px;
+  padding: 0.75rem;
   text-decoration: none;
   font-weight: 500;
   background-color: ${({ theme }) => theme.deprecated_bg1};
@@ -222,7 +222,7 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
   // check if price is within range
   const outOfRange: boolean = pool ? pool.tickCurrent < tickLower || pool.tickCurrent >= tickUpper : false
 
-  const positionSummaryLink = '/pool/' + positionDetails.tokenId
+  const positionSummaryLink = '/positions/' + positionDetails.tokenId
 
   const removed = liquidity?.eq(0)
 

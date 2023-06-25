@@ -4,8 +4,8 @@ import styled, { keyframes } from 'styled-components/macro'
 
 const Wrapper = styled.button<{ isActive?: boolean; activeElement?: boolean }>`
   align-items: center;
-  background: ${({ isActive, theme }) => (isActive ? theme.accentActionSoft : 'transparent')};
-  border: ${({ theme, isActive }) => (isActive ? 'none' : `1px solid ${theme.backgroundOutline}`)};
+  background: ${({ theme }) => theme.backgroundModule};
+  border:none;
   border-radius: 20px;
   cursor: pointer;
   display: flex;
@@ -39,12 +39,12 @@ const turnOffToggle = keyframes`
 const ToggleElementHoverStyle = (hasBgColor: boolean, theme: any, isActive?: boolean) =>
   hasBgColor
     ? {
-        opacity: '0.8',
-      }
+      opacity: '0.8',
+    }
     : {
-        background: isActive ? darken(0.05, theme.deprecated_primary1) : darken(0.05, theme.deprecated_bg4),
-        color: isActive ? theme.deprecated_white : theme.deprecated_text3,
-      }
+      background: isActive ? darken(0.05, theme.deprecated_primary1) : darken(0.05, theme.deprecated_bg4),
+      color: isActive ? theme.deprecated_white : theme.deprecated_text3,
+    }
 
 const ToggleElement = styled.span<{ isActive?: boolean; bgColor?: string; isInitialToggleLoad?: boolean }>`
   animation: 0.1s

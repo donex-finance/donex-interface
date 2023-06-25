@@ -21,7 +21,7 @@ import { LoadingRows } from './styleds'
 
 const PageWrapper = styled(AutoColumn)`
   padding: 68px 8px 0px;
-  max-width: 870px;
+  max-width: 960px;
   width: 100%;
 
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
@@ -86,8 +86,8 @@ const InboxIcon = styled(Inbox)`
 `
 
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
-  border-radius: 12px;
-  padding: 6px 8px;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
   width: fit-content;
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
     flex: 1 1 auto;
@@ -98,7 +98,7 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
 const MainContentWrapper = styled.main`
   background-color: ${({ theme }) => theme.deprecated_bg0};
   padding: 8px;
-  border-radius: 20px;
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
 `
@@ -127,26 +127,22 @@ function WrongNetworkCard() {
   return (
     <>
       <PageWrapper>
-        <AutoColumn gap="lg" justify="center">
-          <AutoColumn gap="lg" style={{ width: '100%' }}>
-            <TitleRow padding={'0'}>
-              <ThemedText.LargeHeader>
-                <Trans>Your Positions</Trans>
-              </ThemedText.LargeHeader>
-            </TitleRow>
+        <TitleRow padding={'0'}>
+          <ThemedText.LargeHeader>
+            <Trans>Your Positions</Trans>
+          </ThemedText.LargeHeader>
+        </TitleRow>
 
-            <MainContentWrapper>
-              <ErrorContainer>
-                <ThemedText.DeprecatedBody color={theme.deprecated_text3} textAlign="center">
-                  <NetworkIcon strokeWidth={1.2} />
-                  <div data-testid="pools-unsupported-err">
-                    <Trans>Your connected network is unsupported.</Trans>
-                  </div>
-                </ThemedText.DeprecatedBody>
-              </ErrorContainer>
-            </MainContentWrapper>
-          </AutoColumn>
-        </AutoColumn>
+        <MainContentWrapper>
+          <ErrorContainer>
+            <ThemedText.DeprecatedBody color={theme.deprecated_text3} textAlign="center">
+              <NetworkIcon strokeWidth={1.2} />
+              <div data-testid="pools-unsupported-err">
+                <Trans>Your connected network is unsupported.</Trans>
+              </div>
+            </ThemedText.DeprecatedBody>
+          </ErrorContainer>
+        </MainContentWrapper>
       </PageWrapper>
       {/* <SwitchLocaleLink /> */}
     </>
